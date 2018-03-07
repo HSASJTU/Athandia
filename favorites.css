@@ -1,0 +1,270 @@
+body{
+	width:100%;
+	max-width: 1440px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	max-height: 100%;
+	text-overflow: ellipsis;
+}
+
+input{
+	padding:0;
+	font-size: larger;
+}
+
+.headbanner{ 
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 150px;
+	background: #222222;
+	font-family:Futura;
+	z-index: 60;
+}
+
+.headbanner #greeting{
+	position: relative;
+	display:block;
+	left: 45%;
+	margin: 30px;
+	max-width: 200px;
+	color: ivory;
+	font-size: 150%;
+}
+
+#username{
+	max-width: 100px;
+	text-overflow: ellipsis;
+}
+
+.headbanner #timeline{
+	position: fixed;
+	text: 750px;
+	color: ivory;
+	top: 65px;
+	align-content: space-around;
+	text-align: center;
+	left: 46%;
+	margin-top: 5px;
+}
+
+/*@keyframes example {
+    from {background-color: red;}
+    to {background-color: purple;}
+}*/
+
+.navigationbar{
+	position:fixed;
+	background-color:#F7A82B; 
+	left:0;
+	width: 200px;
+	height: 100%;
+	top:150px;
+}
+
+#myproject{
+	display: inline-block;
+	position: fixed;
+	top: 150px;
+	width: 180px;
+	height: 25px;
+	background: #F7A82B;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 42px;
+	color: ivory;
+}
+
+#myproject:hover{
+	background: gold;
+	color: #222222;
+}
+
+#searchOthers{
+	position: fixed;
+	width: 180px;
+	top: 235px;
+	height: 25px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 42px;
+	color: white;
+	vertical-align: baseline;
+}
+
+#searchOthers:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#favorites{
+	position: fixed;
+	width: 120px;
+	top: 325px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 43px;
+	color: white;
+}
+
+#favorites:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#notification{
+	position: fixed;
+	width: 180px;
+	top: 410px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 43px;
+	color: white;
+}
+
+#notification:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#userinfo{
+	position: fixed;
+	width: 180px;
+	top: 495px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 43px;
+	color: white;
+}
+
+#userinfo:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#addedProjects{
+	position: fixed;
+	top: 131px;
+	left: 200px;
+	width: 100%;
+	font-family: futura;
+	font-size: larger;
+	background-color: gold;
+	padding: 10px 20px;
+	z-index: 998;
+}
+
+.maincontent{
+	position: relative;
+	top: 187px;
+	left: 192px;
+	width:100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 800px; /*等到可以load学生名单再看要不要改*/
+	z-index: 10;
+	font-family: Georgia;
+	background-color: ivory;
+	align: baseline;
+}
+
+.maincontent li{
+	list-style: none;
+	padding: 10px 60px;
+	max-width: 1000px;
+	line-height: 20px;
+	margin-left: 20px;
+}
+
+li:before{
+	position: absolute;
+	content: url(./if_document_text_103509.svg);
+	padding: 15px 55px;
+}
+
+.FavoritesInfo{
+	padding: 0px 0px;
+	top: 0px;
+	margin-left: 100px;
+}
+
+
+li h2{
+	font-family: cambria;
+	
+}
+
+li h3{
+	font-family: cambria;
+}
+
+li h4{
+	font-family: cambria;
+}
+
+.addon {
+	position: fixed;
+	right: 75px;
+	bottom: 13%;
+	text-decoration: none;
+	width: 30px;
+	height: 30px;
+	padding: 2px 15px;
+}
+
+.addon:hover{
+	opacity: 0.75;
+}
+
+.titleText{
+	position: fixed;
+	font-size: 12px;
+	width: 100px;
+	display: none;
+	text-align: center;
+	right: 55px;
+}
+
+.addon:hover .titleText{
+	display: block;
+}
+
+.footer{
+	position: fixed;
+	font-family: Futura;
+	color: ivory;
+	left:0;
+	bottom: 0;
+	z-index: 100;
+	width: 100%;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color:#222222;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+.show_project{
+	margin: 15px 30px;
+	border-bottom: yellow dashed;
+	line-height: 30px;
+	max-width: 1050px;
+	z-index: 30;
+	padding-left: 20px;
+	text-overflow: ellipsis;
+}
+.title{
+	max-width: 200px;
+}
+.edit{
+	height: 30px;
+	width: 110px;
+	background-color:grey;
+}
