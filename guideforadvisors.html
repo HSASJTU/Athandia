@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>使用文档</title>
+    <style>
+        #leftMenu ul{width:200px;position:absolute;background:#DADADA;list-style:none;}
+        #leftMenu li{width:200px;position: relative;}
+        #leftMenu li>ul{left: 100px;top: 0;display: none;}
+        #leftMenu li:hover>ul{display: block;}
+    </style>
+</head>
+<body>
+    <div id="leftMenu">
+        <ul>
+            <li><a href="Document.html">Athandia Introduction</a></li>
+            <li><a href="#">Guide For Students</a>
+                <ul>
+                    <li><a href="personalinfoduide.html">Edit Personal Info</a></li>
+                    <li><a href="#">Edit Projects</a></li>
+                </ul>
+            </li>
+            <li><a href="guideforadvisors.html">Guide For Advisors</a>
+                <ul>
+                    <li><a href="#idv">Identity Verification</a></li>
+                    <li><a href="#search">Search Projects</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div style="position: relative;float:right;right:100px;width:800px;">
+        <p>Guide for Advisors</p><br>
+        <P>As an online research platform, athandia provides a strong function for advisors to instantly instruct project owners. After a simple identity verification, advisors could access the right to seach for and look up others' projects. Athandia comment system on the project page is designed as a substitution of advisors' office. Here,  advisors give their sharp advice and track the process of certain project.</P>
+        <p name="idv">Identity Verification</p>
+        <p>After logging in, click "Account Setting". Choose "advisors" as auth. Click "confirm".</p>
+        <img src="idv.PNG"  alt="id verification" style="height:300px;width: 500px;" />
+        <p>Each advisor has his own id. Enter to verify. Click "check". If the page alert this, you have successfully verified your authority.</p>
+        <img src="verifysuccess.PNG"  alt="verify success" style="height:300px;width: 500px;" />
+        <p>Once you have declare your auth, "Search for Others" and "Favourite Projects" would be available.</p>
+        <p name = "search">Search Projects</p>
+        <p>Click "Search for Others". Now all the projects available are listed on the board. However, you could navigate to certain one using the search bar. Choose the search method first and enter the key word of subjects or titles. Click search button. </p>
+        <img src="search.PNG"  alt="search" style="height:300px;width: 500px;" />
+        <p>Click "look up this project" to open certain project. Click "add to my favourites" to save as your favourite ones.</p>
+    </div>
+    
+</body>
+</html>

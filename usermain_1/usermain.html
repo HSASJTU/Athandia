@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+    <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
+<title>UserMain</title>
+<link rel="stylesheet" type="text/css" href="../usermain_1/usermain/usermain_css.css">
+</head>
+
+<!--命名方式都是全小写英文，有一些链接href还没有写之后再说-->
+
+<body onload="loadproject()">
+<div class="headbanner">
+	<div id="greeting">
+		<div style="float:left">Hello,&nbsp;</div>
+		<div id="username" style="float:left">Alice</div> <!--这里也是需要后台连数据的-->
+	</div>
+	<a id="account" href="" >Account Setting</a>
+	<div id="timeline" style="float:left"> Your Time Line
+	<!--这边直接载入？我看到有timeline的链接了-->
+	</div>
+</div>
+
+<div class="navigationbar" style="float:left">
+	<a id="myproject" href="">My Projects</a>
+</div>
+
+<div class="heading">Project Digests
+<button onclick="save()" style="color:black">add project</button>
+<textarea id="title" style="width:154px;height:17px">Project title:</textarea>
+<textarea id="gm" style="width:154px;height:17px">Group Member:</textarea>
+<textarea id="ab" style="width:154px;height:17px">Abstract:</textarea>
+</div>
+
+
+<div class="maincontent" id="maincontent"> 
+	<div class="addon">
+		<a href="#top" target="_self">Top</a>
+	</div>
+	<!--后台数据!-->
+	<!--<div class="show_project" id="1">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="groupmember">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+	<div class="show_project" id="2">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="groupmember">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+	</div>
+	<div class="show_project" id="3">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="groupmember">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+  	<div class="show_project" id="4">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="groupmember">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+  	<div class="show_project" id="5">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="groupmember">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+  	<div class="show_project" id="6">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="groupmember">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>!-->
+</div>
+
+<div class="rightbar">
+	<a id="notification" href="">Notification</a>
+	<a id="name" href="">Your Conversations</a>
+</div>
+
+<div class="footer">High School Affiliated to Shanghai Jiaotong University RDC</div>
+
+
+<script type="text/javascript">
+	var uid = location.search.replace("?uid=","")
+	var config = {
+      syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+          };
+    wilddog.initializeApp(config);
+    var ref = wilddog.sync().ref(uid);
+
+	function loadproject() {
+		var pi = ref.child('personal info');
+		pi.on("child_added",function(snapshot){
+			var parent = document.getElementById('maincontent');
+			var div = document.createElement("div");
+			div.setAttribute("class","show_project");
+			parent.appendChild(div);
+			//从后端调用
+			var info = snapshot.val();
+			//set project title
+			var div1 = document.createElement("div");
+			div1.setAttribute("class","title");
+			div.appendChild(div1);
+			tcon = document.createTextNode(info.title);
+			div1.appendChild(tcon);
+			//set groupmember
+			var div2 = document.createElement("div");
+			div2.setAttribute("class","groupmember");
+			div.appendChild(div2);
+			gmcon = document.createTextNode(info.groupmember);
+			div2.appendChild(gmcon);
+			//set intro
+			var div3 = document.createElement("div")
+			div3.setAttribute("class","intro");
+			div.appendChild(div3);
+			intro = document.createTextNode(info.Abstract);
+			div3.appendChild(intro);
+
+			var edit = document.createElement("input");
+			edit.setAttribute("type","button")
+			edit.setAttribute("id",info.title);
+			edit.setAttribute("onclick","edit(this.id)");
+			edit.setAttribute("class","edit");
+			edit.setAttribute("value","edit project");
+			div.appendChild(edit);
+        });
+
+		}
+
+	function edit(id){
+		//window.open("test.html");
+		alert(id);
+		//alert(id);
+	}
+		
+		
+		
+		
+
+	function save(){
+		var title = document.getElementById("title").value;
+		var groupmember = document.getElementById("gm").value;
+		var ab = document.getElementById("ab").value;
+		var ps = {"title":title,"groupmember":groupmember,"Abstract":ab}
+		ref.child("personal info").push(ps);
+
+	}
+
+	/*function return_fromwilddog(){
+    	var comNode = ref.child('comments');
+		comNode.on("child_added",function(snapshot){
+			var parent = document.getElementById('comment_content');
+			var div2 = document.createElement("div");
+			var commentText = document.createTextNode(snapshot.val());
+			parent.appendChild(div2); 
+			div2.appendChild(commentText);
+          	console.log( eval('(' + snapshot.val() + ')'));
+        });
+   	}*/
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Hello simpleMDE</title>
+            <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+        <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
+        <link rel="stylesheet" href="./libs/angular/angular-material.min.css"/>
+    <link rel="stylesheet" href="./libs/mdl/material-icons.css"/>
+    <link rel="stylesheet" href="./styles/index.css"/>
+</head>
+
+<body onload="return_fromwilddog()">
+    <div id="MDE-wrapper" style="display: block;">
+        <!--textarea id="simpleMDE"></textarea>
+        <p><input type="button" value="edit" onclick="togglePreview(simplemde);"/>
+            <input type="button" value="save" onclick="save(simplemde);"/>
+        </p-->
+
+    </div>
+    <div>
+        <input type="button" value="save" onclick="save(simplemde)"/>
+    </div>
+
+    
+    <div class="container" ng-controller="PostCtrl">
+    <!--<div class="login-form" ng-show="!login">
+        <md-content>
+            <md-card>
+                <md-card-content>
+                    <h1 class="md-title">请先登录</h1>
+                    <p layout="row">
+                        &lt;!&ndash;<md-button ng-click="authWithQQ()" class="md-raised md-primary" flex>
+                            <img src="styles/qq.png" class="btn-icon"/>
+                            用QQ登录
+                        </md-button>&ndash;&gt;
+                        <img style="display: block;margin: 0 auto;" ng-click="authWithQQ()" src="http://7xlotq.com1.z0.glb.clouddn.com/o_19vn79qlr19n1rjfgg91t1v11da9.png"/>
+                    </p>
+                </md-card-content>
+            </md-card>
+        </md-content>
+    </div>-->
+    <div class="main-content">
+
+        <ng-form layout="column"
+                 style="padding: 10px; background: rgba(255,255,255,.8);border-radius: 5px;margin-bottom: 10px;">
+
+            <!--<div layout="row">
+                <p flex>您好，QQ用户</p>
+                <md-button class="md-mini md-raised" ng-click="logout()">退出</md-button>
+            </div>-->
+
+            <md-input-container>
+                <label for="desc">add pictures to your details here</label>
+                <input type="text" id="desc" ng-model="text"/>
+            </md-input-container>
+
+            <div layout id="uploader">
+                <md-input-container flex>
+                    <label for="img">Image</label>
+                    <input type="text" id="img" ng-model="img"/>
+                </md-input-container>
+                <md-button id="uploaderBtn" class="md-raised md-primary" ng-disabled="uploading">
+                    {{uploading?'uploading...':'choose files'}}
+                </md-button>
+            </div>
+
+            <div class="align-right">
+                <md-button ng-click="addPost()" class="md-raised md-primary">add</md-button>
+            </div>
+        </ng-form>
+
+        <md-content>
+            <md-card ng-repeat="post in posts">
+                <div class="i-card-cover" card-cover="{{post.img}}?imageView2/2/w/800/q/60"
+                     ng-if="post.img && post.img != 'null' && post.img !='' && post.img.indexOf('http') == 0"></div>
+                <md-card-content>
+                    <p>{{post.text}}</p>
+
+                    <p class="timestamp">{{post.time | date:'yyyy-MM-dd H:mm:ss'}}</p>
+                </md-card-content>
+            </md-card>
+        </md-content>
+
+        <ul>
+            <li ng-repeat="post in posts">
+                [<span class="timestamp">{{post.time | date:'yyyy-MM-dd H:mm:ss'}}</span>] {{post.text}}
+                <div class="media-holder"
+                     ng-if="post.img && post.img!=null && post.img != 'null' && post.img !='' && post.img.indexOf('http') == 0">
+                    <img width="100" ng-src="{{post.img}}"/>
+                </div>
+            </li>
+            <div ng-show="loading" class="mdl-spinner mdl-js-spinner is-active"></div>
+        </ul>
+    </div>
+</div>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+    <script type="text/javascript">
+    var url = location.search;
+    console.log(url)
+    var uid = url.slice(5,33);
+    console.log(uid)
+    var titlesec = url.match(/\&(.*?)\&/)[1];
+    var title = titlesec.slice(6);
+    console.log(title)
+    var id = url.slice(40+title.length+4);
+    console.log(id)
+
+
+    var config = {
+    syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+          };
+    wilddog.initializeApp(config);
+    var ref = wilddog.sync().ref(uid).child('jsmind');
+
+    //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
+    var de = "";
+    function return_fromwilddog(){
+        ref.child('details').child(title).child(id).on("value", function(snapshot){
+            console.log(snapshot.val())
+                de = snapshot.val().details;
+                loadMDE(de,de);
+        })
+    }
+        //var simplemde = new SimpleMDE({ element: document.getElementById("simpleMDE") });
+
+        /*
+        var simplemde = new SimpleMDE({
+            
+            autosave: {
+                enabled: true,
+                uniqueId: "MyUniqueID",
+                delay: 1000,
+            },
+            element: document.getElementById("simpleMDE"),
+            initialValue: "Hello world!",
+            placeholder: "Type here...",
+            shortcuts: {
+                drawTable: "Cmd-Alt-T"
+            },
+            showIcons: ["code", "table"],
+            spellChecker: false,
+            toolbar: false
+        });
+        */
+
+        var simplemde = null;
+        var loadMDE = function (title, content, onChangeCallBack) {
+            console.log(title, content, onChangeCallBack);
+            if (simplemde != null) {
+                simplemde.toTextArea(); simplemde = null;
+            };
+
+            var initVal = null;
+            if (content == null) {
+                initVal = "# " + title;
+            }
+            else {
+                initVal = content;
+            }
+
+            simplemde = new SimpleMDE({
+                autosave: {
+                    enabled: true,
+                    uniqueId: "MyUniqueID",
+                    delay: 1000,
+                },
+                element: document.getElementById("simpleMDE"),
+                initialValue: initVal,
+                placeholder: "# 为你伟大的想法 " + title + " 码字",
+                shortcuts: {
+                    drawTable: "Cmd-Alt-T"
+                },
+                showIcons: ["code", "table"],
+                spellChecker: false,
+                toolbar: false
+            });
+
+            simplemde.codemirror.on("change", function () {
+                console.log(simplemde.value());
+                if (onChangeCallBack != null) { onChangeCallBack(); }
+            });
+        };
+        function initMDE(id, loadCb){
+            if (simplemde!=null) {return;}
+            var e = document.getElementById(id);
+            e.innerHTML = '<textarea id="simpleMDE"></textarea><p><input type="button" value="edit" onclick="togglePreview(simplemde);"/></p>'
+           
+            /* load twice to clear the autosave on page refresh */
+            if (loadCb!=null){
+                loadCb();
+                //loadCb(); //more customize-able. 
+            }
+            else{
+                loadMDE(de);
+                loadMDE(de);
+            }
+
+            togglePreview(simplemde);
+        }
+
+        function destructMDE(id){
+            if (simplemde==null) {return;}
+            simplemde.toTextArea(); simplemde = null;
+            var e = document.getElementById(id);
+            e.innerHTML = "";
+        }
+
+        function save(editor){
+            var content = editor.value();
+            var details = {"details":content}
+                   ref.child('details').child(title).child(id).set(details, function (error) {
+                     if (error == null) {
+                       console.info("Saved to Wilddog");
+                       console.log(details);;
+                     }
+                     else {
+                       alert(error);
+                     }
+                   });
+        }
+
+        function togglePreview(editor) {
+            var cm = editor.codemirror;
+            var wrapper = cm.getWrapperElement();
+            var toolbar_div = wrapper.previousSibling;
+            var toolbar = editor.options.toolbar ? editor.toolbarElements.preview : false;
+            var preview = wrapper.lastChild;
+            if (!preview || !/editor-preview/.test(preview.className)) {
+                preview = document.createElement("div");
+                preview.className = "editor-preview";
+                wrapper.appendChild(preview);
+            }
+            if (/editor-preview-active/.test(preview.className)) {
+                preview.className = preview.className.replace(
+                    /\s*editor-preview-active\s*/g, ""
+                );
+                if (toolbar) {
+                    toolbar.className = toolbar.className.replace(/\s*active\s*/g, "");
+                    toolbar_div.className = toolbar_div.className.replace(/\s*disabled-for-preview*/g, "");
+                }
+            } else {
+                // When the preview button is clicked for the first time,
+                // give some time for the transition from editor.css to fire and the view to slide from right to left,
+                // instead of just appearing.
+                setTimeout(function () {
+                    preview.className += " editor-preview-active";
+                }, 1);
+                if (toolbar) {
+                    toolbar.className += " active";
+                    toolbar_div.className += " disabled-for-preview";
+                }
+            }
+            preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+
+            // Turn off side by side if needed
+            //var sidebyside = cm.getWrapperElement().nextSibling;
+            //if (/editor-preview-active-side/.test(sidebyside.className))
+            //toggleSideBySide(editor);
+        }
+
+        /* load twice to clear the autosave on page refresh */
+        //loadMDE("超牛逼的想法");
+        //loadMDE("超牛逼的想法");
+        //togglePreview(simplemde);
+        /* use initMDE("MDE-wrapper") instead */
+        initMDE("MDE-wrapper",function(){
+            loadMDE(de,de);
+        });
+
+        /* show / hide function. Ref: http://stackoverflow.com/questions/16308779/how-can-i-hide-show-a-div-when-a-button-is-clicked */
+        /*
+        function showhide(id) {
+            var e = document.getElementById(id);
+            e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+        }*/
+        //showhide("MDE-wrapper"); // wrapper要在loadMDE()之后设置为 display: none, 否则第一次edit会出现 白板&滚动条
+        //warning!! 不能在wrapper为display:none的状态下，loadMDE()
+        //todo: init_MDE() 函数 //visual improvement! //done!
+        //fixed. 使用initMDE 和 destructMDE 来代替
+
+        
+
+    </script>
+<script src="./libs/CryptoJS.js"></script>
+<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+<script src="./libs/plupload.full.min.js"></script>
+<script src="./libs/qiniu.js"></script>
+<script src="./libs/angular/angular.min.js"></script>
+<script src="./libs/angular/angular-aria.min.js"></script>
+<script src="./libs/angular/angular-animate.min.js"></script>
+<script src="./libs/angular/angular-material.min.js"></script>
+<script src="./scripts/index.js"></script>
+<script src="./scripts/controllers/index.js?v=20160201"></script>
+<script src="./scripts/services/index.js"></script>
+<script src="./scripts/directives/index.js"></script>
+</body>

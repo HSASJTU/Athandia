@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comment</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+    <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
+</head>
+<body onload="return_fromwilddog()">
+	<div id="layout">
+		<div id="comment_content">
+
+		</div>
+		<div>
+  			<textarea id="txt">Your idea:</textarea>
+  			<br /> 
+  			<input type="button" value="submit" id="submit" onclick="save()" />
+		</div>		
+	</div>
+<script type="text/javascript">
+	  var config = {
+      syncURL: "https://wd0030641220gbvazm.wilddogio.com" //输入节点 URL
+          };
+    wilddog.initializeApp(config);
+    var ref = wilddog.sync().ref('test');
+
+    //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
+    /*function submit(){
+    	var comment=document.getElementById('txt').value;
+		var parent = document.getElementById('comment_content');
+		var div = document.createElement("div");
+		var Text1 = document.createTextNode("id:"+comment);
+　　　　parent.appendChild(div);
+		div.appendChild(Text1);
+		//div.setAttribute();
+		save();
+	}*/
+
+    function save(){
+    	var comment=document.getElementById('txt').value;
+        //var com = {"id:":comment};
+        //Data = JSON.stringify(com);
+        //此处id设为当前登陆用户id
+        ref.child("comments").push("id:"+comment);
+    }
+
+    function return_fromwilddog(){
+    	var comNode = ref.child('comments');
+		  comNode.on("child_added",function(snapshot){
+			var parent = document.getElementById('comment_content');
+			var div2 = document.createElement("div");
+			var commentText = document.createTextNode(snapshot.val());
+			parent.appendChild(div2); 
+			div2.appendChild(commentText);
+          	console.log( eval('(' + snapshot.val() + ')'));
+        });
+   	}
+
+</script>
+</body>
+</html>

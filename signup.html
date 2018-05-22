@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 重置文件 -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>注册</title>
+  <script src="https://cdn.wilddog.com/sdk/js/2.3.10/wilddog.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.7/go-debug.js"></script>
+  <script src="./js/login.js"></script>
+  <script src="./js/login.js"></script>
+  <script src="./js/manage.js"></script>
+  <script src="./js/project.js"></script>
+</head>
+<body>
+  <div class="reg_div">
+    <p>注册</p>
+    <ul class="reg_ul">
+      <!--<li>
+          <span>用户名：</span>
+          <input type="text" id="username" value="" placeholder="4-8位用户名" class="reg_user">
+          <span class="tip user_hint"></span>
+      </li>!-->
+      <li>
+          <span>邮箱：</span>
+          <input type="email" id = "email" value="" placeholder="邮箱" class="reg_email">
+          <span class="tip email_hint"></span>
+      </li>
+      <li>
+          <span>密码：</span>
+          <input type="password" id="password" value="" placeholder="6-16位密码" class="reg_password">
+          <span class="tip password_hint"></span>
+      </li>
+      <li>
+          <span>确认密码：</span>
+          <input type="password" id="password2" value="" placeholder="确认密码" class="reg_confirm">
+          <span class="tip confirm_hint"></span>
+      </li>
+      <li>
+        <button type="button" id="sign-up" class="red_button">注册</button>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" id="initializeApp">
+        var config = {
+            authDomain: "athandiajsmind.wilddog.com",       //url for Auth
+            syncURL: "https://athandiajsmind.wilddogio.com" //url for Data Sync
+        }
+        wilddog.initializeApp(config);
+        //var ref = wilddog.sync().ref(uid);
+  </script>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+  
+</body>
+</html>

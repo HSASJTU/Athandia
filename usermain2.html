@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Access-Control-Allow-Origin" content="*" charset="UTF-8">
+<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+<script src="https://cdn.wilddog.com/sdk/js/2.5.17/wilddog.js"></script>
+<title>UserMain</title>
+<link rel="stylesheet" type="text/css" href="./usermain/usermain_css.css">
+</head>
+
+
+<body onload="loadproject();loadhtml()">
+	<div class="headbanner">
+		<div id="greeting">
+			<div style="float:left" id="greet"></div>
+		</div>
+	</div>
+
+	<div class="navigationbar" style="float:left">
+		<a id="userinfo" onclick="openAccount()">Account Setting</a>
+	    <a id="myproject"  >My Projects</a>
+	    <a id="searchOthers" onclick="Search()">Search for Others</a>
+		<a id="favorites" onclick="favorites()">Favorite projects</a>
+		<a id="notification" href="#">Notification</a>
+	</div>
+<!--
+<div class="heading">
+	<button onclick="addproject()" style="color:black" id="addproject">Add Project</button>
+<div class="projecttitle">Project Title
+<textarea id="title" style="width:154px;height:17px"></textarea>
+  </div>
+<div class="projectOwner">Group Member
+	<textarea id="gm" style="width:154px;height:17px"></textarea></div>
+</div>
+!-->
+<div class="addproject">
+	<button onclick="document.getElementById('coverUp').style.display='block'" id="addnewproject">Click Here to Add New Projects</button>
+</div> 
+
+<div id = "coverUp" style="display:none"><!--用这一层做不透明度!-->
+        <div id = "addPopUp"><!--这里可以做一个pop up box框住以下所有东西!-->
+            <div class="edit-box">
+                <div class="edit-header">
+                    <span class="title">Adding Project Details</span>
+                </div>
+                <div class="edit-content">
+                    <div class="edit-details">
+                        <p class="setTerm">Title</p>
+                      <input type="title" placeholder="Title..." name="title" id="title1"><!--title1不要改成title，和原先被注释掉的id有冲突，在不确定原先代码如何处理的时候先别动，下同!-->
+                        <p class="setTerm">Project Owner</p>
+                        <input type="owner" placeholder="Project Owner..." name="membermain" id="membermain">	
+                        <p class="setTerm">Subject</p>
+                        <div class="Subject"><!--@gym想要一个可以不断添加的collaborator box，不很会写。点击下面的那个add button添加一个新的这个div来做一个新的input Collaborators!-->
+                        	<select id="subject">
+  								<option value="physics">physics</option>
+ 			 					<option value="paths">maths</option>
+ 			 					<option value="chemistry">chemistry</option>
+ 			 					<option value="biology">biology</option>
+ 			 					<option value="computer science">computer science</option>
+ 			 					<option value="egineering">engineering</option>
+ 			 					<option value="social science">social science</option>
+ 			 					<option value="environmental science">environmental science</option>
+							</select>
+						</div>
+                        <p class="setTerm">Abstract</p>
+                        <input type="abstract" placeholder="Brief description..." name="abstract" id="description1">
+                    </div>
+					<div class="edit-operation">
+						<span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">Cancel</span>
+						<span class="edit-submit" onclick="save();closeForm();clearForm()">Submit</span>
+					</div>	
+				</div>
+			</div>
+		</div>
+</div>
+
+<div class="maincontent" id="maincontent"> 
+	<div class="addon">
+		<a href="#top" target="_self">Top</a>
+	</div>
+
+	<!--后台数据!-->
+	<!--<div class="show_project" id="1">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="projectOwner">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+	<div class="show_project" id="2">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="projectOwner">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+	</div>
+	<div class="show_project" id="3">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="projectOwner">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+  	<div class="show_project" id="4">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="projectOwner">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+  	<div class="show_project" id="5">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="projectOwner">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>
+  	<div class="show_project" id="6">
+		<div class="title">Project Title:&nbsp;</div>
+		<div class="projectOwner">Group Member:&nbsp;</div>
+		<div class="intro">Abstract:
+			<div class="projectabstract">This project is blah blah blah...</div>
+		</div>
+  	</div>!-->
+</div>
+
+<div class="footer">High School Affiliated to Shanghai Jiaotong University RDC</div>
+
+
+<script type="text/javascript">
+	var uid = location.search.replace("?uid=","")
+	var config = {
+      		syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+        };
+    wilddog.initializeApp(config);
+    var ref = wilddog.sync().ref(uid);
+
+    var list = wilddog.sync().ref('allpro');
+    var subjects = wilddog.sync().ref('subjects')
+
+    function loadhtml(){
+    	ref.child('accountsetting').on('value',function(snapshot){
+    		var name = snapshot.val().name;
+    		var parent = document.getElementById('greet');
+    		var greeting = document.createTextNode("Hello,"+name+"!");
+    		parent.appendChild(greeting);
+    	})
+
+    }
+
+	function loadproject() {
+		var pi = ref.child('manage project');
+		pi.on("child_added",function(snapshot){
+			console.log(snapshot.val());
+			
+			var delid = snapshot.key();
+
+			var parent = document.getElementById('maincontent');
+			var div = document.createElement("div");
+			div.setAttribute("class","show_project");
+			parent.appendChild(div);
+			//从后端调用
+			var info = snapshot.val();
+			//set project title
+			var div1 = document.createElement("div");
+			div1.setAttribute("class","title");
+			div.appendChild(div1);
+			tcon = document.createTextNode("Project:"+info.title);
+			div1.appendChild(tcon);
+			//set subject
+			var div2 = document.createElement("div");
+			div2.setAttribute("class","subject");
+			div.appendChild(div2);
+			scon = document.createTextNode("Subject:"+info.subject);
+			div2.appendChild(scon)
+			//set projectOwner
+			var div3 = document.createElement("div");
+			div3.setAttribute("class","projectOwner");
+			div.appendChild(div3);
+			gmcon = document.createTextNode("Owner:"+info.projectOwner);
+			div3.appendChild(gmcon);
+			//set intro
+			var div4 = document.createElement("div")
+			div4.setAttribute("class","intro");
+			div.appendChild(div4);
+			intro = document.createTextNode("Abstract:"+info.Abstract);
+			div4.appendChild(intro);
+
+			var edit = document.createElement("input");
+			edit.setAttribute("type","button")
+			edit.setAttribute("id",info.title);
+			edit.setAttribute("onclick","edit(this.id)");
+			edit.setAttribute("class","edit");
+			edit.setAttribute("value","edit project");
+			div.appendChild(edit);
+
+			var del = document.createElement("input");
+			del.setAttribute("type","button");
+			del.setAttribute("id",delid);
+			del.setAttribute("onclick","del(this.id);");
+			del.setAttribute("class","edit");
+			del.setAttribute("value","delete from all project");
+			del.setAttribute("style","width:200px;")
+			div.appendChild(del);
+
+			var delmy = document.createElement("input");
+			delmy.setAttribute("type","button");
+			delmy.setAttribute("name",delid);
+			delmy.setAttribute("onclick","del_manage(this.name);");
+			delmy.setAttribute("class","edit");
+			delmy.setAttribute("value","delete from my project");
+			delmy.setAttribute("style","width:200px;")
+			div.appendChild(delmy);
+			/*
+			var changeinfo = document.createElement("input");
+			changeinfo.setAttribute("type","button");
+			changeinfo.setAttribute("name",delid);
+			changeinfo.setAttribute("onclick","changeinfo(this.name)");
+			changeinfo.setAttribute("class","edit");
+			changeinfo.setAttribute("value","changeinfo");
+			div.appendChild(changeinfo);*/
+        });
+
+		}
+
+	function edit(id){
+		//alert(id);
+		window.location.href="test.html"+"?uid="+uid+"&"+"true"+"&"+"title="+id;
+		//alert(id);
+	}
+
+	function del(id){
+		del_list(id);
+		del_sub(id);
+		//del_manage(id);
+		//location.reload();
+		
+	}
+
+	//function changeinfo(name){
+	//	var aimpro = ref.child('manage project').child(name);
+	//	document.getElementById('coverUp').style.display='none';
+
+	//}
+	function del_manage(name){
+		var aimpro = ref.child('manage project').child(name);
+		aimpro.remove();
+		location.reload();
+	}
+	function del_sub(id){
+		var aimpro = ref.child('manage project').child(id);
+		var subject = "";
+		var title = "";
+		aimpro.child('title').on("value",function(snapshot){
+			title = snapshot.val()
+			console.log(title);
+		})
+		aimpro.child('subject').on("value",function(snapshot){
+			subject = snapshot.val()
+			console.log(subject)
+		});
+		var aimsub = subjects.child(subject);
+		aimsub.on("child_added",function(snapshot){	
+    		snapshot.forEach(function(data) {
+    			if(data.val()==title){
+    				console.log(data.val())
+    				aimsub.child(snapshot.key()).remove();
+    			}
+    		})
+    		
+    	})
+	}
+
+	function del_list(id){
+		var aimpro = ref.child('manage project').child(id);
+		var title = "";
+		aimpro.child('title').on("value",function(snapshot){
+			title = snapshot.val()
+		})
+		list.on("child_added",function(snapshot){
+			snapshot.forEach(function(data) {
+    			if(data.val()==title){
+    				console.log(snapshot.key())
+    				list.child(snapshot.key()).remove();
+    			}
+    		})
+		})
+	}
+
+	function save(){
+		var title = document.getElementById("title1").value;
+		var projectOwner = document.getElementById("membermain").value;
+		var subject = document.getElementById('subject').value;
+		var ab = document.getElementById("description1").value;
+		var proinfo = {"title":title,"projectOwner":projectOwner,"subject":subject,"Abstract":ab};
+		ref.child("manage project").push(proinfo);
+
+		list.push(proinfo);
+
+		subjects.child(subject).push(proinfo);
+	}
+		
+	function addCollab() {
+		//@gym
+	}
+
+	function closeForm() {
+		document.getElementById("coverUp").style.display="none";
+	}
+	
+	function clearForm() {
+		document.getElementById("title1").value="";
+		document.getElementById("membermain").value="";
+		document.getElementById("description1").value="";
+	}
+
+	function openAccount(){
+		window.location.href="accountsetting.html?uid="+uid;
+
+	}
+
+	function Search(){
+		window.location.href="Athandia Search for Others' Project.html?uid="+uid;
+
+	}
+
+	function favorites(){
+		window.location.href="Athandia Favorites.html?uid="+uid;
+	}
+</script>
+</body>
+</html>

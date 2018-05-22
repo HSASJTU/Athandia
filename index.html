@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  
+<style>
+#header {
+	background-color:black;
+    color:white;
+    text-align:center;
+    padding:10px;
+    
+}
+#nav {
+     line-height:30px;
+    background-color:grey;
+    height:450px;
+    width:110px;
+    float:left;
+    color:white;
+     
+}
+#section {
+	width:200px;
+    float:left;
+    
+   	 	 
+}
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:30px;
+}
+</style>
+</head>
+
+<body onload="check_browser()">
+
+<div id="header">
+<h1>Welcome to Athandia</h1>
+</div>
+
+
+<div id="nav">
+<h3>Brief Introduction:</h3><br>
+<h3>Directions:</h3><br>
+<h3>Updating Imformation:</h3><br>
+</div>
+<div id="content" style="position:relative;float:left;height: 350px;width: 900px;background-color: white;color:black;">
+<h4>Athandia online experiment platform is an website aiming to help students conduct experiments, write projects and receive instant comments from guide teachers without meeting. It has a reliable connection with wilddog database where students could instantly upload their experiments progress. By using mind map, students could gain logical examples and flow guiding the procedure of conducting projects. A timeline showing the deadline of task and the progress of experiment could be a reminder for the students.</h4><br>
+<h4>Anthandia online experiment platform aims to help students who have great passion in applying their iadeas in subjects of science, biology, maths, physics, chemistry and data to doing real researches. Science teachers and other guides could use this platform to teach students directly and verify the reports instantly.</h4><br>
+<h4>The first edition opens all the functions except teachers systems which requires further tests.</h4>
+</div>
+
+<div id="section" style="position: relative;" >
+<div id= "log bar" style="text-align: center;position:absolute;right: 100px;top: 0px;">
+<form action="" method="post" accept-charset="ISO-8859-1" > 
+<fieldset style="background-color:white;width: 10px">
+<legend>Login in:</legend>
+Username：<br><input type = "email" id = "email" required="required" autofocus="autofocus" placeholder="e-mail address" /> <br>  
+Passport：<br><input type = "password" id= "password" required="required" /><br>
+<input type = "button" value = "log in" id="login"/><br>
+<input type = "button" value = "sign up" id="sign-up" onclick = "javascript:window.location.href='signup.html';"/>
+</fieldset>
+</form>
+</div>
+
+</div>
+
+<div id="footer">
+High School Affiliated to Shanghai JiaoTong University RDC
+</div>
+
+<script src="https://cdn.wilddog.com/sdk/js/2.5.17/wilddog.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.7/go-debug.js"></script>
+<script src="./js/mindmap.js"></script>
+<script src="./js/login.js"></script>
+<script src="./js/manage.js"></script>
+<script src="./js/project.js"></script>
+
+<script type="text/javascript" id="initializeApp">
+        function check_browser(){
+            if (navigator.userAgent.indexOf('Firefox') >= 0) {  
+                document.getElementById("log bar").style.right= "0px";
+            } 
+        }
+
+        var config = {
+            authDomain: "athandiajsmind.wilddog.com",       //url for Auth
+            syncURL: "https://athandiajsmind.wilddogio.com" //url for Data Sync
+        }
+        wilddog.initializeApp(config);
+
+        var getEmail = function () {
+            return document.getElementById("email").value;
+        };
+        var getPwd = function () {
+            return document.getElementById("password").value;
+        };
+
+        /*document.getElementById("sign-up").onclick = function () {
+            var email = getEmail();
+            var pwd = getPwd();
+            sign_up(email, pwd);
+        };*/
+
+        document.getElementById("login").onclick = function () {
+            var email = getEmail();
+            var pwd = getPwd();
+            var already = function () {
+                console.info("you have already login!");
+            };
+            var doLogin = function () {
+                login(email, pwd);
+            };
+            pre_login(already, doLogin);
+            //window.open('test.html');
+            var uid = wilddog.auth().currentUser.uid;
+            window.open("usermain2.html"+"?uid="+uid);
+
+        };
+
+        //document.getElementById("logout").onclick = function () {
+           // logout();
+        //};
+
+        /*document.getElementById("add").onclick = function () {
+            var already = function () {
+                var uid = wilddog.auth().currentUser.uid;
+                var projectName = document.getElementById("project-name").value;
+
+                add_project(uid, projectName);
+                console.info("a new project added.");
+            };
+            var alertLogin = function () {
+                alert("You have not sign-in. Sign In Please!");
+            };
+            pre_login(already, alertLogin);
+        };
+
+        /*
+        wilddog.auth().onAuthStateChanged(function(user){
+            console.log(user);
+            //list_projects(user);
+        })*/
+        // 开始监听
+        var stopListen = wilddog.auth().onAuthStateChanged(function (user) {
+            console.info("auth state changed ->", user);
+            //todo: user.onLoggedIn 事件监听
+            var listen = function () {
+                list_projects(user);
+            };
+            var unlisten = function () {
+                unlist_proejects(user);
+            };
+            pre_login(listen, unlisten);
+        });
+
+        /*document.getElementById("delete").onclick = function () {
+            var already = function () {
+                var pid = document.getElementById("pid").value;
+                delete_project(pid);
+            };
+            var alertLogin = function () {
+                alert("You have not sign-in. Sign In Please!");
+            };
+            pre_login(already, alertLogin);
+        };
+
+        document.getElementById("p_save").onclick = function(){
+            write_node();
+        };*/
+    </script>
+
+
+<script src="./js/underscore.js"></script>
+<script src="./js/jquery.js"></script>
+<script src="./js/backbone.js"></script>
+<script src="./js/router.js"></script>
+
+</body>
+</html>
