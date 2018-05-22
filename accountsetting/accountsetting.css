@@ -1,0 +1,303 @@
+body{
+	width:100%;
+	max-width: 1440px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	max-height: 100%;
+	text-overflow: ellipsis;
+}
+
+input{
+	padding:0;
+	font-size: larger;
+}
+
+.headbanner{ 
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 150px;
+	background:#1B1B1B;
+	font-family:Futura;
+	z-index: 60;
+}
+
+.headbanner #greeting{
+	position: relative;
+	display:block;
+	left: 43%;
+	margin: 30px;
+	max-width: 200px;
+	color: ivory;
+	font-size: 150%;
+}
+
+/*@keyframes example {
+    from {background-color: red;}
+    to {background-color: purple;}
+}*/
+
+.navigationbar{
+	position:fixed;
+	background-color:#F7A82B; 
+	left:0;
+	width: 200px;
+	height: 100%;
+	top:150px;
+}
+
+#myproject{
+	display: inline-block;
+	position: fixed;
+	top: 150px;
+	width: 180px;
+	height: 25px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 42px;
+	color: ivory;
+}
+
+#myproject:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#searchOthers{
+	position: fixed;
+	width: 180px;
+	top: 238px;
+	height: 25px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 42px;
+	color: white;
+	vertical-align: baseline;
+}
+
+#searchOthers:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#favorites{
+	position: fixed;
+	width: 180px;
+	top: 326px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 43px;
+	color: white;
+}
+
+#favorites:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#notification{
+	position: fixed;
+	width: 180px;
+	top: 414px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 43px;
+	color: white;
+}
+
+#notification:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+#userinfo{
+	position: fixed;
+	width: 180px;
+	top: 502px;
+	background: transparent;
+	font-family: Futura;
+	text-decoration: none;
+	padding: 30px 43px;
+	color: white;
+}
+
+#userinfo:hover{
+	background-color: gold;
+	color: #222222;
+}
+
+.maincontent{
+	position: relative;
+	top: 142px;
+	left: 192px;
+	width:100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 800px; /*等到可以load学生名单再看要不要改*/
+	z-index: 10;
+	font-family: Georgia;
+	background-color: ivory;
+	align: baseline;
+}
+
+#virtualIdentity{
+	position: relative;
+	font-family: Futura;
+	line-height: 25px;
+	width: 600px;
+	left: 300px;
+	padding-bottom: 18px;
+	padding-top: 20px;
+	border-bottom: gray groove thin;
+}
+
+#realIdentity{
+	position: relative;
+	left: 300px;
+	top: 0px;
+	font-family: Futura;
+	line-height: 25px;
+	width: 600px;
+	padding-bottom: 18px;
+	padding-top: 20px;
+	border-bottom: gray groove thin;
+}
+
+#relationship{
+	position: relative;
+	top: 0px;
+	left: 300px;
+	font-family: Futura;
+	line-height: 25px;
+	width: 600px;
+	padding-bottom: 18px;
+	padding-top: 20px;
+	border-bottom: gray groove thin;
+}
+
+.forTeacher{
+	padding-top: 15px;
+}
+
+.forStudent{
+	padding-top: 15px;
+}
+
+.forTeacher button{
+	position: relative;
+	top: -25px;
+	left: 120px;
+	font-family: Futura;
+	float:left;
+	background-color: #222222;
+	padding: 5px 8px 5px 8px;
+	color: ivory;
+}
+
+.forTeacher li{
+	position: relative;
+	top: 8px;
+	left: -80px;
+}
+
+.forStudent button{
+	position: relative;
+	top: -24px;
+	left: 140px;
+	font-family: Futura;
+	float:left;
+	background-color: #222222;
+	padding: 5px 8px 5px 8px;
+	color: ivory;
+}
+
+.forStudent li{
+	position: relative;
+	top: 8px;
+	left: -95px;
+}
+
+.footer{
+	position: fixed;
+	font-family: Futura;
+	color: ivory;
+	left:0;
+	bottom: 0;
+	z-index: 100;
+	width: 100%;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color:#222222;
+}
+#coverUp{
+	z-index: 1004;
+	margin: 0;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: white;
+	opacity: 0.95;
+}
+#addPopUp{
+	width: 300px;
+	height: 500px;
+	position: fixed;
+	left: 40%;
+	top: 10%;
+	vertical-align: middle;
+	border: black groove;
+	font-family: Futura;
+	z-index: 2000;
+	padding-left: 40px;
+	padding-top: 20px;
+	line-height: 10px;
+}
+
+#addPopUp .account{
+	font-size:larger;
+}
+
+#addPopUp p{
+	font-size: large;
+	line-height: 10px;
+	padding-bottom: 0px;
+}
+
+#username{
+	width: 250px;
+	color: black;
+	opacity: 1;
+	font-family: Cambria;
+}
+
+#email{
+	width: 200px;
+	color: black;
+	opacity: 1;
+	font-family: Cambria;
+}
+
+#school{
+	width: 200px;
+	color: black;
+	opacity: 1;
+	font-family: Cambria;
+}
+
+
+#class{
+	margin-top: 0px;
+	width: 250px;
+	color: black;
+	opacity: 1;
+	font-family: Cambria;
+}
+
