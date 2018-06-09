@@ -14,7 +14,7 @@
 		<div id="greeting">
 			<div style="float:left">Other Projects</div>
 		</div>
-		<div id="timeline" style="float:left"> Search certain project
+		<div id="timeline" style="float:left"> Enter key words here
 		</div>
 	</div>
     <div class="navigationbar" style="float:left">
@@ -26,10 +26,6 @@
 	</div>
 	<div class="footer">High School Affiliated to Shanghai Jiaotong University RDC</div>
 <div class = "searchBar"><!--the equivolent of project digest in usermain!-->
-		<select id = "searchmethod" style="float: left;">
-			<option>By Subject</option>
-			<option>By Title</option>
-		</select>
 		<div id="searchInput"><input id="search" autocapitalize="none" autocorrect="off" type="text" spellcheck="true" placeholder="Enter Here to Search for Other's Projects"></div>
 		<img class = "searchButton" src="./css/if_search_172546.svg" onclick="search()">
 	</div>
@@ -52,14 +48,13 @@
   </div>
 
   <script type="text/javascript">
-  	var uid = location.search.replace("?uid=","")
+	  	var uid = location.search.replace("?uid=","")
 		var config = {
       			syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
           	};
     	wilddog.initializeApp(config);
     var ref = wilddog.sync().ref(uid);
     var list = wilddog.sync().ref('allpro');
-    var allsub = wilddog.sync().ref('subjects')
     var key = "";
     var auth = false;
 
@@ -77,7 +72,7 @@
     	if(auth==true){
     		list.on("child_added",function(snapshot){
     			console.log(snapshot.val());
-
+				key = snapshot.key();
     			var parent = document.getElementById('maincontent');
 				var div = document.createElement("div");
 				div.setAttribute("class","show_project");
@@ -109,16 +104,14 @@
 				lookup.setAttribute("onclick","lookup(this.id)");
 				lookup.setAttribute("class","edit");
 				lookup.setAttribute("value","look up this project");
-				lookup.setAttribute("style","width:200px");
 				div.appendChild(lookup);
-						
+
 				var addtofavor = document.createElement("input");
 				addtofavor.setAttribute("type","button")
 				addtofavor.setAttribute("id",key);
 				addtofavor.setAttribute("onclick","addtofavor(this.id)");
 				addtofavor.setAttribute("class","edit");
 				addtofavor.setAttribute("value","add to my favorites");
-				addtofavor.setAttribute("style","width:200px");
 				div.appendChild(addtofavor);
 
     		})
@@ -135,161 +128,95 @@
 
 	function openAccount(){
 		window.location.href="accountsetting.html?uid="+uid;
-	}		
+	}
 
 	function isContains(str, substr) {
     	return str.indexOf(substr) >= 0;
 	}
 
 	function search(){
-		var method = document.getElementById("searchmethod").value;
+		document.getElementById("maincontent").innerHTML='';
 		if(auth){
-			if(method=="By Subject"){
-				search_by_subject();
-			}else{
-				search_by_name();
-			}
-		}	
-	}
+			var keytitle = document.getElementById('search').value;
+			//alert(key);
+			list.on("child_added",function(snapshot){
 
-	function search_by_subject(){
-		document.getElementById("maincontent").innerHTML='';
-		var keysubject = document.getElementById('search').value;
-		allsub.child(keysubject).on("child_added",function(snapshot){
-			console.log(snapshot.val());
-			var parent = document.getElementById('maincontent');
-			var div = document.createElement("div");
-			div.setAttribute("class","show_project");
-			parent.appendChild(div);
-			//从后端调用
-			var info = snapshot.val();
-			//set project title
-			var div1 = document.createElement("div");
-			div1.setAttribute("class","title");
-			div.appendChild(div1);
-			tcon = document.createTextNode("Project:"+info.title);
-			div1.appendChild(tcon);
-			//set subject
-			var div2 = document.createElement("div");
-			div2.setAttribute("class","subject");
-			div.appendChild(div2);
-			scon = document.createTextNode("Subject:"+info.subject);
-			div2.appendChild(scon)
-			//set projectOwner
-			var div3 = document.createElement("div");
-			div3.setAttribute("class","projectOwner");
-			div.appendChild(div3);
-			gmcon = document.createTextNode("Owner:"+info.projectOwner);
-			div3.appendChild(gmcon);
-			//set intro
-			var div4 = document.createElement("div")
-			div4.setAttribute("class","intro");
-			div.appendChild(div4);
-			intro = document.createTextNode("Abstract:"+info.Abstract);
-			div4.appendChild(intro);
+				//找到指定project
+				snapshot.forEach(function(data) {
 
-			var lookup = document.createElement("input");
-			lookup.setAttribute("type","button")
-			lookup.setAttribute("id",info.title);
-			lookup.setAttribute("onclick","lookup(this.id)");
-			lookup.setAttribute("class","edit");
-			lookup.setAttribute("value","look up this project");
-			lookup.setAttribute("style","width:200px");
-			div.appendChild(lookup);
-						
-			var addtofavor = document.createElement("input");
-			addtofavor.setAttribute("type","button")
-			addtofavor.setAttribute("id",key);
-			addtofavor.setAttribute("onclick","addtofavor(this.id)");
-			addtofavor.setAttribute("class","edit");
-			addtofavor.setAttribute("value","add to my favorites");
-			addtofavor.setAttribute("style","width:200px");
-			div.appendChild(addtofavor);
-		})
-	}
+						if(data.key()=='title'){
+							newdata = data.val()+"";
+    						if(isContains(newdata,keytitle)){
+    							console.log(snapshot.key());
+    							key = snapshot.key();
+    							//将指定project返回
+    							list.child(snapshot.key()).on("value",function(snapshot){
+    								console.info(snapshot.val().title);
 
-	function search_by_name(){
-		document.getElementById("maincontent").innerHTML='';
-		var keytitle = document.getElementById('search').value;
-		//alert(key);
-		list.on("child_added",function(snapshot){
-				
-			//找到指定project
-			snapshot.forEach(function(data) {
-						
-					if(data.key()=='title'){
-						newdata = data.val()+"";
-    					if(isContains(newdata,keytitle)){
-    						console.log(snapshot.key());
-    						key = snapshot.key();
-    						//将指定project返回
-    						list.child(snapshot.key()).on("value",function(snapshot){
-    							console.info(snapshot.val().title);
     							var parent = document.getElementById('maincontent');
-								var div = document.createElement("div");
-								div.setAttribute("class","show_project");
-								parent.appendChild(div);
-								//从后端调用
-								var info = snapshot.val();
-								//set project title
-								var div1 = document.createElement("div");
-								div1.setAttribute("class","title");
-								div.appendChild(div1);
-								tcon = document.createTextNode("Project:"+info.title);
-								div1.appendChild(tcon);
-								//set subject
-								var div2 = document.createElement("div");
-								div2.setAttribute("class","subject");
-								div.appendChild(div2);
-								scon = document.createTextNode("Subject:"+info.subject);
-								div2.appendChild(scon)
-								//set projectOwner
-								var div3 = document.createElement("div");
-								div3.setAttribute("class","projectOwner");
-								div.appendChild(div3);
-								gmcon = document.createTextNode("Owner:"+info.projectOwner);
-								div3.appendChild(gmcon);
-								//set intro
-								var div4 = document.createElement("div")
-								div4.setAttribute("class","intro");
-								div.appendChild(div4);
-								intro = document.createTextNode("Abstract:"+info.Abstract);
-								div4.appendChild(intro);
+									var div = document.createElement("div");
+									div.setAttribute("class","show_project");
+									parent.appendChild(div);
+									//从后端调用
+									var info = snapshot.val();
+									//set project title
+									var div1 = document.createElement("div");
+									div1.setAttribute("class","title");
+									div.appendChild(div1);
+									tcon = document.createTextNode("Project:"+info.title);
+									div1.appendChild(tcon);
+									//set projectOwner
+									var div2 = document.createElement("div");
+									div2.setAttribute("class","projectOwner");
+									div.appendChild(div2);
+									gmcon = document.createTextNode("Owner:"+info.projectOwner);
+									div2.appendChild(gmcon);
+									//set intro
+									var div3 = document.createElement("div")
+									div3.setAttribute("class","intro");
+									div.appendChild(div3);
+									intro = document.createTextNode("Abstract:"+info.Abstract);
+									div3.appendChild(intro);
 
+									var lookup = document.createElement("input");
+									lookup.setAttribute("type","button")
+									lookup.setAttribute("id",info.title);
+									lookup.setAttribute("onclick","lookup(this.id)");
+									lookup.setAttribute("class","edit");
+									lookup.setAttribute("value","look up this project");
+									div.appendChild(lookup);
 
-								var lookup = document.createElement("input");
-								lookup.setAttribute("type","button")
-								lookup.setAttribute("id",info.title);
-								lookup.setAttribute("onclick","lookup(this.id)");
-								lookup.setAttribute("class","edit");
-								lookup.setAttribute("value","look up this project");
-								lookup.setAttribute("style","width:200px");
-								div.appendChild(lookup);
-						
-								var addtofavor = document.createElement("input");
-								addtofavor.setAttribute("type","button")
-								addtofavor.setAttribute("id",key);
-								addtofavor.setAttribute("onclick","addtofavor(this.id)");
-								addtofavor.setAttribute("class","edit");
-								addtofavor.setAttribute("value","add to my favorites");
-								addtofavor.setAttribute("style","width:200px");
-								div.appendChild(addtofavor);
-    						})
-    						
+									var addtofavor = document.createElement("input");
+									addtofavor.setAttribute("type","button")
+									addtofavor.setAttribute("id",key);
+									addtofavor.setAttribute("onclick","addtofavor(this.id)");
+									addtofavor.setAttribute("class","edit");
+									addtofavor.setAttribute("value","add to my favorites");
+									div.appendChild(addtofavor);
+    							})
+
+    						}
     					}
-    				}
   				});
-			
+
 			})
 
+		}
 	}
 
 	function lookup(id){
-		window.location.href="test2.html"+"?key="+key+"&"+"false"+"&"+"title="+id;
+
+		list.child(key).on('value', function (snapshot) {
+			var puid = snapshot.val().uid;
+			window.location.href = "test2.html?uid:" + uid + "&puid=" + puid +"&title=" + id;
+		})
+		
 	}
 
 	function addtofavor(id){
 		ref.child("favorites").push(id);
+
+	
 	}
   </script>
 </body>
