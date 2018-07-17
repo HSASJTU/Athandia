@@ -8,76 +8,71 @@
 <link rel="stylesheet" type="text/css" href="./usermain/usermain_css.css">
 </head>
 
-
-<body onload="loadproject();loadhtml()">
+<!--usermain2显示所有"my projects"-->
+<body onload="loadproject();loadhtml();checkauth()">
 	<div class="headbanner">
-		<div id="greeting">
-			<div style="float:left" id="greet"></div>
+		<div id="logo">
+			<a onclick="logo()">ATHANDIA</a>
 		</div>
-	</div>
 
-	<div class="navigationbar" style="float:left">
-		<a id="userinfo" onclick="openAccount()">Account Setting</a>
-	    <a id="myproject"  >My Projects</a>
-	    <a id="searchOthers" onclick="Search()">Search for Others</a>
-		<a id="favorites" onclick="favorites()">Favorite projects</a>
-		<a id="notification" href="#">Notification</a>
+		<ul class="navigationbar">
+			<li><a id="addnewproject" onclick="document.getElementById('coverUp').style.display='block'">New Projects</a></li>
+			<li><a id="userinfo" onclick="openAccount()">Account Setting</a></li>	
+			<li><a id="notification" href="#">Notification</a></li>
+			<li><a id="favorites" onclick="favorites()">Favorite Projects</a></li>
+			<li><a id="searchOthers" onclick="Search()">Search for Others'</a></li>
+			<li><a id="myproject">My Projects</a></li>	
+		</ul>
 	</div>
-<!--
-<div class="heading">
-	<button onclick="addproject()" style="color:black" id="addproject">Add Project</button>
-<div class="projecttitle">Project Title
-<textarea id="title" style="width:154px;height:17px"></textarea>
-  </div>
-<div class="projectOwner">Group Member
-	<textarea id="gm" style="width:154px;height:17px"></textarea></div>
-</div>
-!-->
-<div class="addproject">
-	<button onclick="document.getElementById('coverUp').style.display='block'" id="addnewproject">Click Here to Add New Projects</button>
-</div> 
 
 <div id = "coverUp" style="display:none"><!--用这一层做不透明度!-->
+	<div id="theWholeBox">
         <div id = "addPopUp"><!--这里可以做一个pop up box框住以下所有东西!-->
             <div class="edit-box">
-                <div class="edit-header">
+                <!-- <div class="edit-header">
                     <span class="title">Adding Project Details</span>
-                </div>
+                </div> -->
                 <div class="edit-content">
                     <div class="edit-details">
-                        <p class="setTerm">Title</p>
-                      <input type="title" placeholder="Title..." name="title" id="title1"><!--title1不要改成title，和原先被注释掉的id有冲突，在不确定原先代码如何处理的时候先别动，下同!-->
-                        <p class="setTerm">Project Owner</p>
-                        <input type="owner" placeholder="Project Owner..." name="membermain" id="membermain">	
-                        <p class="setTerm">Subject</p>
-                        <div class="Subject"><!--@gym想要一个可以不断添加的collaborator box，不很会写。点击下面的那个add button添加一个新的这个div来做一个新的input Collaborators!-->
-                        	<select id="subject">
-  								<option value="physics">physics</option>
- 			 					<option value="paths">maths</option>
- 			 					<option value="chemistry">chemistry</option>
- 			 					<option value="biology">biology</option>
- 			 					<option value="computer science">computer science</option>
- 			 					<option value="egineering">engineering</option>
- 			 					<option value="social science">social science</option>
- 			 					<option value="environmental science">environmental science</option>
-							</select>
-						</div>
-                        <p class="setTerm">Abstract</p>
-                        <input type="abstract" placeholder="Brief description..." name="abstract" id="description1">
+                        <p class="setTerm">TITLE</p>
+                      		<input type="title" name="title" id="title1"><!--title1不要改成title，和原先被注释掉的id有冲突，在不确定原先代码如何处理的时候先别动，下同!-->
+                        <p class="setTerm">OWNER</p>
+                        	<input type="owner" name="membermain" id="membermain">
+                        <p class="setTerm">SUBJECT</p>
+	                        <div class="Subject"><!--@gym想要一个可以不断添加的collaborator box，不很会写。点击下面的那个add button添加一个新的这个div来做一个新的input Collaborators!-->
+	                        	<select id="subject">
+	  								<option value="Physics">Physics</option>
+	 			 					<option value="Maths">Maths</option>
+	 			 					<option value="Chemistry">Chemistry</option>
+	 			 					<option value="Biology">Biology</option>
+	 			 					<option value="Computer Science">Computer Science</option>
+	 			 					<option value="Engineering">Engineering</option>
+	 			 					<option value="Social Science">Social Science</option>
+	 			 					<option value="Environmental Science">Environmental Science</option>
+								</select>
+							</div>
+                        <p class="setTerm">ABSTRACT</p>
+                        	<TEXTAREA type="abstract" name="abstract" id="description1"></TEXTAREA>
                     </div>
-					<div class="edit-operation">
-						<span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">Cancel</span>
-						<span class="edit-submit" onclick="save();closeForm();clearForm()">Submit</span>
-					</div>	
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="background" display="block">
+		<p class="quote">EVERY JOURNEY<br>STARTS WITH<br>A SINGLE STEP</p>		
+		<p class="guide">Add details to your new project!</p>
+	</div>
+	<div class="edit-operation">
+		<span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">CANCEL</span>
+		<span class="edit-submit" onclick="save();closeForm();clearForm()">SUBMIT</span>
+	</div>
 </div>
 
-<div class="maincontent" id="maincontent"> 
-	<div class="addon">
-		<a href="#top" target="_self">Top</a>
-	</div>
+<div class="maincontent" id="maincontent">
+<!-- 	<div class="addon">
+		<a href="#top" target="_self"><img src="./css/if_icon_set_outlinder-04_2519697.svg">
+		<div class="titleText">Way Back to Top</div></a>
+	</div> 这个回到顶部的功能还要修改-->
 
 	<!--后台数据!-->
 	<!--<div class="show_project" id="1">
@@ -124,7 +119,7 @@
   	</div>!-->
 </div>
 
-<div class="footer">High School Affiliated to Shanghai Jiaotong University RDC</div>
+<div class="footer">Research Development Centre (RDC) of High School Affiliated to Shanghai Jiao Tong University</div>
 
 
 <script type="text/javascript">
@@ -134,7 +129,6 @@
         };
     wilddog.initializeApp(config);
     var ref = wilddog.sync().ref(uid);
-
     var list = wilddog.sync().ref('allpro');
     var subjects = wilddog.sync().ref('subjects')
 
@@ -151,8 +145,6 @@
 	function loadproject() {
 		var pi = ref.child('manage project');
 		pi.on("child_added",function(snapshot){
-			console.log(snapshot.val());
-			
 			var delid = snapshot.key();
 
 			var parent = document.getElementById('maincontent');
@@ -191,26 +183,25 @@
 			edit.setAttribute("id",info.title);
 			edit.setAttribute("onclick","edit(this.id)");
 			edit.setAttribute("class","edit");
-			edit.setAttribute("value","edit project");
+			edit.setAttribute("value","EDIT");
 			div.appendChild(edit);
 
 			var del = document.createElement("input");
 			del.setAttribute("type","button");
 			del.setAttribute("id",delid);
-			del.setAttribute("onclick","del(this.id);");
+			del.setAttribute("onclick","del(this.id)");
 			del.setAttribute("class","edit");
-			del.setAttribute("value","delete from all project");
-			del.setAttribute("style","width:200px;")
+			del.setAttribute("value","DELETE");
 			div.appendChild(del);
 
-			var delmy = document.createElement("input");
-			delmy.setAttribute("type","button");
-			delmy.setAttribute("name",delid);
-			delmy.setAttribute("onclick","del_manage(this.name);");
-			delmy.setAttribute("class","edit");
-			delmy.setAttribute("value","delete from my project");
-			delmy.setAttribute("style","width:200px;")
-			div.appendChild(delmy);
+			/*
+			var comments = document.createElement("input");
+			edit.setAttribute("type", "button")
+			edit.setAttribute("id", info.comments);
+			edit.setAttribute("onclick", "(this.id)");
+			edit.setAttribute("class", "comments");
+			edit.setAttribute("value", "comments project");
+			div.appendChild(edit);
 			/*
 			var changeinfo = document.createElement("input");
 			changeinfo.setAttribute("type","button");
@@ -225,16 +216,47 @@
 
 	function edit(id){
 		//alert(id);
-		window.location.href="timeline1.0.html"+"?uid="+uid+"&"+"true"+"&"+"title="+id;
+		window.location.href="test.html"+"?uid="+uid+"&"+"true"+"&"+"title="+id;
 		//alert(id);
 	}
 
 	function del(id){
-		del_list(id);
-		del_sub(id);
-		//del_manage(id);
+		var aimpro = ref.child('manage project').child(id);
+		var subject = "";
+		var title = ""
+		aimpro.child('subject').on("value",function(snapshot){
+			subject = snapshot.val()
+		});
+
+		aimpro.child('title').on("value",function(snapshot){
+			title = snapshot.val()
+		})
+
+		var aimsub = subjects.child(subject);
+		aimsub.on("child_added",function(snapshot){
+    		snapshot.forEach(function(data) {
+    			console.log(data.val())
+    			if(data.val()==title){
+    				aimsub.child(snapshot.key()).remove();
+    			}
+    		})
+
+    	})
+
+		list.on("child_added",function(snapshot){
+			snapshot.forEach(function(data) {
+    			if(data.val()==title){
+    				console.log(snapshot.key())
+    				list.child(snapshot.key()).remove();
+    				aimpro.remove();
+    				location.reload();
+    			}
+    		})
+		})
+		//console.log(id);
+		//aimpro.remove();
 		//location.reload();
-		
+
 	}
 
 	//function changeinfo(name){
@@ -242,49 +264,9 @@
 	//	document.getElementById('coverUp').style.display='none';
 
 	//}
-	function del_manage(name){
-		var aimpro = ref.child('manage project').child(name);
-		aimpro.remove();
-		location.reload();
-	}
-	function del_sub(id){
-		var aimpro = ref.child('manage project').child(id);
-		var subject = "";
-		var title = "";
-		aimpro.child('title').on("value",function(snapshot){
-			title = snapshot.val()
-			console.log(title);
-		})
-		aimpro.child('subject').on("value",function(snapshot){
-			subject = snapshot.val()
-			console.log(subject)
-		});
-		var aimsub = subjects.child(subject);
-		aimsub.on("child_added",function(snapshot){	
-    		snapshot.forEach(function(data) {
-    			if(data.val()==title){
-    				console.log(data.val())
-    				aimsub.child(snapshot.key()).remove();
-    			}
-    		})
-    		
-    	})
-	}
 
-	function del_list(id){
-		var aimpro = ref.child('manage project').child(id);
-		var title = "";
-		aimpro.child('title').on("value",function(snapshot){
-			title = snapshot.val()
-		})
-		list.on("child_added",function(snapshot){
-			snapshot.forEach(function(data) {
-    			if(data.val()==title){
-    				console.log(snapshot.key())
-    				list.child(snapshot.key()).remove();
-    			}
-    		})
-		})
+	function logo(){
+		window.location.href="index.html?uid="+uid;
 	}
 
 	function save(){
@@ -292,14 +274,14 @@
 		var projectOwner = document.getElementById("membermain").value;
 		var subject = document.getElementById('subject').value;
 		var ab = document.getElementById("description1").value;
-		var proinfo = {"title":title,"projectOwner":projectOwner,"subject":subject,"Abstract":ab};
+		var proinfo = {"title":title,"projectOwner":projectOwner,"subject":subject,"Abstract":ab,"uid":uid};
 		ref.child("manage project").push(proinfo);
 
-		list.push(proinfo);
+			list.push(proinfo);
 
-		subjects.child(subject).push(proinfo);
+			subjects.child(subject).push(proinfo);
 	}
-		
+
 	function addCollab() {
 		//@gym
 	}
@@ -307,7 +289,7 @@
 	function closeForm() {
 		document.getElementById("coverUp").style.display="none";
 	}
-	
+
 	function clearForm() {
 		document.getElementById("title1").value="";
 		document.getElementById("membermain").value="";
