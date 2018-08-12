@@ -156,9 +156,9 @@ angular.module('timelineApp.services', [])
         return base64;
       };
 
-      var ak = 'NwpKaedKlXNtCIafhlKX5wTbw6-p-ePvzVOnpiO1',
-          sk = 'QzqGrPICXzHg0fjatrtan0ianJiOs_KJS0fOPFS_';
-      var bucket = 'yongmingqiniutest';
+      var ak = 'YAYkhOyXLMemJQwY56Fc3E22vwZmcDpABZuLTO3Z',
+          sk = 'fwi8ML6DbDH0rRBw3AgbalC47mUUuWlLg4Ad85OI';
+      var bucket = 'timeline';
 
       this.getUpToken = function () {
         var accessKey = ak,
@@ -183,7 +183,7 @@ angular.module('timelineApp.services', [])
         uptoken: this.getUpToken(), //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
         unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
         // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
-        domain: 'http://oisi5mfz4.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+        domain: 'http://7xlotq.com1.z0.glb.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
         container: 'uploader',           //上传区域DOM ID，默认是browser_button的父元素，
         max_file_size: '100mb',           //最大文件体积限制
         //flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
@@ -259,7 +259,7 @@ angular.module('timelineApp.services', [])
 
       this.getDataRef = function (path) {
         //https://blazing-inferno-4750.firebaseio.com/
-        _dataRefCache[path] = _dataRefCache[path] || new Wilddog('https://athandiajsmind.wilddogio.com/' +uid+"/jsmind/images/"+title+"/"+id+"/"+path);
+        _dataRefCache[path] = _dataRefCache[path] || new Wilddog('https://timeline.wilddogio.com/' + path);
         //_dataRefCache[path] = _dataRefCache[path] || new Firebase('https://blazing-inferno-4750.firebaseio.com/' + path);
         return _dataRefCache[path];
       };

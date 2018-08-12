@@ -21,6 +21,8 @@ var pre_login = function (successCb, failCb) {
 var login = function (email, pwd, cb) {
     wilddog.auth().signInWithEmailAndPassword(email, pwd)
         .then(function () {
+            var uid = wilddog.auth().currentUser.uid;
+            window.location.href = "usermain2.html" + "?uid=" + uid; 
             console.info("login success, currentUser->", wilddog.auth().currentUser);
         })
         .catch(function (err) {
