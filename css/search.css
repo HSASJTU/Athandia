@@ -1,3 +1,6 @@
+
+/*search for others'的css*/
+
 body{
 	width:100%;
 	max-width: 1440px;
@@ -7,143 +10,79 @@ body{
 	text-overflow: ellipsis;
 }
 
-input{
-	padding:0;
-	font-size: larger;
-}
-
-.headbanner{ 
-	position: fixed;
-	left: 0;
-	top: 0;
-	right: 0;
-	height: 150px;
+#headbanner{
+	position: relative;
+	float: top;
+	height: 70px;
 	background: #222222;
-	font-family:Futura;
+	font-family: Futura;
 	z-index: 60;
 }
 
-.headbanner #greeting{
+#logo{
 	position: relative;
-	display:block;
-	left: 39.2%;
-	margin: 30px;
-	max-width: 400px;
-	color: ivory;
-	font-size: 150%;
-}
-
-#username{
-	max-width: 100px;
-	text-overflow: ellipsis;
-}
-
-.headbanner #timeline{
-	position: fixed;
-	text: 750px;
-	color: ivory;
-	top: 65px;
-	left: 42%;
-	margin-left: auto;
-	margin-top: 5px;
-}
-
-/*@keyframes example {
-    from {background-color: red;}
-    to {background-color: purple;}
-}*/
-
-.navigationbar{
-	position:fixed;
-	background-color:#F7A82B; 
-	left:0;
-	width: 200px;
-	height: 100%;
-	top:150px;
-}
-
-#myproject{
-	display: inline-block;
-	position: fixed;
-	top: 150px;
-	width: 180px;
-	height: 25px;
-	background: #F7A82B;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 42px;
-	color: ivory;
-}
-
-#myproject:hover{
-	background: gold;
-	color: #222222;
-}
-
-#searchOthers{
-	position: fixed;
-	width: 180px;
-	top: 235px;
-	height: 25px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 42px;
-	color: white;
-	vertical-align: baseline;
-}
-
-#searchOthers:hover{
-	background-color: gold;
-	color: #222222;
-}
-
-#favorites{
-	position: fixed;
+	float: left;
 	width: 120px;
-	top: 325px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 43px;
-	color: white;
+	padding-left: 30px;
+	padding-top: 10px;
+	cursor: pointer;
+	color: black;
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 27px;
+	letter-spacing: 1px;
+	z-index: 1;
 }
 
-#favorites:hover{
-	background-color: gold;
-	color: #222222;
+ul.navigationbar {
+    list-style-type: none;
+    position: relative;
+    float: right;
+    margin-top: 10px;
+    padding-right: 10px;
+    width: 750px;
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+    font-family: RalewayMedium,Helvetica,sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 0;
 }
 
-#notification{
-	position: fixed;
-	width: 180px;
-	top: 410px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 43px;
-	color: white;
+ul.navigationbar li a {
+    display: block;
+    color: #444444;
+    padding: 8px 16px;
+    text-decoration: none;
+    float: right;
 }
 
-#notification:hover{
-	background-color: gold;
-	color: #222222;
+ul.navigationbar li a:hover:not(.active) {
+    color: #f39c12;
 }
 
-#userinfo{
-	position: fixed;
-	width: 180px;
-	top: 495px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 43px;
-	color: white;
+/*在屏幕宽度小于 900px 时导航栏为顶部水平导航栏；如果屏幕宽度小于 400px 会变为垂直导航栏。*/
+@media screen and (max-width: 900px) {
+    ul.navigationbar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    ul.navigationbar li a {
+        float: left;
+        padding: 15px;
+    }
 }
 
-#userinfo:hover{
-	background-color: gold;
-	color: #222222;
+@media screen and (max-width: 400px) {
+    ul.navigationbar li a {
+        text-align: center;
+        float: none;
+    }
+}
+
+#searchOthers {   /*Search For Others'按钮*/
+	color: #f39c12;
 }
 
 #searchResults{
@@ -160,47 +99,50 @@ input{
 
 .maincontent{
 	position: relative;
-	top: 273px;
-	left: 192px;
-	width:100%;
+	margin-left: 2%;
+	margin-top: 30px;
+	width: 100%;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	height: 800px; /*等到可以load学生名单再看要不要改*/
 	z-index: 10;
 	font-family: Georgia;
 	background-color: ivory;
-	align: baseline;
+	text-align: baseline;
 }
 
-.searchBar{
-	position: fixed;
-	top: 150px;
-	left: 200px;
-	width: 100%;
-	height: 85px;
-	z-index: 999;
+input{   /*输入框*/
+	position: relative;
+	margin-left: 15%;
+	margin-top: 30px;
+    border: solid #f39c12 2px;
+	border-radius: 12px;
+	width: 60%;
+	height: 30px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 12px;
+	padding: 5px 20px;
 	font-family: Futura;
 	font-size: large;
-	vertical-align: middle;
-	background: gold;
-	border: transparent;
 	text-align: left;
 }
 
-#search{
-	width: 60%;
-	font-family: Futura;
-	border: transparent;
-	border-radius: 00px;
-	padding: 5px 20px;
-	margin: 20px 85px;
+.searchButton {    /*放大镜*/
+	position: relative;
+	top: 10px;
+	left: 5%;
+	height: 35px;
+	cursor: pointer;
 }
 
-.searchButton{
-	position: fixed;
-	left: 1200px;
-	top: 172px;
-	height: 35px;
+.maincontent{
+	position: relative;
+	margin-left: 2%;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	z-index: 10;
+	font-family: Georgia;
+	background-color: ivory;
 }
 
 .maincontent li{
@@ -226,7 +168,7 @@ li:before{
 
 li h2{
 	font-family: cambria;
-	
+
 }
 
 li h3{
@@ -237,10 +179,10 @@ li h4{
 	font-family: cambria;
 }
 
-.addon {
-	position: fixed;
-	right: 75px;
-	bottom: 13%;
+.addon {    /*回到顶部的按钮*/
+	position: relative;
+	margin-top: 47%;
+	margin-left: 93%;
 	text-decoration: none;
 	width: 30px;
 	height: 30px;
@@ -278,8 +220,8 @@ li h4{
 	background-color:#222222;
 }
 
-::-webkit-scrollbar { 
-    display: none; 
+::-webkit-scrollbar {
+    display: none;
 }
 .show_project{
 	margin: 15px 30px;
@@ -294,7 +236,15 @@ li h4{
 	max-width: 200px;
 }
 .edit{
-	height: 30px;
-	width: 110px;
-	background-color:grey;
+	background-color: #f39c12;
+    width: 200px;
+    height: 25px;
+    font-size: 15px;
+    font-family: RalewayMedium,Helvetica,sans-serif;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border:none;
+    border-radius: 14px;
+    cursor: pointer;
 }

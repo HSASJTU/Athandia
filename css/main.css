@@ -106,7 +106,7 @@ h1{
 
 		border-color: black;
 
-	}	
+	}
 
 
 
@@ -172,7 +172,7 @@ h1{
 
 	border-collapse: collapse;
 
-}	
+}
 
 
 
@@ -333,333 +333,339 @@ a:link{
 		}
 
      }
-  .hide{  display: none;  position: absolute;  top: 0%;  left: 0%;  width: 50%;  height: 50%;  background-color: black;  z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  .Mon {  display: none;  position: absolute;  top: 30px;  left:80px;  width: 350px;  height: 250px;  padding: 16px;  border: 16px solid orange;  background-color: white;  z-index:1002;  overflow: auto;  }  
+  .hide{  display: none;  position: absolute;  top: 0%;  left: 0%;  width: 50%;  height: 50%;  background-color: black;  z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  .Mon {  display: none;  position: absolute;  top: 300px;  left: 1120px;  width: 330px;  height: 250px;  padding: 16px;  border: 16px solid orange;  background-color: white;  z-index:1002;  overflow: auto;  }
   .save{
   	  position: absolute; left:250px;
   }
   .close{
   	position: absolute; left:300px;
   }
-  #M171{
+  #M181{
   	float:right;
   	display:none;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
     position:absolute;
     left:-10px;
   }
-  #M172{
-  	width:50px;
-  	height:100px;
+  #M182{
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display: none;
   	float:left;
   	position: absolute;
   	left:15px;
   }
-  #M173{
+  #M183{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none;
   	float:left;
   	position: absolute;
   	left:40px;
   }
-   #M174{
+   #M184{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:65px;
   }
-   #M175{
+   #M185{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:90px;
   }
-   #M176{
+   #M186{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none;
   	float:left;
   	position: absolute;
   	left:115px;
   }
-   #M177{
+   #M187{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none;
   	float:left;
   	position: absolute;
   	left:140px;
   }
-   #M178{
+   #M188{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none;
   	float:left;
   	position: absolute;
   	left:165px;
   }
-   #M179{
+   #M189{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none;
   	float:left;
   	position: absolute;
   	left:190px;
   }
-   #M1710{
+   #M1810{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none;
   	float:left;
   	position: absolute;
   	left:215px;
   }
-   #M1711{
+   #M1811{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px; */
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:240px;
   }
-   #M1712{
+   #M1812{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none;
   	float:left;
   	position: absolute;
   	left:265px;
   }
-   #M181{
+   #M191{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:290px;
   }
-   #M182{
+   #M192{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:315px;
   }
-   #M183{
+   #M193{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:340px;
   }
-   #M184{
+   #M194{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:365px;
   }
-   #M185{
+   #M195{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:390px;
   }
-   #M186{
+   #M196{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:415px;
   }
-   #M187{
+   #M197{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:440px;
   }
-   #M188{
+   #M198{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:465px;
   }
-   #M189{
+   #M199{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:490px;
   }
-   #M1810{
+   #M1910{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:515px;
   }
-   #M1811{
+   #M1911{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:540px;
   }
-   #M1812{
+   #M1912{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:565px;
   }
-   #M191{
+   #M201{
   	clear:;
-  	width:50px;
-  	height:100px;
+  	/* width:50px;
+  	height:100px;*/
   	background: :#CCC;
   	border:1px solid #333;
   	padding:10px;
-  	text-align: center;
+  	/* text-align: center; */
   	display:none ;
   	float:left;
   	position: absolute;
   	left:590px;
   }
+	.preview{
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+						max-width: 200px;
+	}

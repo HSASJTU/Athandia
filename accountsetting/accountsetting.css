@@ -1,3 +1,4 @@
+
 body{
 	width:100%;
 	max-width: 1440px;
@@ -7,30 +8,79 @@ body{
 	text-overflow: ellipsis;
 }
 
-input{
-	padding:0;
-	font-size: larger;
-}
-
-.headbanner{ 
-	position: fixed;
-	left: 0;
-	top: 0;
-	right: 0;
-	height: 150px;
-	background:#1B1B1B;
-	font-family:Futura;
+#headbanner{ 
+	position: relative;
+	float: top;
+	height: 70px;
+	background: #222222;
+	font-family: Futura;
 	z-index: 60;
 }
 
-.headbanner #greeting{
+#logo{
 	position: relative;
-	display:block;
-	left: 43%;
-	margin: 30px;
-	max-width: 200px;
-	color: ivory;
-	font-size: 150%;
+	float: left;
+	width: 120px;
+	padding-left: 30px;
+	padding-top: 10px;
+	cursor: pointer;
+	color: black;
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 27px;
+	letter-spacing: 1px;
+	z-index: 1;
+}
+
+ul.navigationbar {
+    list-style-type: none;
+    position: relative;
+    float: right;
+    margin-top: 10px;
+    padding-right: 10px;
+    width: 750px;
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+    font-family: RalewayMedium, Helvetica,sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 0;
+}
+
+ul.navigationbar li a {
+    display: block;
+    color: #444444;
+    padding: 8px 16px;
+    text-decoration: none;
+    float: right;
+}
+
+ul.navigationbar li a:hover:not(.active) {
+    color: #f39c12;
+}
+
+/*在屏幕宽度小于 900px 时导航栏为顶部水平导航栏；如果屏幕宽度小于 400px 会变为垂直导航栏。*/
+@media screen and (max-width: 900px) {
+    ul.navigationbar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    ul.navigationbar li a {
+        float: left;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    ul.navigationbar li a {
+        text-align: center;
+        float: none;
+    }
+}
+
+#userinfo {   /*Account Setting按钮*/
+	color: #f39c12;
 }
 
 /*@keyframes example {
@@ -38,111 +88,24 @@ input{
     to {background-color: purple;}
 }*/
 
-.navigationbar{
-	position:fixed;
-	background-color:#F7A82B; 
-	left:0;
-	width: 200px;
-	height: 100%;
-	top:150px;
-}
-
-#myproject{
-	display: inline-block;
-	position: fixed;
-	top: 150px;
-	width: 180px;
-	height: 25px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 42px;
-	color: ivory;
-}
-
-#myproject:hover{
-	background-color: gold;
-	color: #222222;
-}
-
-#searchOthers{
-	position: fixed;
-	width: 180px;
-	top: 238px;
-	height: 25px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 42px;
-	color: white;
-	vertical-align: baseline;
-}
-
-#searchOthers:hover{
-	background-color: gold;
-	color: #222222;
-}
-
-#favorites{
-	position: fixed;
-	width: 180px;
-	top: 326px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 43px;
-	color: white;
-}
-
-#favorites:hover{
-	background-color: gold;
-	color: #222222;
-}
-
-#notification{
-	position: fixed;
-	width: 180px;
-	top: 414px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 43px;
-	color: white;
-}
-
-#notification:hover{
-	background-color: gold;
-	color: #222222;
-}
-
-#userinfo{
-	position: fixed;
-	width: 180px;
-	top: 502px;
-	background: transparent;
-	font-family: Futura;
-	text-decoration: none;
-	padding: 30px 43px;
-	color: white;
-}
-
-#userinfo:hover{
-	background-color: gold;
-	color: #222222;
-}
-
 .maincontent{
 	position: relative;
-	top: 142px;
-	left: 192px;
-	width:100%;
+	top: 2px;
+	margin-left: 1%;
+	width: 100%;
+	height: 750px; /*等到可以load学生名单再看要不要改*/
+	border-top: #f39c12 dashed 3px;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	height: 800px; /*等到可以load学生名单再看要不要改*/
 	z-index: 10;
 	font-family: Georgia;
 	background-color: ivory;
-	align: baseline;
+	text-align: baseline;
+}
+
+h1 {
+	color: #f39c12;
+	font-family: RalewayMedium, Helvetica,sans-serif;;
 }
 
 #virtualIdentity{
@@ -154,6 +117,12 @@ input{
 	padding-bottom: 18px;
 	padding-top: 20px;
 	border-bottom: gray groove thin;
+}
+
+select {
+	margin-left: 35px;
+	height: 25px;
+	font-size: large;
 }
 
 #realIdentity{
@@ -222,6 +191,30 @@ input{
 	left: -95px;
 }
 
+#loadname{
+	margin-top: 30px;
+	font-size: 20px;
+	color: black;
+}
+
+#loademail{
+	margin-top: 30px;
+	font-size: 20px;
+	color: black;
+}
+
+#loadschool{
+	margin-top: 30px;
+	font-size: 20px;
+	color: black;
+}
+
+#loadclass{
+	margin-top: 30px;
+	font-size: 20px;
+	color: black;
+}
+
 .footer{
 	position: fixed;
 	font-family: Futura;
@@ -235,7 +228,22 @@ input{
 	padding-bottom: 10px;
 	background-color:#222222;
 }
-#coverUp{
+
+button{
+	width: 100px;
+    height: 25px;
+    background-color: #f39c12;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-family: Futura;
+    font-size: 14px;
+    border:none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#coverUp{   /*透明层*/
 	z-index: 1004;
 	margin: 0;
 	left: 0;
@@ -244,24 +252,24 @@ input{
 	height: 100%;
 	position: fixed;
 	background: white;
-	opacity: 0.95;
+	opacity: 1;
 }
-#addPopUp{
-	width: 300px;
+
+#addPopUp{   /*框框 右半边*/
+	position: relative;
+	margin-top: 130px;
+	margin-left:740px;
+	width: 450px;
 	height: 500px;
-	position: fixed;
-	left: 40%;
-	top: 10%;
-	vertical-align: middle;
-	border: black groove;
+	border: #f39c12 solid 2px;
+	border-top-right-radius:15px;
+	border-bottom-right-radius: 15px;
 	font-family: Futura;
 	z-index: 2000;
-	padding-left: 40px;
-	padding-top: 20px;
 	line-height: 10px;
 }
 
-#addPopUp .account{
+#addPopUp .title{
 	font-size:larger;
 }
 
@@ -271,33 +279,86 @@ input{
 	padding-bottom: 0px;
 }
 
-#username{
-	width: 250px;
-	color: black;
-	opacity: 1;
-	font-family: Cambria;
+.background {    /*左半边*/
+	position: fixed;
+	top: 130px;
+	left: 290px;
+	width: 450px;
+	height: 500px;
+	border: #f39c12 solid 2px;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	z-index: 2200;
+	background-color: #f39c12;
 }
 
-#email{
-	width: 200px;
-	color: black;
-	opacity: 1;
-	font-family: Cambria;
+.quote {   /*第一句话*/
+	margin-top: 150px;
+	margin-left: 40px;
+	color: white;
+	font-size: 30px;
+	font-family: Century Gothic, Charcoal, sans-serif;
+	font-weight: bold;
+	line-height: 150%;
 }
 
-#school{
-	width: 200px;
-	color: black;
-	opacity: 1;
-	font-family: Cambria;
+.guide {    /*第二句话*/
+	margin-left: 40px;
+	color: white;
+	font-size: 20px;
+	font-family: Century Gothic, Charcoal, sans-serif;
 }
 
-
-#class{
-	margin-top: 0px;
-	width: 250px;
-	color: black;
-	opacity: 1;
-	font-family: Cambria;
+.setTerm {   /*右半边的元素*/
+	margin-left: 35px;
+	margin-top: 53px;
+	font-size: 25px;
+	color: #f39c12;
 }
 
+input{
+	padding:0;
+	margin-left: 35px;
+	width: 350px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-color: #f39c12;
+	font-size: large;
+	opacity: 1;
+}
+
+.edit-operation{
+	z-index: 2000;
+	font-family: RalewayMedium,Helvetica,sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.edit-submit{
+	position: fixed;
+	top: 700px;
+	left: 550px;
+	width: 100px;
+	height: 30px;
+	border: #f39c12 solid 2px;
+	border-radius:10px;
+	background-color: #f39c12;
+	color: white;
+	text-align: center;
+	padding-top: 5px;
+}
+
+.edit-cancel{
+	position: fixed;
+	top: 700px;
+	left: 830px;
+	width: 100px;
+	height: 30px;
+	border: #f39c12 solid 1.5px;
+	border-radius:10px;
+	color: #f39c12;
+	text-align: center;
+	padding-top: 5px;
+}
