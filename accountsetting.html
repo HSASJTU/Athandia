@@ -10,44 +10,45 @@
 
 <body onload="loadAccount()">
 	<div class="headbanner">
-		<div id="greeting">
-			<div style="float:left">Account Info</div>	
+		<div id="logo">
+			<a onclick="logo()">ATHANDIA</a>
 		</div>
+
+		<ul class="navigationbar">
+			<li><a id="userinfo" onclick="openAccount()">Account Setting</a></li>	
+			<li><a id="notification" href="#">Notification</a></li>
+			<li><a id="favorites" onclick="favorites()">Favorite Projects</a></li>
+			<li><a id="searchOthers" onclick="Search()">Search for Others</a></li>				
+			<li><a id="myproject" onclick="openMyPro()">My Projects</a></li>
+		</ul>
 	</div>
-	
-	<div class="navigationbar" style="float:left">
-		<a id="userinfo" href="#">Account Setting</a>
-	    <a id="myproject" onclick="openMyPro()">My Projects</a>
-	    <a id="searchOthers" onclick="Search()">Search for Others</a>
-		<a id="favorites" onclick="favorites()">Favorite Projects</a>
-		<a id="notification" href="#">Notification</a>
-	</div>
-   
-   <div id = "coverUp" style="display:none"><!--用这一层做不透明度!-->
-        <div id = "addPopUp"><!--这里可以做一个pop up box框住以下所有东西!-->
-            <div class="edit-box">
-                <div class="edit-header">
-                    <span class="account">Govern Account</span>
-                </div>
-                <div class="edit-content">
-                    <div class="edit-basics">
-                        <p class="setTerm">Username</p>
-                      	<input type="username" placeholder="Username..." name="Username" id="username">
-                        <p class="setTerm">Email</p>
-                        <input type="email" placeholder="Email Address..." name="email" id="email">	
-                        <p class="setTerm">School</p>
-                        <input type="school" placeholder="Your school..." name="school" id="school">
-                        <p class="setTerm">Class</p>
-                      	<input type="class" placeholder="Class..." name="class" id="class">
-                    </div><br><br>
-					<div class="edit-operation">
-						<span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">Cancel</span>
-						<span class="edit-submit" onclick="save();closeForm();clearForm()">Submit</span>
-					</div>	
+
+	<div id = "coverUp" style="display:none"><!--用这一层做不透明度!-->
+	        <div id = "addPopUp"><!--这里可以做一个pop up box框住以下所有东西!-->
+	            <div class="edit-box">
+	                <div class="edit-content">
+	                    <div class="edit-basics">
+	                        <p class="setTerm">USERNAME</p>
+	                      		<input type="username" name="Username" id="username"><!--title1不要改成title，和原先被注释掉的id有冲突，在不确定原先代码如何处理的时候先别动，下同!-->
+	                        <p class="setTerm">EMAIL</p>
+	                        	<input type="email" name="email" id="email">
+	                        <p class="setTerm">SCHOOL</p>
+		                    	<input type="school" name="school" id="school">
+	                        <p class="setTerm">CLASS</p>
+	                        	<input type="class" name="class" id="class">
+	                    </div>
+					</div>
 				</div>
 			</div>
+		<div class="background" display="block">
+			<p class="quote">WELL BEGUN<br>IS<br>HALF DONE</p>		
+			<p class="guide">Govern your account here!</p>
 		</div>
-</div>
+		<div class="edit-operation">
+			<span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">CANCEL</span>
+			<span class="edit-submit" onclick="save();closeForm();clearForm()">SUBMIT</span>
+		</div>
+	</div>
 
     <div class="maincontent" id = "infoBox">
 	    <div id = "virtualIdentity">
@@ -68,7 +69,7 @@
 
 			</div>
 		</div>
-		
+
 		<div id = "relationship">
 			<select id="authority">
   				<option value="Student">Student</option>
@@ -90,16 +91,17 @@
 				<li class = "teacherNames"></li>
 				//add supervisor/teacher names from backend!
 			</div>!-->
-			<input type="button" value="confirm" onclick = "confirm()">
+			<button value="confirm" onclick = "confirm()" style="position: relative; margin-left: 30px;">CONFIRM</button>
 			<div id="confirm" style="display:none">
 				<input type="text"  id = "checktext" placeholder="enter your id..." >
-				<input type="button" value="check" onclick = "check()">
+				<button value="check" onclick = "check()">CHECK</button>
 			</div>
 
 		</div>
-		<input type="button" value="edit Account" onclick="document.getElementById('coverUp').style.display='block'" id="governAccount" style="position: relative;left: 300px;top:20px">
+		<button value="editAccount" onclick="document.getElementById('coverUp').style.display='block'" id="governAccount" style="position:relative;left: 300px;top:20px;width: 150px; height: 28px;">EDIT ACCOUNT</button>
 	</div>
-	<div class="footer">High School Affiliated to Shanghai Jiaotong University RDC</div>
+	
+	<div class="footer">Research Development Centre (RDC) of High School Affiliated to Shanghai Jiao Tong University</div>
 
 	<script type="text/javascript">
 		var uid = location.search.replace("?uid=","")
@@ -120,7 +122,7 @@
 			ref.child("accountsetting").set(account);
 		}
 
-		
+
 		function loadAccount(){
 			ref.child("accountsetting").on("value",function(snapshot){
 				var account = snapshot.val();
@@ -153,7 +155,7 @@
 		function closeForm() {
 			document.getElementById("coverUp").style.display="none";
 		}
-	
+
 		function clearForm() {
 			document.getElementById("username").value="";
 			document.getElementById("email").value="";
@@ -206,8 +208,9 @@
 				})*/
 			});
 
+
 			setTimeout(function(){alert("Fail! Please try again or get the accessible code.")},2000);
-					
+
 		}
 	</script>
 </body>

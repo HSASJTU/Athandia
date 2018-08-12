@@ -7,22 +7,28 @@
     <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
 </head>
 <body onload="return_fromwilddog()">
-	<div id="layout">
+	<div id="layout2">
 		<div id="comment_content">
-
-		</div>
-		<div>
-  			<textarea id="txt">Your idea:</textarea>
-  			<br /> 
-  			<input type="button" value="submit" id="submit" onclick="save()" />
-		</div>		
+			<textarea id="txt" placeholder="state your idea freely:)"></textarea>
+  			<br/>
+			  <input type="button" value="submit" id="submit" onclick="save()" />
+			</div>
 	</div>
 <script type="text/javascript">
+		  var url = location.search;
+		  var uid = url.slice(5, 33);
+		  var title = url.slice(45);
+		  var name;
 	  var config = {
-      syncURL: "https://wd0030641220gbvazm.wilddogio.com" //输入节点 URL
+      syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
           };
     wilddog.initializeApp(config);
-    var ref = wilddog.sync().ref('test');
+    var ref;
+	ref = wilddog.sync().ref(uid);
+	ref.child('accountsetting').on('value', function (snapshot) {
+	name = snapshot.val().name;
+	console.info(name)
+		})
 
     //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
     /*function submit(){
@@ -37,22 +43,25 @@
 	}*/
 
     function save(){
-    	var comment=document.getElementById('txt').value;
+				
+	   	var comment=document.getElementById('txt').value;
         //var com = {"id:":comment};
         //Data = JSON.stringify(com);
         //此处id设为当前登陆用户id
-        ref.child("comments").push("id:"+comment);
+		ref = wilddog.sync().ref('comments');
+        ref.child(uid).child(name).child(title).child("comment").child(name).push(name+" : "+comment);
     }
 
     function return_fromwilddog(){
-    	var comNode = ref.child('comments');
-		  comNode.on("child_added",function(snapshot){
+			ref = wilddog.sync().ref('comments');
+	 		var comNode = ref.child(uid).child(name).child(title).child("comment").child(name);
+		    comNode.on("child_added",function(snapshot){
 			var parent = document.getElementById('comment_content');
 			var div2 = document.createElement("div");
 			var commentText = document.createTextNode(snapshot.val());
-			parent.appendChild(div2); 
+			parent.appendChild(div2);
 			div2.appendChild(commentText);
-          	console.log( eval('(' + snapshot.val() + ')'));
+          
         });
    	}
 

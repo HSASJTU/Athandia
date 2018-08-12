@@ -1,37 +1,38 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Athandia Favorites</title>
-<link rel="stylesheet" type="text/css" href="./css/favorites.css">
-<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
-<script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
+	<meta charset="UTF-8">
+	<title>Athandia Favorites</title>
+	<link rel="stylesheet" type="text/css" href="./css/favorites.css">
+	<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+	<script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
 </head>
 
 <body onload="loadfavor()">
-<div class="headbanner">
-		<div id="greeting">
-			<div style="float:left">Favorite Projects</div>
+	<div class="headbanner">
+		<div id="logo">
+			<a onclick="logo()">ATHANDIA</a>
 		</div>
-		<div id="timeline" style="float:left"> View your added projects here.
-		</div>
-	</div>
-    <div class="navigationbar" style="float:left">
-		<a id="userinfo" onclick="openAccount()">Account Setting</a>
-	    <a id="myproject" onclick="openMyPro()">My Projects</a>
-	    <a id="searchOthers" onclick="Search()">Search for Others</a>
-		<a id="favorites" >Favorite Projects</a>
-		<a id="notification" href="#">Notification</a>
-	</div>
-	<div class="footer">High School Affiliated to Shanghai Jiaotong University RDC</div>
-	<p id="addedProjects">Added Projects</p>
 
-	<div class = "maincontent" id = "maincontent"><!--displaying projects already added and can remove them!-->
-	<div class="addon">
-		<a href="#top" target="_self"><img src="./css/if_icon_set_outlinder-04_2519697.svg"></a>
-		<div class="titleText">Way Back to Top</div>
+		<ul class="navigationbar">
+			<li><a id="userinfo" onclick="openAccount()">Account Setting</a></li>
+			<li><a id="notification" href="#">Notification</a></li>
+			<li><a id="favorites" onclick="favorites()">Favorite Projects</a></li>
+			<li><a id="searchOthers" onclick="Search()">Search for Others</a></li>
+			<li><a id="myproject" onclick="openMyPro()">My Projects</a></li>
+		</ul>
 	</div>
-		<!--add from backend
+
+	<div class="footer">Research Development Centre (RDC) of High School Affiliated to Shanghai Jiao Tong University</div>
+
+	<div class="maincontent" id="maincontent">
+		<!--displaying projects already added and can remove them!-->
+		<!--<div class="addon">
+			<a href="#top" target="_self"><img src="./css/if_icon_set_outlinder-04_2519697.svg"></a>
+			<div class="titleText">Way Back to Top</div>
+		</div>
+		add from backend
 		<li class = "addedFavorites">
 			<div class = "removeButton"></div>
 			<div class = "FavoritesInfo">
@@ -43,116 +44,117 @@
 	</div>
 
 	<script type="text/javascript">
-		var uid = location.search.replace("?uid=","")
+		var uid = location.search.replace("?uid=", "")
 		var config = {
-      			syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
-          	};
-    	wilddog.initializeApp(config);
-    	var ref = wilddog.sync().ref(uid);
-    	var favor = ref.child('favorites');
-    	var list = wilddog.sync().ref("allpro");
-    	var key=""
-		function openMyPro(){
-			window.location.href="usermain2.html?uid="+uid;
+			syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+		};
+		wilddog.initializeApp(config);
+		var ref = wilddog.sync().ref(uid);
+		var favor = ref.child('favorites');
+		var list = wilddog.sync().ref("allpro");
+		var key = ""
+
+		function openMyPro() {
+			window.location.href = "usermain2.html?uid=" + uid;
 		}
 
-		function Search(){
-			window.location.href="Athandia Search for Others' Project.html?uid="+uid;
+		function Search() {
+			window.location.href = "Athandia Search for Others' Project.html?uid=" + uid;
 		}
 
-		function openAccount(){
-			window.location.href="accountsetting.html?uid="+uid;
+		function openAccount() {
+			window.location.href = "accountsetting.html?uid=" + uid;
 		}
 
-		function loadfavor(){
+		function loadfavor() {
 
-			ref.child("favorites").on("child_added",function(snapshot){
+			ref.child("favorites").on("child_added", function(snapshot) {
 				//console.log(snapshot.val())
 
-				list.child(snapshot.val()).on("value",function(snapshot){
-					
+				list.child(snapshot.val()).on("value", function(snapshot) {
+
 					//delid = snapshot.key()
-					
+
 					//console.log(snapshot.val())
 					var parent = document.getElementById('maincontent');
 					var div = document.createElement("div");
-					div.setAttribute("class","show_project");
+					div.setAttribute("class", "show_project");
 					parent.appendChild(div);
 					//从后端调用
 					var info = snapshot.val();
 					//set project title
 					var div1 = document.createElement("div");
-					div1.setAttribute("class","title");
+					div1.setAttribute("class", "title");
 					div.appendChild(div1);
-					tcon = document.createTextNode("Project:"+info.title);
+					tcon = document.createTextNode("Project:" + info.title);
 					div1.appendChild(tcon);
 					//set projectOwner
 					var div2 = document.createElement("div");
-					div2.setAttribute("class","projectOwner");
+					div2.setAttribute("class", "projectOwner");
 					div.appendChild(div2);
-					gmcon = document.createTextNode("Owner:"+info.projectOwner);
+					gmcon = document.createTextNode("Owner:" + info.projectOwner);
 					div2.appendChild(gmcon);
 					//set intro
 					var div3 = document.createElement("div")
-					div3.setAttribute("class","intro");
+					div3.setAttribute("class", "intro");
 					div.appendChild(div3);
-					intro = document.createTextNode("Abstract:"+info.Abstract);
+					intro = document.createTextNode("Abstract:" + info.Abstract);
 					div3.appendChild(intro);
 
-					var lookup = document.createElement("input");
-					lookup.setAttribute("type","button")
-					lookup.setAttribute("id",info.title);
-					lookup.setAttribute("onclick","lookup(this.id)");
-					lookup.setAttribute("class","edit");
-					lookup.setAttribute("value","look up this project");
-					div.appendChild(lookup);
-					
+					var lookup_icon = document.createElement("input");
+					lookup_icon.setAttribute("type", "button")
+					lookup_icon.setAttribute("id", info.title);
+					lookup_icon.setAttribute("onclick", "lookup(this.id)");
+					lookup_icon.setAttribute("class", "edit");
+					lookup_icon.setAttribute("value", "look up this project");
+					div.appendChild(lookup_icon);
+
 					var del = document.createElement("input");
-					del.setAttribute("type","button")
-					del.setAttribute("name",info.title);
-					del.setAttribute("onclick","del(this.name)");
-					del.setAttribute("class","edit");
-					del.setAttribute("value","remove from my favorites");
+					del.setAttribute("type", "button")
+					del.setAttribute("name", info.title);
+					del.setAttribute("onclick", "del(this.name)");
+					del.setAttribute("class", "edit");
+					del.setAttribute("value", "remove from my favorites");
 					div.appendChild(del);
 				})
-			
+
 			})
-		}	
+		}
 		//单独写function 参考search，去后台找
-		function lookup(id){
+		function lookup(id) {
 			var keytitle = id;
-			list.on("child_added",function(snapshot){
+			list.on("child_added", function(snapshot) {
 				//找到指定project
 				snapshot.forEach(function(data) {
-    				if(data.val()==keytitle){
-    					//console.log(snapshot.key());
-    					key = snapshot.key();
+					if (data.val() == keytitle) {
+						//console.log(snapshot.key());
+						key = snapshot.key();
 					}
 				})
 			})
-			window.location.href="test2.html"+"?key="+key+"&"+"false"+"&"+"title="+id;
+			window.location.href = "test2.html" + "?key=" + key + "&" + "false" + "&" + "title=" + id;
 		}
-		
-		function del(name){
+
+		function del(name) {
 			var keytitle = name;
 			//console.log(keytitle);
-			list.on("child_added",function(snapshot){
+			list.on("child_added", function(snapshot) {
 				//找到指定project
 				snapshot.forEach(function(data) {
-    				if(data.val()==keytitle){
-    					//console.log(snapshot.key());
-    					key = snapshot.key();
+					if (data.val() == keytitle) {
+						//console.log(snapshot.key());
+						key = snapshot.key();
 					}
 				})
 			})
 
-			favor.on("child_added",function(snapshot){
+			favor.on("child_added", function(snapshot) {
 				//找到指定project
 				//console.log(snapshot.val())
-				if(snapshot.val()==key){
+				if (snapshot.val() == key) {
 					//console.log(snapshot.key());
-					key=snapshot.key()
-					
+					key = snapshot.key()
+
 				}
 				/*
 				snapshot.forEach(function(data) {
@@ -162,11 +164,11 @@
 					}
 				})*/
 			})
-
 			console.log(key);
 			favor.child(key).remove();
 			location.reload();
 		}
 	</script>
 </body>
+
 </html>
