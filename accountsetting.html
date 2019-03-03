@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Account Info</title>
-<link rel="stylesheet" type="text/css" href="./accountsetting/accountsetting.css"/>
-<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
-<script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
+	<meta charset="UTF-8">
+	<title>Account Info</title>
+	<link rel="stylesheet" type="text/css" href="./accountsetting/accountsetting.css" />
+	<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+	<script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
 </head>
 
 <body onload="loadAccount()">
@@ -15,67 +16,72 @@
 		</div>
 
 		<ul class="navigationbar">
-			<li><a id="userinfo" onclick="openAccount()">Account Setting</a></li>	
+			<li><a id="userinfo" onclick="openAccount()">Account Setting</a></li>
 			<li><a id="notification" href="#">Notification</a></li>
 			<li><a id="favorites" onclick="favorites()">Favorite Projects</a></li>
-			<li><a id="searchOthers" onclick="Search()">Search for Others</a></li>				
+			<li><a id="searchOthers" onclick="Search()">Search for Others</a></li>
 			<li><a id="myproject" onclick="openMyPro()">My Projects</a></li>
 		</ul>
 	</div>
 
-	<div id = "coverUp" style="display:none"><!--用这一层做不透明度!-->
-	        <div id = "addPopUp"><!--这里可以做一个pop up box框住以下所有东西!-->
-	            <div class="edit-box">
-	                <div class="edit-content">
-	                    <div class="edit-basics">
-	                        <p class="setTerm">USERNAME</p>
-	                      		<input type="username" name="Username" id="username"><!--title1不要改成title，和原先被注释掉的id有冲突，在不确定原先代码如何处理的时候先别动，下同!-->
-	                        <p class="setTerm">EMAIL</p>
-	                        	<input type="email" name="email" id="email">
-	                        <p class="setTerm">SCHOOL</p>
-		                    	<input type="school" name="school" id="school">
-	                        <p class="setTerm">CLASS</p>
-	                        	<input type="class" name="class" id="class">
+	<div id="coverUp" style="display:none">
+		<!--用这一层做不透明度!-->
+		<div id="addPopUp">
+			<!--这里可以做一个pop up box框住以下所有东西!-->
+			<div class="edit-box">
+				<div class="edit-content">
+					<div class="edit-basics">
+						<p class="setTerm">USERNAME</p>
+						<input type="username" name="Username" id="username">
+						<!--title1不要改成title，和原先被注释掉的id有冲突，在不确定原先代码如何处理的时候先别动，下同!-->
+						<p class="setTerm">EMAIL</p>
+						<input type="email" name="email" id="email">
+						<p class="setTerm">SCHOOL</p>
+						<input type="school" name="school" id="school">
+						<p class="setTerm">CLASS</p>
+						<input type="class" name="class" id="class">
 	                    </div>
 					</div>
 				</div>
 			</div>
-		<div class="background" display="block">
-			<p class="quote">WELL BEGUN<br>IS<br>HALF DONE</p>		
-			<p class="guide">Govern your account here!</p>
-		</div>
-		<div class="edit-operation">
-			<span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">CANCEL</span>
-			<span class="edit-submit" onclick="save();closeForm();clearForm()">SUBMIT</span>
-		</div>
-	</div>
-
-    <div class="maincontent" id = "infoBox">
-	    <div id = "virtualIdentity">
-	    	<h1>Basics</h1>
-	    	<div class = "setTerm" id="loadname" >
-
-	    	</div>
-			<div class = "setTerm" id="loademail">
-
-			</div><!--non editable term!-->
-	    </div>
-		<div id = "realIdentity">
-			<h1>ID</h1>
-			<div class = "setTerm" id="loadschool">
-
+			<div class="background" display="block">
+				<p class="quote">WELL BEGUN<br>IS<br>HALF DONE</p>
+					<p class="guide">Govern your account here!</p>
 			</div>
-			<div class = "setTerm" id="loadclass">
-
+			<div class="edit-operation">
+				<span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">CANCEL</span>
+				<span class="edit-submit" onclick="save();closeForm();clearForm()">SUBMIT</span>
 			</div>
 		</div>
 
-		<div id = "relationship">
-			<select id="authority">
+		<div class="maincontent" id="infoBox">
+			<div id="virtualIdentity">
+				<h1>Basics</h1>
+				<div class="setTerm" id="loadname">
+
+				</div>
+				<div class="setTerm" id="loademail">
+
+				</div>
+				<!--non editable term!-->
+			</div>
+			<div id="realIdentity">
+				<h1>ID</h1>
+				<div class="setTerm" id="loadschool">
+
+				</div>
+				<div class="setTerm" id="loadclass">
+
+				</div>
+			</div>
+
+			<div id="relationship">
+				Your authority: Student
+				<select id="authority">
   				<option value="Student">Student</option>
  			 	<option value="Supervisor">Supervisor</option>
 			</select>
-			<!--
+				<!--
 			<h1>Project Relations</h1>
 			//Show one of the following div based on identity set at the backend!
 			<div class = "forTeacher">
@@ -91,127 +97,150 @@
 				<li class = "teacherNames"></li>
 				//add supervisor/teacher names from backend!
 			</div>!-->
-			<button value="confirm" onclick = "confirm()" style="position: relative; margin-left: 30px;">CONFIRM</button>
-			<div id="confirm" style="display:none">
-				<input type="text"  id = "checktext" placeholder="enter your id..." >
-				<button value="check" onclick = "check()">CHECK</button>
+				<button value="confirm" onclick = "confirm()" style="position: relative; margin-left: 30px;">CONFIRM</button>
+				<div id="confirm" style="display:none">
+					<input type="text"  id = "checktext" placeholder="enter your id..." >
+					<button value="check" onclick = "check()">CHECK</button>
+				</div>
+
 			</div>
-
+			<button value="editAccount" onclick="document.getElementById('coverUp').style.display='block'" id="governAccount" style="position:relative;left: 300px;top:20px;width: 150px; height: 28px;">EDIT ACCOUNT</button>
 		</div>
-		<button value="editAccount" onclick="document.getElementById('coverUp').style.display='block'" id="governAccount" style="position:relative;left: 300px;top:20px;width: 150px; height: 28px;">EDIT ACCOUNT</button>
-	</div>
-	
-	<div class="footer">Research Development Centre (RDC) of High School Affiliated to Shanghai Jiao Tong University</div>
 
-	<script type="text/javascript">
-		var uid = location.search.replace("?uid=","")
-		var config = {
-      			syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
-          	};
-    	wilddog.initializeApp(config);
-    	var ref = wilddog.sync().ref(uid);
-    	var list = wilddog.sync().ref('advisors');
+		<div class="footer">Research Development Centre (RDC) of High School Affiliated to Shanghai Jiao Tong University</div>
 
-		function save() {
-			clearMain();
-			var username = document.getElementById('username').value;
-			var email = document.getElementById('email').value;
-			var school = document.getElementById('school').value;
-			var classname = document.getElementById('class').value;
-			var account = {"name":username,"address":email,"school":school,"class":classname};
-			ref.child("accountsetting").set(account);
-		}
+		<script type="text/javascript">
+			var uid = location.search.replace("?uid=", "")
+			var config = {
+				syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+			};
+			wilddog.initializeApp(config);
+			var ref = wilddog.sync().ref(uid);
+			var list = wilddog.sync().ref('advisors');
 
-
-		function loadAccount(){
-			ref.child("accountsetting").on("value",function(snapshot){
-				var account = snapshot.val();
-				//creatUsername
-				var parent1 = document.getElementById('loadname');
-				var name = document.createTextNode("Username:"+account.name);
-				parent1.appendChild(name);
-				//create email
-				var parent2 = document.getElementById('loademail');
-				var email = document.createTextNode("Email Address:"+account.address);
-				parent2.appendChild(email);
-				//create School
-				var parent3 = document.getElementById('loadschool');
-				var school = document.createTextNode("School:"+account.school);
-				parent3.appendChild(school);
-				//create Class
-				var parent4 = document.getElementById('loadclass');
-				var classname = document.createTextNode("Class:"+account.class);
-				parent4.appendChild(classname);
-			})
-		}
-
-		function clearMain(){
-			document.getElementById('loadname').innerHTML = "";
-			document.getElementById('loademail').innerHTML = "";
-			document.getElementById('loadschool').innerHTML = "";
-			document.getElementById('loadclass').innerHTML = "";
-		}
-
-		function closeForm() {
-			document.getElementById("coverUp").style.display="none";
-		}
-
-		function clearForm() {
-			document.getElementById("username").value="";
-			document.getElementById("email").value="";
-			document.getElementById("school").value="";
-			document.getElementById("class").value="";
-		}
-
-		function Search(){
-			window.location.href="Athandia Search for Others' Project.html?uid="+uid;
-
-		}
-
-		function favorites(){
-			window.location.href="Athandia Favorites.html?uid="+uid;
-		}
-
-		function openMyPro(){
-			window.location.href="usermain2.html?uid="+uid;
-		}
-
-		function confirm(){
-			var authority = document.getElementById('authority').value;
-			if(authority=="Student"){
-				alert("Setting successfully. As a student, you could only access to your own project");
-				ref.child("auth").set({"auth":authority});
-			}else{
-				document.getElementById('confirm').style.display="block";
+			function save() {
+				clearMain();
+				var username = document.getElementById('username').value;
+				var email = document.getElementById('email').value;
+				var school = document.getElementById('school').value;
+				var classname = document.getElementById('class').value;
+				var account = {
+					"name": username,
+					"address": email,
+					"school": school,
+					"class": classname
+				};
+				ref.child("accountsetting").set(account);
 			}
-		}
 
-		function check(){
-			var code = document.getElementById('checktext').value;
 
-			list.on("child_added",function(snapshot){
-				console.info(snapshot.val());
-				if(snapshot.val()==code){
-					ref.child("auth").set({"auth":"Supervisor"});
-					alert("Confirm successfully. Welcome!");
+			function loadAccount() {
+				ref.child("accountsetting").on("value", function(snapshot) {
+					var account = snapshot.val();
+					//creatUsername
+					var parent1 = document.getElementById('loadname');
+					var name = document.createTextNode("Username:" + account.name);
+					parent1.appendChild(name);
+					//create email
+					var parent2 = document.getElementById('loademail');
+					var email = document.createTextNode("Email Address:" + account.address);
+					parent2.appendChild(email);
+					//create School
+					var parent3 = document.getElementById('loadschool');
+					var school = document.createTextNode("School:" + account.school);
+					parent3.appendChild(school);
+					//create Class
+					var parent4 = document.getElementById('loadclass');
+					var classname = document.createTextNode("Class:" + account.class);
+					parent4.appendChild(classname);
 
-					location.reload();
-				}
-				/*
-				snapshot.forEach(function(data){
-					console.info(data.val());
-					if(data.val()==code){
-						alert("Confirm successfully. Welcome!");
-					}else{
-						alert("Fail! Please try again or get the accessible code.");
+				})
+				//set your auth automatically
+				ref.child("auth").once("value", function(snapshot) {
+					var authority = snapshot.val();
+					if (authority.auth == "Supervisor") {
+						document.getElementById("relationship").innerHTML = "Your authority: Supervisor";
+						document.getElementById('confirm').style.display = "none";
+						document.getElementById('authority').style.display = "block";
 					}
-				})*/
-			});
+
+				})
+			}
+
+			function clearMain() {
+				document.getElementById('loadname').innerHTML = "";
+				document.getElementById('loademail').innerHTML = "";
+				document.getElementById('loadschool').innerHTML = "";
+				document.getElementById('loadclass').innerHTML = "";
+			}
+
+			function closeForm() {
+				document.getElementById("coverUp").style.display = "none";
+			}
+
+			function clearForm() {
+				document.getElementById("username").value = "";
+				document.getElementById("email").value = "";
+				document.getElementById("school").value = "";
+				document.getElementById("class").value = "";
+			}
+
+			function Search() {
+				window.location.href = "Athandia Search for Others' Project.html?uid=" + uid;
+
+			}
+
+			function favorites() {
+				window.location.href = "Athandia Favorites.html?uid=" + uid;
+			}
+
+			function openMyPro() {
+				window.location.href = "usermain2.html?uid=" + uid;
+			}
+
+			function confirm() {
+				var authority = document.getElementById('authority').value;
+				if (authority == "Student") {
+					alert("Setting successfully. As a student, you could only access to your own project");
+					ref.child("auth").set({
+						"auth": authority
+					});
+				} else {
+					document.getElementById('confirm').style.display = "block";
+				}
+			}
+
+			function check() {
+				var code = document.getElementById('checktext').value;
+
+				list.on("child_added", function(snapshot) {
+					console.info(snapshot.val());
+					if (snapshot.val() == code) {
+						ref.child("auth").set({
+							"auth": "Supervisor"
+						});
+						alert("Confirm successfully. Welcome!");
+
+						location.reload();
+					}
+					/*
+					snapshot.forEach(function(data){
+						console.info(data.val());
+						if(data.val()==code){
+							alert("Confirm successfully. Welcome!");
+						}else{
+							alert("Fail! Please try again or get the accessible code.");
+						}
+					})*/
+				});
 
 
-			setTimeout(function(){alert("Fail! Please try again or get the accessible code.")},2000);
+				setTimeout(function() {
+					alert("Fail! Please try again or get the accessible code.")
+				}, 2000);
 
-		}
-	</script>
+			}
+		</script>
 </body>
+
 </html>
