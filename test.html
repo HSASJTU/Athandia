@@ -73,6 +73,13 @@
       margin-top: 25px;
     }
 
+    #ChooseSubjectToSaveExample_subject {
+      margin-left: 35px;
+      height: 25px;
+      font-size: larger;
+      margin-bottom: 10px;
+    }
+
     #jsmind_nav {
       width: 220px;
       height: 600px;
@@ -81,15 +88,29 @@
       float: left;
       background-color: ivory;
     }
-    
+
+    #example_options {
+      width: 180px;
+      overflow: auto;
+      background-color: ivory;
+      border: solid 3px orange;
+      border-radius: 5px;
+      position: absolute;
+      left: 200px;
+      top: 32px;
+      z-index: 3;
+    }
+
     #jsmind_container {
       position: absolute;
       left: 210px;
       width: 900px;
       height: 600px;
       border: solid 1px #ccc;
-      /*background: #f4f4f4*/;
+      /*background: #f4f4f4;*/
       background-color: ivory;
+      ;
+      /*background-image: url(./css/test_background.jpg);*/
     }
   </style>
 </head>
@@ -99,8 +120,10 @@
     <div id="jsmind_nav">
       <!--左侧导航栏-->
       <div style="margin-left:10px;margin-top:6px">1. Open</div>
+      <button style="height:20px;width:150px;position:absolute;left:60px;top:5px;" onclick="EditExample();">Save as an example</button>
       <ol type='A'>
-        <li><button onclick="open_json();">open example</button></li>
+        <!--<li><button onclick="open_json();open_ExampleOptions();">open example</button></li>-->
+        <li><button onclick="open_ExampleOptions();">open example</button></li>
         <li><button onclick="open_instructions();">open instructions</button></li>
         <li><button onclick="screen_shot();">screenshot</button></li>
       </ol>
@@ -138,7 +161,7 @@
     <!--评论-->
     <div id="comment_content">
       <textarea id="txt" placeholder="state your idea freely:)"></textarea>
-      <br/>
+      <br />
       <input type="button" value="submit" id="submit" onclick="save_comment()" />
       <div id="alert" class="Mon">
         <form>
@@ -164,6 +187,7 @@
   <script type="text/javascript">
     var url = location.search;
     var uid = url.slice(5, 33);
+    console.log("uid is : " + uid);
     var title = url.slice(45);
     var name;
     var config = {
@@ -175,7 +199,7 @@
     ref.child('accountsetting').on('value', function(snapshot) {
       name = snapshot.val().name;
       console.info(name)
-    })
+    });
 
     //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
     /*function submit(){
@@ -202,6 +226,32 @@
       });
     }
 
+    function closeForm() {
+      document.getElementById("ChooseSubjectToSaveExample").style.display = "none";
+    }
+
+    function clearForm() {
+      document.getElementById("ExampleOwner").value = "";
+      document.getElementById("ExampleVersion").value = "";
+      document.getElementById("ChooseSubjectToSaveExample_subject").value = "";
+    }
+
+    function EditExample() {
+      var identification = prompt("Please enter your authority code:");
+      var ExampleEditable = false;
+      var path = wilddog.sync().ref('advisors');
+      path.on('child_added', function(snapshot) {
+        if (snapshot.val() == identification) {
+          ExampleEditable = true;
+          alert("successful!");
+          document.getElementById('ChooseSubjectToSaveExample').style.display = "block";
+        }
+        /*console.log("identification: " + identification);
+        console.log("snapshot: " + snapshot.val());*/
+      });
+
+    }
+
     function save_comment() {
 
       var comment = document.getElementById('txt').value;
@@ -216,127 +266,206 @@
   <div class="longDemo demo">
     <!--时间轴-->
     <!--<h2 style="font: 24px Microsoft Yahei;text-align:center;">Schedule</h2>-->
+    <div id="example_options" style="display: none">
+      <li>
+        <button class="ExampleButton" onclick="OpenExample('maths');open_ExampleOptions();">Math</button>
+        <button class="ExampleButton" onclick="OpenExample('physics');open_ExampleOptions();">Physics</button>
+        <button class="ExampleButton" onclick="OpenExample('biology');open_ExampleOptions();">Biology</button>
+        <button class="ExampleButton" onclick="OpenExample('computer science');open_ExampleOptions();">Computer Science</button>
+        <button class="ExampleButton" onclick="OpenExample('social science');open_ExampleOptions();">Social Science</button>
+        <button class="ExampleButton" onclick="OpenExample('environmental science');open_ExampleOptions();">Environmental Science</button>
+        <button class="ExampleButton" onclick="OpenExample('chemistry');open_ExampleOptions();">Chemistry</button>
+        <button class="ExampleButton" onclick="OpenExample('engineering');open_ExampleOptions();">Engineering</button>
+      </li>
+    </div>
+    <div id="ChooseSubjectToSaveExample" style="display: none">
+      <div id="coverUp">
+        <!--用这一层做不透明度!-->
+        <div id="theWholeBox">
+          <div id="addPopUp">
+            <!--这里可以做一个pop up box框住以下所有东西!-->
+            <div class="edit-box">
+              <!-- <div class="edit-header">
+                            <span class="title">Adding Project Details</span>
+                        </div> -->
+              <div class="edit-content">
+                <div class="edit-details">
+                  <p class="setTerm">OWNER</p>
+                  <input class="ChooseSubjectToSaveExample_input" id="ExampleOwner">
+                  <p class="setTerm">Version</p>
+                  <input class="ChooseSubjectToSaveExample_input" id="ExampleVersion">
+                  <!--title1不要改成title，和原先被注释掉的id有冲突，在不确定原先代码如何处理的时候先别动，下同!-->
+                  <p class="setTerm">SUBJECT</p>
+                  <div class="Subject">
+                    <!--@gym想要一个可以不断添加的collaborator box，不很会写。点击下面的那个add button添加一个新的这个div来做一个新的input Collaborators!-->
+                    <select id="ChooseSubjectToSaveExample_subject">
+                      <option value="physics">Physics</option>
+                      <option value="maths">Maths</option>
+                      <option value="chemistry">Chemistry</option>
+                      <option value="biology">Biology</option>
+                      <option value="computer science">Computer Science</option>
+                      <option value="engineering">Engineering</option>
+                      <option value="social science">Social Science</option>
+                      <option value="environmental science">Environmental Science</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="edit-operation">
+          <span class="edit-cancel" onclick="document.getElementById('coverUp').style.display='none'">CANCEL</span>
+          <span class="edit-submit" onclick="SaveAsExample();closeForm();clearForm()">SUBMIT</span>
+        </div>
+      </div>
+    </div>
     <div id="longTimeLine" style="margin-top:680px;"></div>
     <div class="gt-timeline" style="width:633px">
       <div class="main_line" style="width:603px"></div>
       <div class="horizontal-line leftend" style="left:14px">
         <div class="year">2018</div>
         <div class="month">
-          <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='1';loadproject_mouseover('20181')"
+          <a href="javascript:void(0)"
+            onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='1';loadproject_mouseover('20181')"
             id="Jan1" onmouseover="document.getElementById('M181').style.display='block';loadproject_mouseover('20181');" onmouseout="document.getElementById('M181').style.display='none';">Jan</a>
 
           <div class="horizontal-line month-line odd-month" style="left:37px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='2';loadproject_mouseover('20182')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='2';loadproject_mouseover('20182')"
               onmouseover="document.getElementById('M182').style.display='block';loadproject_mouseover('20182');" onmouseout="document.getElementById('M182').style.display='none';">I</a>
           </div>
 
           <div class="horizontal-line month-line even-month" style="left:64px">
-            <div class="month"><a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='3';loadproject_mouseover('20183')"
+            <div class="month"><a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='3';loadproject_mouseover('20183')"
                 onmouseover="document.getElementById('M183').style.display='block';loadproject_mouseover('20183');" onmouseout="document.getElementById('M183').style.display='none';">March</a></div>
           </div>
 
           <div class="horizontal-line month-line odd-month" style="left:89px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='4';loadproject_mouseover('20184')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='4';loadproject_mouseover('20184')"
               onmouseover="document.getElementById('M184').style.display='block';loadproject_mouseover('20184');" onmouseout="document.getElementById('M184').style.display='none';">I</a>
           </div>
 
           <div class="horizontal-line month-line even-month" style="left:114px">
-            <div class="month"> <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='5';loadproject_mouseover('20185')"
+            <div class="month"> <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='5';loadproject_mouseover('20185')"
                 onmouseover="document.getElementById('M185').style.display='block';loadproject_mouseover('20185');" onmouseout="document.getElementById('M185').style.display='none';">May</a></div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:139px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='6';loadproject_mouseover('20186')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='6';loadproject_mouseover('20186')"
               onmouseover="document.getElementById('M186').style.display='block';loadproject_mouseover('20186');" onmouseout="document.getElementById('M186').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:164px">
-            <div class="month"> <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='7';loadproject_mouseover('20187')"
+            <div class="month"> <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='7';loadproject_mouseover('20187')"
                 onmouseover="document.getElementById('M187').style.display='block';loadproject_mouseover('20187');" onmouseout="document.getElementById('M187').style.display='none';">July</a></div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:189px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='8';loadproject_mouseover('20188')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='8';loadproject_mouseover('20188')"
               onmouseover="document.getElementById('M188').style.display='block';loadproject_mouseover('20188');" onmouseout="document.getElementById('M188').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:214px">
-            <div class="month"> <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='9';loadproject_mouseover('20189')"
+            <div class="month"> <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='9';loadproject_mouseover('20189')"
                 onmouseover="document.getElementById('M189').style.display='block';loadproject_mouseover('20189');" onmouseout="document.getElementById('M189').style.display='none';">Sept.</a></div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:239px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='10';loadproject_mouseover('201810')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='10';loadproject_mouseover('201810')"
               onmouseover="document.getElementById('M1810').style.display='block';loadproject_mouseover('201810');" onmouseout="document.getElementById('M1810').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:264px">
             <div class="month">
-              <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='11';loadproject_mouseover('201811')"
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='11';loadproject_mouseover('201811')"
                 onmouseover="document.getElementById('M1811').style.display='block';loadproject_mouseover('201811');" onmouseout="document.getElementById('M1811').style.display='none';">Nov.</a>
             </div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:289px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='12';loadproject_mouseover('201812')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='12';loadproject_mouseover('201812')"
               onmouseover="document.getElementById('M1812').style.display='block';loadproject_mouseover('201812');" onmouseout="document.getElementById('M1812').style.display='none';">I</a>
           </div>
           <div class="horizontal-line leftend" style="left:314px">
             <div class="year">2019</div>
             <div class="month">
-              <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20191')"
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20191')"
                 onmouseover="document.getElementById('M191').style.display='block';loadproject_mouseover('20191');" onmouseout="document.getElementById('M191').style.display='none';">Jan</a>
             </div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:339px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='2';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20192')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='2';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20192')"
               onmouseover="document.getElementById('M192').style.display='block';loadproject_mouseover('20192');" onmouseout="document.getElementById('M192').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:364px">
             <div class="month">
-              <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='3';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20193')"
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='3';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20193')"
                 onmouseover="document.getElementById('M193').style.display='block';loadproject_mouseover('20193');" onmouseout="document.getElementById('M193').style.display='none';">March</a>
             </div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:389px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='4';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20194')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='4';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20194')"
               onmouseover="document.getElementById('M194').style.display='block';loadproject_mouseover('20194');" onmouseout="document.getElementById('M194').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:414px">
-            <div class="month"> <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='5';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20195')"
+            <div class="month"> <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='5';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20195')"
                 onmouseover="document.getElementById('M195').style.display='block';loadproject_mouseover('20195');" onmouseout="document.getElementById('M195').style.display='none';">May</a></div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:439px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='6';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20196')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='6';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20196')"
               onmouseover="document.getElementById('M196').style.display='block';loadproject_mouseover('20196');" onmouseout="document.getElementById('M196').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:464px">
             <div class="month">
-              <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='7';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20197')"
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='7';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20197')"
                 onmouseover="document.getElementById('M197').style.display='block';loadproject_mouseover('20197');" onmouseout="document.getElementById('M197').style.display='none';">July</a>
             </div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:489px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='8';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20198')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='8';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20198')"
               onmouseover="document.getElementById('M198').style.display='block';loadproject_mouseover('20198');" onmouseout="document.getElementById('M198').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:514px">
             <div class="month">
-              <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='9';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20199')"
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='9';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20199')"
                 onmouseover="document.getElementById('M199').style.display='block';loadproject_mouseover('20199');" onmouseout="document.getElementById('M199').style.display='none';">Sept.</a>
             </div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:539px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='10';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201910')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='10';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201910')"
               onmouseover="document.getElementById('M1910').style.display='block';loadproject_mouseover('201910');" onmouseout="document.getElementById('M1910').style.display='none';">I</a>
           </div>
           <div class="horizontal-line month-line even-month" style="left:564px">
             <div class="month">
-              <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='11';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201911')"
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='11';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201911')"
                 onmouseover="document.getElementById('M1911').style.display='block';loadproject_mouseover('201911');" onmouseout="document.getElementById('M1911').style.display='none';">Nov.</a>
             </div>
           </div>
           <div class="horizontal-line month-line odd-month" style="left:589px">
-            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='12';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201912')"
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='12';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201912')"
               onmouseover="document.getElementById('M1912').style.display='block';loadproject_mouseover('201912');" onmouseout="document.getElementById('M1912').style.display='none';">I</a>
           </div>
           <div class="horizontal-line leftend" style="left:614px">
             <div class="year">2020</div>
             <div class="month">
-              <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2020';loadproject_mouseover('20201')"
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2020';loadproject_mouseover('20201')"
                 onmouseover="document.getElementById('M201').style.display='block';loadproject_mouseover('20201');" onmouseout="document.getElementById('M201').style.display='none';">Jan</a>
             </div>
 
@@ -370,441 +499,492 @@
       </div>
 
       <div style="text-align:center;margin:50px; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var url = location.search;
+    console.log("url =   " + url);
+    var uid = url.slice(5, 33);
+    var title = url.slice(34).replace("%20", " ");
+    console.log("uid =   " + uid);
+    console.log("title =   " + title)
+    var config = {
+      syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+    };
+    wilddog.initializeApp(config);
+  </script>
 
-      <script type="text/javascript">
-        var url = location.search;
-        console.log(url);
-        var uid = url.slice(5, 33);
-        var title = url.slice(34).replace("%20", " ");
-        console.log(uid);
-        console.log(title)
-        var config = {
-          syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
-        };
-        wilddog.initializeApp(config);
-      </script>
+  <script type="text/javascript">
+    //获取uid来对应用户的jsmind
+    var url = location.search;
+    //console.log(url)
+    var uid = url.slice(5, 33);
+    //alert(uid);
+    //获取对应打开的项目
+    var title = url.slice(45).replace("%20", " ");
+    //console.log("title = " + title);
+    var editable = url.slice(34, 38);
+    console.log("editable =   " + editable);
+    //以下是主要功能部分
+    var config = {
+      syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+    };
+    wilddog.initializeApp(config);
+    var ref = wilddog.sync().ref(uid);
+    var list = wilddog.sync().ref('allpro');
+    var _jm = null;
 
-      <script type="text/javascript">
-        //获取uid来对应用户的jsmind
-        var url = location.search;
-        console.log(url)
-        var uid = url.slice(5, 33);
-        //alert(uid);
-        //获取对应打开的项目
-        var title = url.slice(45).replace("%20", " ");
-        console.log(title);
-        var editable = url.slice(34, 38);
-        console.log(editable);
-        //以下是主要功能部分
-        var config = {
-          syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
-        };
-        wilddog.initializeApp(config);
-        var ref = wilddog.sync().ref(uid);
-        var list = wilddog.sync().ref('allpro');
-        var _jm = null;
+    function open_empty() {
+      var options = {
+        container: 'jsmind_container',
+        theme: 'orange',
+        editable: true
+      }
+      _jm = jsMind.show(options);
+      // _jm = jsMind.show(options,mind);
+    }
 
-        function open_empty() {
-          var options = {
-            container: 'jsmind_container',
-            theme: 'orange',
-            editable: true
-          }
-          _jm = jsMind.show(options);
-          // _jm = jsMind.show(options,mind);
+    function SaveAsExample() {
+      var subject = document.getElementById("ChooseSubjectToSaveExample_subject").value;
+      var owner = document.getElementById("ExampleOwner").value;
+      var version = document.getElementById('ExampleVersion').value;
+      var example_info = {
+        "information": {
+          "Project owner": owner,
+          "Version": version,
         }
-
-        function open_json() {
-          var mind = {
-            "meta": {
-              "name": "project",
-              "author": "1211274095@qq.com",
-              "version": "0.4a"
-            },
-            "format": "node_tree",
-            "data": {
-              "id": "root",
-              "topic": "生物医药",
-              "expanded": true,
-              "children": [{
-                "id": "d7374290c2e481e9",
-                "topic": "生物实验常用方法阅读",
-                "expanded": true,
-                "direction": "right"
-              }, {
-                "id": "d73742a888f01091",
-                "topic": "各种癌症药物研究试验的paper",
-                "expanded": true,
-                "direction": "right",
-                "children": [{
-                  "id": "d73754f10c7144df",
-                  "topic": "思路一（先尝试后放弃）根据原先阅读的文献中提到的展望、未解决之问题入手：研究中要对抗血管治疗癌症的作用",
-                  "expanded": true
-                }]
-              }, {
-                "id": "d73742be833aee99",
-                "topic": "纳米技术",
-                "expanded": true,
-                "direction": "left"
-              }, {
-                "id": "d73742d6717b848a",
-                "topic": "组织工程技术目前研究发展",
-                "expanded": true,
-                "direction": "left",
-                "children": [{
-                  "id": "d73756f43f68f1df",
-                  "topic": "关于思路二：浏览新闻周刊？发现pm2.5对皮肤伤害的报道",
-                  "expanded": true,
-                  "children": [{
-                    "id": "d73761c46ff547fa",
-                    "topic": "文献检索：发现该问题的研究时间非常短，且研究局限于模糊的定性研究：例如收集某城市居民的反馈等",
-                    "expanded": true,
-                    "children": [{
-                      "id": "deee6b291cd5d77c",
-                      "topic": "提出问题：pm2.5如何伤害人体皮肤？可能的修复机理是怎样的？",
-                      "expanded": true,
-                      "children": [{
-                        "id": "deeea5c9ff32f81e",
-                        "topic": "？（实验设计）",
-                        "expanded": true,
-                        "children": [{
-                          "id": "deeeab14e74d8852",
-                          "topic": "实验不足",
-                          "expanded": true,
-                          "children": [{
-                            "id": "deeebeebcbcf1ca1",
-                            "topic": "只用了一种细胞",
-                            "expanded": true
-                          }, {
-                            "id": "deeebef5d92480c0",
-                            "topic": "只用了一种药物",
-                            "expanded": true
-                          }, {
-                            "id": "deeebefe5fbc0c64",
-                            "topic": "停留在细胞模型",
-                            "expanded": true,
-                            "children": [{
-                              "id": "deeed60c77d93c7f",
-                              "topic": "进行进一步的实体皮肤实验：例如裸鼠皮肤",
-                              "expanded": true
-                            }]
-                          }]
-                        }, {
-                          "id": "deeeab2ce52e2867",
-                          "topic": "过程中的意外发现：纳米技术采用前后结果的区别",
-                          "expanded": true,
-                          "children": [{
-                            "id": "deeebfb5d3cf2964",
-                            "topic": "可能原因分析",
-                            "expanded": true
-                          }, {
-                            "id": "deeebfc16da22a5c",
-                            "topic": "中药与纳米技术的结合",
-                            "expanded": true
-                          }]
-                        }, {
-                          "id": "deeeab4371fd33c8",
-                          "topic": "主要结论：pm2.5伤害机制、修复的信号通路",
-                          "expanded": true
-                        }]
-                      }, {
-                        "id": "deeea6087ca6eaab",
-                        "topic": "？（理论推测）",
-                        "expanded": true
-                      }]
-                    }]
-                  }]
-                }]
-              }]
-            }
-          }
-          _jm.show(mind);
-        }
-
-        function open_instructions() {
-          var mind = {
-            "meta": {
-              "name": "project",
-              "author": "1211274095@qq.com",
-              "version": "0.4a"
-            },
-            "format": "node_tree",
-            "data": {
-              "id": "root",
-              "topic": "double click nodes to start",
-              "expanded": true,
-              "children": [{
-                "id": "d7374290c2e481e9",
-                "topic": "question 2",
-                "expanded": true,
-                "direction": "right",
-                "children": [{
-                  "id": "d7375032eb9a3cad",
-                  "topic": "assumption 1",
-                  "expanded": true,
-                  "children": [{
-                    "id": "d7375a25f33c017f",
-                    "topic": "experiment 1",
-                    "expanded": true
-                  }]
-                }]
-              }, {
-                "id": "d73742a888f01091",
-                "topic": "question 3",
-                "expanded": true,
-                "direction": "right",
-                "children": [{
-                  "id": "d73754f10c7144df",
-                  "topic": "assumption 2",
-                  "expanded": true,
-                  "children": [{
-                    "id": "d7375ef7437a0f51",
-                    "topic": "experiment 1",
-                    "expanded": true
-                  }]
-                }]
-              }, {
-                "id": "d73742be833aee99",
-                "topic": "conclusion 1",
-                "expanded": true,
-                "direction": "left"
-              }, {
-                "id": "d73742d6717b848a",
-                "topic": "question 1 ",
-                "expanded": true,
-                "direction": "left",
-                "children": [{
-                  "id": "d73756f43f68f1df",
-                  "topic": "assumption 1",
-                  "expanded": true,
-                  "children": [{
-                    "id": "d73761c46ff547fa",
-                    "topic": "experiment 1",
-                    "expanded": true
-                  }]
-                }]
-              }, {
-                "id": "d73742e3e2a433d3",
-                "topic": "conclusion 2",
-                "expanded": true,
-                "direction": "right"
-              }]
-            }
-          }
-          _jm.show(mind);
-        }
-
-        function screen_shot() {
-          if (editable) {
-            _jm.screenshot.shootDownload();
-          };
-        }
-
-        function save_file() {
-          if (editable) {
-            var mind_data = _jm.get_data();
-            var mind_name = mind_data.meta.name;
-            var mind_str = jsMind.util.json.json2string(mind_data);
-            jsMind.util.file.save(mind_str, 'text/jsmind', mind_name + '.jm');
-          }
-        }
-
-        function save_towilddog() {
-          if (editable) {
-            //保存到自己的project
-            var mind_data = _jm.get_data();
-            //var Data = jsMind.util.json.json2string(mind_data);
-            ref.child("jsmind").child(title).set(mind_data, function(error) {
+      };
+      var mind_data = _jm.get_data();
+      var ref = wilddog.sync().ref("examples");
+      ref.child(subject).set(mind_data);
+      /*, function(error) {
               if (error == null) {
                 console.info("Saved to Wilddog");
                 console.log(mind_data);;
               } else {
                 alert(error);
               }
-            });
+            }*/
+      //ref.child(subject).push(example_info);
+    }
 
-            //保存到所有project
-            var keytitle = title;
-            //alert(key);
-            list.on("child_added", function(snapshot) {
-              //找到指定project
-              snapshot.forEach(function(data) {
-                if (data.val() == keytitle) {
-                  console.log(snapshot.key());
-                  //将指定project返回
-                  list.child(snapshot.key()).child(keytitle).set(mind_data, function(error) {});
 
-                }
-              })
-            });
+    function OpenExample(subject) {
+      var ref = wilddog.sync().ref('examples').child(subject);
+      ref.on("value", function(snapshot) {
+        var mind = snapshot.val();
+        _jm.show(mind);
+      });
+    }
 
-          }
-
-        }
-
-        function open_fromwilddog() {
-          ref.child("jsmind").child(title).on("value", function(snapshot) {
-            //console.log(typeof(snapshot.value()));
-            //console.log(typeof(snapshot.val()));
-            var mind = snapshot.val();
-            console.info(mind);
-            _jm.show(mind);
-          });
-        }
-
-        function open_file() {
-          if (editable) {
-            var file_input = document.getElementById('file_input');
-            var files = file_input.files;
-            if (files.length > 0) {
-              var file_data = files[0];
-              jsMind.util.file.read(file_data, function(jsmind_data, jsmind_name) {
-                var mind = jsMind.util.json.string2json(jsmind_data);
-                if (!!mind) {
-                  _jm.show(mind);
-                } else {
-                  prompt_info('can not open this file as mindmap');
-                }
-              });
-            } else {
-              prompt_info('please choose a file first')
+    function open_json() {
+      var mind = {
+        "meta": {
+          "name": "project",
+          "author": "1211274095@qq.com",
+          "version": "0.4a"
+        },
+        "format": "node_tree",
+        "data": {
+          "id": "root",
+          "topic": "生物医药",
+          "expanded": true,
+          "children": [{
+              "id": "d7374290c2e481e9",
+              "topic": "生物实验常用方法阅读",
+              "expanded": true,
+              "direction": "right"
+            },
+            {
+              "id": "d73742a888f01091",
+              "topic": "各种癌症药物研究试验的paper",
+              "expanded": true,
+              "direction": "right",
+              "children": [{
+                "id": "d73754f10c7144df",
+                "topic": "思路一（先尝试后放弃）根据原先阅读的文献中提到的展望、未解决之问题入手：研究中要对抗血管治疗癌症的作用",
+                "expanded": true
+              }]
+            },
+            {
+              "id": "d73742be833aee99",
+              "topic": "纳米技术",
+              "expanded": true,
+              "direction": "left"
+            },
+            {
+              "id": "d73742d6717b848a",
+              "topic": "组织工程技术目前研究发展",
+              "expanded": true,
+              "direction": "left",
+              "children": [{
+                "id": "d73756f43f68f1df",
+                "topic": "关于思路二：浏览新闻周刊？发现pm2.5对皮肤伤害的报道",
+                "expanded": true,
+                "children": [{
+                  "id": "d73761c46ff547fa",
+                  "topic": "文献检索：发现该问题的研究时间非常短，且研究局限于模糊的定性研究：例如收集某城市居民的反馈等",
+                  "expanded": true,
+                  "children": [{
+                    "id": "deee6b291cd5d77c",
+                    "topic": "提出问题：pm2.5如何伤害人体皮肤？可能的修复机理是怎样的？",
+                    "expanded": true,
+                    "children": [{
+                      "id": "deeea5c9ff32f81e",
+                      "topic": "？（实验设计）",
+                      "expanded": true,
+                      "children": [{
+                        "id": "deeeab14e74d8852",
+                        "topic": "实验不足",
+                        "expanded": true,
+                        "children": [{
+                          "id": "deeebeebcbcf1ca1",
+                          "topic": "只用了一种细胞",
+                          "expanded": true
+                        }, {
+                          "id": "deeebef5d92480c0",
+                          "topic": "只用了一种药物",
+                          "expanded": true
+                        }, {
+                          "id": "deeebefe5fbc0c64",
+                          "topic": "停留在细胞模型",
+                          "expanded": true,
+                          "children": [{
+                            "id": "deeed60c77d93c7f",
+                            "topic": "进行进一步的实体皮肤实验：例如裸鼠皮肤",
+                            "expanded": true
+                          }]
+                        }]
+                      }, {
+                        "id": "deeeab2ce52e2867",
+                        "topic": "过程中的意外发现：纳米技术采用前后结果的区别",
+                        "expanded": true,
+                        "children": [{
+                          "id": "deeebfb5d3cf2964",
+                          "topic": "可能原因分析",
+                          "expanded": true
+                        }, {
+                          "id": "deeebfc16da22a5c",
+                          "topic": "中药与纳米技术的结合",
+                          "expanded": true
+                        }]
+                      }, {
+                        "id": "deeeab4371fd33c8",
+                        "topic": "主要结论：pm2.5伤害机制、修复的信号通路",
+                        "expanded": true
+                      }]
+                    }, {
+                      "id": "deeea6087ca6eaab",
+                      "topic": "？（理论推测）",
+                      "expanded": true
+                    }]
+                  }]
+                }]
+              }]
             }
-          }
+          ]
         }
+      }
+      _jm.show(mind);
+      //console.debug(mind);
+    }
 
-        function add_node() {
-          if (editable) {
-            var selected_node = _jm.get_selected_node(); // as parent of new node
-            if (!selected_node) {
-              prompt_info('please select a node first.');
-              return;
-            }
-
-            var nodeid = jsMind.util.uuid.newid();
-            var topic = '* Node_' + nodeid.substr(0, 5) + ' *';
-            var node = _jm.add_node(selected_node, nodeid, topic);
-
-
-            var details = {
-              'details': "edit details for this node"
-            }
-            ref.child('jsmind').child('details').child(title).child(nodeid).set(details);
-          }
+    function open_instructions() {
+      var mind = {
+        "meta": {
+          "name": "project",
+          "author": "1211274095@qq.com",
+          "version": "0.4a"
+        },
+        "format": "node_tree",
+        "data": {
+          "id": "root",
+          "topic": "double click nodes to start",
+          "expanded": true,
+          "children": [{
+            "id": "d7374290c2e481e9",
+            "topic": "question 2",
+            "expanded": true,
+            "direction": "right",
+            "children": [{
+              "id": "d7375032eb9a3cad",
+              "topic": "assumption 1",
+              "expanded": true,
+              "children": [{
+                "id": "d7375a25f33c017f",
+                "topic": "experiment 1",
+                "expanded": true
+              }]
+            }]
+          }, {
+            "id": "d73742a888f01091",
+            "topic": "question 3",
+            "expanded": true,
+            "direction": "right",
+            "children": [{
+              "id": "d73754f10c7144df",
+              "topic": "assumption 2",
+              "expanded": true,
+              "children": [{
+                "id": "d7375ef7437a0f51",
+                "topic": "experiment 1",
+                "expanded": true
+              }]
+            }]
+          }, {
+            "id": "d73742be833aee99",
+            "topic": "conclusion 1",
+            "expanded": true,
+            "direction": "left"
+          }, {
+            "id": "d73742d6717b848a",
+            "topic": "question 1 ",
+            "expanded": true,
+            "direction": "left",
+            "children": [{
+              "id": "d73756f43f68f1df",
+              "topic": "assumption 1",
+              "expanded": true,
+              "children": [{
+                "id": "d73761c46ff547fa",
+                "topic": "experiment 1",
+                "expanded": true
+              }]
+            }]
+          }, {
+            "id": "d73742e3e2a433d3",
+            "topic": "conclusion 2",
+            "expanded": true,
+            "direction": "right"
+          }]
         }
+      }
+      _jm.show(mind);
+    }
 
-        function cleanAlert() {
-          document.getElementById('task').value = '';
-          document.getElementById('day').value = '';
-        }
+    function screen_shot() {
+      if (editable) {
+        _jm.screenshot.shootDownload();
+      };
+    }
 
-        function save() {
-          var year1 = document.getElementById('year1').innerHTML;
-          var month = document.getElementById('month').innerHTML;
-          var day = document.getElementById('day').value;
-          var task = document.getElementById('task').value;
-          //	var timechosen = document.getElementById(id).value;
-          var schedule = {
-            "day": day,
-            "content": task
-          }
-          //console.log(typeof(schedule));}
-          var yearandmonth = year1 + month;
-          ref.child('manage project').child(title).child('Timeline').child(yearandmonth).set(schedule);
-        }
+    function open_ExampleOptions() {
+      if (document.getElementById('example_options').style.display == 'block') {
+        document.getElementById('example_options').style.display = 'none';
+      } else {
+        document.getElementById('example_options').style.display = 'block';
+      }
+    }
 
-        function loadproject_mouseover(month) {
-          ref.child("manage project").child(title).child('Timeline').child(month).on("value", function(snapshot) {
-            //console.log(snapshot.val())
+    function save_file() {
+      if (editable) {
+        var mind_data = _jm.get_data();
+        /*var mind_name = mind_data.meta.name;*/
+        var mind_str = jsMind.util.json.json2string(mind_data);
+        //jsMind.util.file.save(mind_str, 'text/jsmind', mind_name + '.jm');
+        jsMind.util.file.save(mind_str, 'text/jsmind', '.jm');
+      }
+    }
 
-            var timeline = snapshot.val();
-            var str = 'M' + month.substring(2);
-            //console.log(str);
-            document.getElementById(str).firstChild.innerHTML = timeline.content;
-            document.getElementById('task').value = timeline.content;
-            document.getElementById('day').value = timeline.day;
-          })
-        }
-
-        var imageChooser = document.getElementById('image-chooser');
-
-        imageChooser.addEventListener('change', function(event) {
-          // Read file here.
-          var reader = new FileReader();
-          reader.onloadend = (function() {
-            var selected_node = _jm.get_selected_node();
-            var nodeid = jsMind.util.uuid.newid();
-            var topic = undefined;
-            var data = {
-              "background-image": reader.result,
-              "width": "100",
-              "height": "100"
-            };
-            var node = _jm.add_node(selected_node, nodeid, topic, data);
-            //var node = _jm.add_image_node(selected_node, nodeid, reader.result, 100, 100);
-            //add_image_node:function(parent_node, nodeid, image, width, height, data, idx, direction, expanded){
-          });
-
-          var file = imageChooser.files[0];
-          if (file) {
-            reader.readAsDataURL(file);
-          };
-
-        }, false);
-
-        function add_image_node() {
-          if (editable) {
-            var selected_node = _jm.get_selected_node(); // as parent of new node
-            if (!selected_node) {
-              prompt_info('please select a node first.');
-              return;
-            }
-
-            imageChooser.focus();
-            imageChooser.click();
-          }
-        }
-
-        /**function toggle_editable(btn){
-            var editable = _jm.get_editable();
-            if(editable){
-                _jm.disable_edit();
-                btn.innerHTML = 'enable editable';
-            }else{
-                _jm.enable_edit();
-                btn.innerHTML = 'disable editable';
-            }
-        }**/
-        function opennew(string) {
-          if (editable) {
-            window.open(string);
-          }
-        }
-
-        function get_selected_nodeid() {
-          var selected_node = _jm.get_selected_node();
-          if (!!selected_node) {
-            return selected_node.id;
+    function save_towilddog() {
+      if (editable) {
+        //保存到自己的project
+        var mind_data = _jm.get_data();
+        //var Data = jsMind.util.json.json2string(mind_data);
+        ref.child("jsmind").child(title).set(mind_data, function(error) {
+          if (error == null) {
+            console.info("Saved to Wilddog");
           } else {
-            return null;
+            alert(error);
           }
+        });
+
+        //保存到所有project
+        var keytitle = title;
+        //alert(key);
+        list.on("child_added", function(snapshot) {
+          //找到指定project
+          snapshot.forEach(function(data) {
+            //console.log("data.val() " + data.val());
+            if (data.val() == keytitle) {
+              //console.log("snapshot.key()=  " + snapshot.key());
+              //console.log("keytitle = " + keytitle);
+
+              //将指定project返回
+              list.child(snapshot.key()).child(keytitle).set(mind_data, function(error) {});
+
+            }
+          })
+        });
+
+      }
+
+    }
+
+    function open_fromwilddog() {
+      //var ref = wilddog.sync().ref(uid);
+      ref.child("jsmind").child(title).on("value", function(snapshot) {
+        //console.log(typeof(snapshot.value()));
+        //console.log(typeof(snapshot.val()));
+        var mind = snapshot.val();
+        _jm.show(mind);
+      });
+    }
+
+    function open_file() {
+      if (editable) {
+        var file_input = document.getElementById('file_input');
+        var files = file_input.files;
+        if (files.length > 0) {
+          var file_data = files[0];
+          jsMind.util.file.read(file_data, function(jsmind_data, jsmind_name) {
+            var mind = jsMind.util.json.string2json(jsmind_data);
+            if (!!mind) {
+              _jm.show(mind);
+            } else {
+              prompt_info('can not open this file as mindmap');
+            }
+          });
+        } else {
+          prompt_info('please choose a file first')
+        }
+      }
+    }
+
+    function add_node() {
+      if (editable) {
+        var selected_node = _jm.get_selected_node(); // as parent of new node
+        if (!selected_node) {
+          prompt_info('please select a node first.');
+          return;
         }
 
-        function comment() {
-          //alert(id);
-          window.location.href = "comment.html" + "?uid=" + uid + "&" + "true" + "&" + "title=" + title;
-          //alert(id);
+        var nodeid = jsMind.util.uuid.newid();
+        var topic = '* Node_' + nodeid.substr(0, 5) + ' *';
+        var node = _jm.add_node(selected_node, nodeid, topic);
+
+
+        var details = {
+          'details': "edit details for this node"
+        }
+        ref.child('jsmind').child('details').child(title).child(nodeid).set(details);
+      }
+    }
+
+    function cleanAlert() {
+      document.getElementById('task').value = '';
+      document.getElementById('day').value = '';
+    }
+
+    function save() {
+      var year1 = document.getElementById('year1').innerHTML;
+      var month = document.getElementById('month').innerHTML;
+      var day = document.getElementById('day').value;
+      var task = document.getElementById('task').value;
+      //	var timechosen = document.getElementById(id).value;
+      var schedule = {
+        "day": day,
+        "content": task
+      }
+      //console.log(typeof(schedule));}
+      var yearandmonth = year1 + month;
+      ref.child('manage project').child(title).child('Timeline').child(yearandmonth).set(schedule);
+    }
+
+    function loadproject_mouseover(month) {
+      ref.child("manage project").child(title).child('Timeline').child(month).on("value", function(snapshot) {
+        //console.log(snapshot.val())
+
+        var timeline = snapshot.val();
+        var str = 'M' + month.substring(2);
+        //console.log(str);
+        document.getElementById(str).firstChild.innerHTML = timeline.content;
+        document.getElementById('task').value = timeline.content;
+        document.getElementById('day').value = timeline.day;
+      })
+    }
+
+    var imageChooser = document.getElementById('image-chooser');
+
+    imageChooser.addEventListener('change', function(event) {
+      // Read file here.
+      var reader = new FileReader();
+      reader.onloadend = (function() {
+        var selected_node = _jm.get_selected_node();
+        var nodeid = jsMind.util.uuid.newid();
+        var topic = undefined;
+        var data = {
+          "background-image": reader.result,
+          "width": "100",
+          "height": "100"
+        };
+        var node = _jm.add_node(selected_node, nodeid, topic, data);
+        //var node = _jm.add_image_node(selected_node, nodeid, reader.result, 100, 100);
+        //add_image_node:function(parent_node, nodeid, image, width, height, data, idx, direction, expanded){
+      });
+
+      var file = imageChooser.files[0];
+      if (file) {
+        reader.readAsDataURL(file);
+      };
+
+    }, false);
+
+    function add_image_node() {
+      if (editable) {
+        var selected_node = _jm.get_selected_node(); // as parent of new node
+        if (!selected_node) {
+          prompt_info('please select a node first.');
+          return;
         }
 
-        open_empty();
+        imageChooser.focus();
+        imageChooser.click();
+      }
+    }
 
-        function add_detail() {
-          window.location.href = "details.html?uid=" + uid + "&title=" + title + "&id=" + get_selected_nodeid();
+    /**function toggle_editable(btn){
+        var editable = _jm.get_editable();
+        if(editable){
+            _jm.disable_edit();
+            btn.innerHTML = 'enable editable';
+        }else{
+            _jm.enable_edit();
+            btn.innerHTML = 'disable editable';
         }
+    }**/
+    function opennew(string) {
+      if (editable) {
+        window.open(string);
+      }
+    }
 
-        /*function set_timeline(){
-            window.location.href="timeline1.0.html?uid="+uid+"&title="+title;
-        }*/
-      </script>
+    function get_selected_nodeid() {
+      var selected_node = _jm.get_selected_node();
+      if (!!selected_node) {
+        return selected_node.id;
+      } else {
+        return null;
+      }
+    }
+
+    function comment() {
+      //alert(id);
+      window.location.href = "comment.html" + "?uid=" + uid + "&" + "true" + "&" + "title=" + title;
+      //alert(id);
+    }
+
+    open_empty();
+
+    function add_detail() {
+      window.location.href = "details.html?uid=" + uid + "&title=" + title + "&id=" + get_selected_nodeid();
+    }
+
+    /*function set_timeline(){
+        window.location.href="timeline1.0.html?uid="+uid+"&title="+title;
+    }*/
+  </script>
+
 </body>
 
 </html>
