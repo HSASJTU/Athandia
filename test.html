@@ -18,7 +18,6 @@
       margin-top: 2px;
       margin-bottom: 2px;
     }
-
     button {
       color: #fff;
       border: none;
@@ -33,11 +32,9 @@
       width: 150px;
       height: 21px;
     }
-
     button:hover {
       box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     }
-
     .file_input {
       color: #fff;
       border: none;
@@ -52,27 +49,21 @@
       width: 150px;
       height: 21px;
     }
-
     .file_input:hover {
       box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     }
-
     /*select {
       width: 150px;
     }*/
-
     #layout {
       width: 1110px;
     }
-
     /*原 1230px*/
-
     #layout2 {
       float: right;
       margin-right: 100px;
       margin-top: 25px;
     }
-
     #jsmind_nav {
       width: 220px;
       height: 600px;
@@ -126,97 +117,27 @@
         <li><button class="sub" onclick="open_file();">open from the local</button></li>
         <li><button class="sub" onclick="comment();">comments</button></li>
       </ol>
+
+      <div style="margin-left:10px">4. timeline</div>
+      <ol type="A">
+        <li><button class="sub" onclick="document.getElementById('timeline_alert').style.display='block';;document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='1';loadproject_mouseover('20181')"
+            id="Jan1" onmouseover="document.getElementById('M181').style.display='block';loadproject_mouseover('20181');" onmouseout="document.getElementById('M181').style.display='none';">mytimeline</button></li>
+      </ol>
     </div>
   </div>
 
-  <div id="jsmind_container"></div>
-  <div style="display:none">
-    <input class="file" type="file" id="image-chooser" accept="image/*" />
-  </div>
 
-  <div id="layout2">
-    <!--评论-->
-    <div id="comment_content">
-      <textarea id="txt" placeholder="state your idea freely:)"></textarea>
-      <br/>
-      <input type="button" value="submit" id="submit" onclick="save_comment()" />
-      <div id="alert" class="Mon">
-        <form>
-          I would complete my task before <span id="year1"></span> .
-          <span id="month"></span> .
-          <input type="text" id="day" size="3">&nbsp;&nbsp;!
-          </br>
-          <ul>
-            <li><span style="left:40%">my task</span>
-              </br>
-              <textarea style="height:150px;width:200px" rows="2" id="task"></textarea>
-            </li>
-          </ul>
-          </br>
-          <input type="button" class="save" value="save" onclick="save()">
-          <input type="button" class="close" value="close" onclick="document.getElementById('alert').style.display='none';document.getElementById('fade').style.display='none';cleanAlert()">
-        </form>
-        <div id="fade" class="hide">
-        </div>
+
+  <div id="timeline_alert" class="Mon">
+    <form>
+      Your Timeline:
+      <div style='position: absolute; top:0px; right:0px; cursor: pointer;'>
+        <img src="http://ico.ooopic.com/iconset01/ose/gif/60790.gif" width="32" onclick="document.getElementById('timeline_alert').style.display='none';document.getElementById('fade').style.display='none';cleanAlert()">
       </div>
-    </div>
-  </div>
-  <script type="text/javascript">
-    var url = location.search;
-    var uid = url.slice(5, 33);
-    var title = url.slice(45);
-    var name;
-    var config = {
-      syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
-    };
-    wilddog.initializeApp(config);
-    var ref;
-    ref = wilddog.sync().ref(uid);
-    ref.child('accountsetting').on('value', function(snapshot) {
-      name = snapshot.val().name;
-      console.info(name)
-    })
-
-    //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
-    /*function submit(){
-      var comment=document.getElementById('txt').value;
-    var parent = document.getElementById('comment_content');
-    var div = document.createElement("div");
-    var Text1 = document.createTextNode("id:"+comment);
-　　　　parent.appendChild(div);
-    div.appendChild(Text1);
-    //div.setAttribute();
-    save();
-  }*/
-
-    function open_comment() {
-      ref = wilddog.sync().ref('comments');
-      var comNode = ref.child(uid).child(name).child(title).child("comment").child(name);
-      comNode.on("child_added", function(snapshot) {
-        var parent = document.getElementById('comment_content');
-        var div2 = document.createElement("div");
-        var commentText = document.createTextNode(snapshot.val());
-        parent.appendChild(div2);
-        div2.appendChild(commentText);
-
-      });
-    }
-
-    function save_comment() {
-
-      var comment = document.getElementById('txt').value;
-      //var com = {"id:":comment};
-      //Data = JSON.stringify(com);
-      //此处id设为当前登陆用户id
-      ref = wilddog.sync().ref('comments');
-      ref.child(uid).child(name).child(title).child("comment").child(name).push(name + " : " + comment);
-    }
-  </script>
-
-  <div class="longDemo demo">
+      <div class="longDemo demo">
     <!--时间轴-->
     <!--<h2 style="font: 24px Microsoft Yahei;text-align:center;">Schedule</h2>-->
-    <div id="longTimeLine" style="margin-top:680px;"></div>
+    <div id="longTimeLine" style="margin-top:100px;"></div>
     <div class="gt-timeline" style="width:633px">
       <div class="main_line" style="width:603px"></div>
       <div class="horizontal-line leftend" style="left:14px">
@@ -341,8 +262,7 @@
             </div>
 
           </div>
-        </div>
-        <div id="M181" class="preview"><span type="text" value="" style=""></span></div>
+           <div id="M181" class="preview"><span type="text" value="" style=""></span></div>
         <div id="M182" class="preview"><span type="text" value="" style=""></span></div>
         <div id="M183" class="preview"><span type="text" value="" style=""></span></div>
         <div id="M184" class="preview"><span type="text" value="" style=""></span></div>
@@ -367,8 +287,97 @@
         <div id="M1911" class="preview"><span type="text" value="" style=""></span></div>
         <div id="M1912" class="preview"><span type="text" value="" style=""></span></div>
         <div id="M201" class="preview"><span type="text" value="" style=""></span></div>
-      </div>
+    
 
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+
+
+  <div id="jsmind_container"></div>
+  <div style="display:none">
+    <input class="file" type="file" id="image-chooser" accept="image/*" />
+  </div>
+
+  <div id="layout2">
+    <!--评论-->
+    <div id="comment_content">
+      <textarea id="txt" placeholder="state your idea freely:)"></textarea>
+      <br/>
+      <input type="button" value="submit" id="submit" onclick="save_comment()" />
+      <div id="alert" class="Mon">
+        <form>
+          I would complete my task before <span id="year1"></span> .
+          <span id="month"></span> .
+          <input type="text" id="day" size="3">&nbsp;&nbsp;!
+          </br>
+          <ul>
+            <li><span style="left:40%">my task</span>
+              </br>
+              <textarea style="height:150px;width:200px" rows="2" id="task"></textarea>
+            </li>
+          </ul>
+          </br>
+          <input type="button" class="save" value="save" onclick="save()">
+          <input type="button" class="close" value="close" onclick="document.getElementById('alert').style.display='none';document.getElementById('fade').style.display='none';cleanAlert()">
+        </form>
+        <div id="fade" class="hide">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var url = location.search;
+    var uid = url.slice(5, 33);
+    var title = url.slice(45);
+    var name;
+    var config = {
+      syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+    };
+    wilddog.initializeApp(config);
+    var ref;
+    ref = wilddog.sync().ref(uid);
+    ref.child('accountsetting').on('value', function(snapshot) {
+      name = snapshot.val().name;
+      console.info(name)
+    })
+    //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
+    /*function submit(){
+      var comment=document.getElementById('txt').value;
+    var parent = document.getElementById('comment_content');
+    var div = document.createElement("div");
+    var Text1 = document.createTextNode("id:"+comment);
+　　　　parent.appendChild(div);
+    div.appendChild(Text1);
+    //div.setAttribute();
+    save();
+  }*/
+    function open_comment() {
+      ref = wilddog.sync().ref('comments');
+      var comNode = ref.child(uid).child(name).child(title).child("comment").child(name);
+      comNode.on("child_added", function(snapshot) {
+        var parent = document.getElementById('comment_content');
+        var div2 = document.createElement("div");
+        var commentText = document.createTextNode(snapshot.val());
+        parent.appendChild(div2);
+        div2.appendChild(commentText);
+      });
+    }
+    function save_comment() {
+      var comment = document.getElementById('txt').value;
+      //var com = {"id:":comment};
+      //Data = JSON.stringify(com);
+      //此处id设为当前登陆用户id
+      ref = wilddog.sync().ref('comments');
+      ref.child(uid).child(name).child(title).child("comment").child(name).push(name + " : " + comment);
+    }
+  </script>
+
+  
+       
       <div style="text-align:center;margin:50px; font:normal 14px/24px 'MicroSoft YaHei';"></div>
 
       <script type="text/javascript">
@@ -403,7 +412,6 @@
         var ref = wilddog.sync().ref(uid);
         var list = wilddog.sync().ref('allpro');
         var _jm = null;
-
         function open_empty() {
           var options = {
             container: 'jsmind_container',
@@ -413,7 +421,6 @@
           _jm = jsMind.show(options);
           // _jm = jsMind.show(options,mind);
         }
-
         function open_json() {
           var mind = {
             "meta": {
@@ -520,7 +527,6 @@
           }
           _jm.show(mind);
         }
-
         function open_instructions() {
           var mind = {
             "meta": {
@@ -593,13 +599,11 @@
           }
           _jm.show(mind);
         }
-
         function screen_shot() {
           if (editable) {
             _jm.screenshot.shootDownload();
           };
         }
-
         function save_file() {
           if (editable) {
             var mind_data = _jm.get_data();
@@ -608,7 +612,6 @@
             jsMind.util.file.save(mind_str, 'text/jsmind', mind_name + '.jm');
           }
         }
-
         function save_towilddog() {
           if (editable) {
             //保存到自己的project
@@ -622,7 +625,6 @@
                 alert(error);
               }
             });
-
             //保存到所有project
             var keytitle = title;
             //alert(key);
@@ -633,15 +635,11 @@
                   console.log(snapshot.key());
                   //将指定project返回
                   list.child(snapshot.key()).child(keytitle).set(mind_data, function(error) {});
-
                 }
               })
             });
-
           }
-
         }
-
         function open_fromwilddog() {
           ref.child("jsmind").child(title).on("value", function(snapshot) {
             //console.log(typeof(snapshot.value()));
@@ -651,7 +649,6 @@
             _jm.show(mind);
           });
         }
-
         function open_file() {
           if (editable) {
             var file_input = document.getElementById('file_input');
@@ -671,7 +668,6 @@
             }
           }
         }
-
         function add_node() {
           if (editable) {
             var selected_node = _jm.get_selected_node(); // as parent of new node
@@ -679,24 +675,19 @@
               prompt_info('please select a node first.');
               return;
             }
-
             var nodeid = jsMind.util.uuid.newid();
             var topic = '* Node_' + nodeid.substr(0, 5) + ' *';
             var node = _jm.add_node(selected_node, nodeid, topic);
-
-
             var details = {
               'details': "edit details for this node"
             }
             ref.child('jsmind').child('details').child(title).child(nodeid).set(details);
           }
         }
-
         function cleanAlert() {
           document.getElementById('task').value = '';
           document.getElementById('day').value = '';
         }
-
         function save() {
           var year1 = document.getElementById('year1').innerHTML;
           var month = document.getElementById('month').innerHTML;
@@ -711,11 +702,9 @@
           var yearandmonth = year1 + month;
           ref.child('manage project').child(title).child('Timeline').child(yearandmonth).set(schedule);
         }
-
         function loadproject_mouseover(month) {
           ref.child("manage project").child(title).child('Timeline').child(month).on("value", function(snapshot) {
             //console.log(snapshot.val())
-
             var timeline = snapshot.val();
             var str = 'M' + month.substring(2);
             //console.log(str);
@@ -724,9 +713,7 @@
             document.getElementById('day').value = timeline.day;
           })
         }
-
         var imageChooser = document.getElementById('image-chooser');
-
         imageChooser.addEventListener('change', function(event) {
           // Read file here.
           var reader = new FileReader();
@@ -743,14 +730,11 @@
             //var node = _jm.add_image_node(selected_node, nodeid, reader.result, 100, 100);
             //add_image_node:function(parent_node, nodeid, image, width, height, data, idx, direction, expanded){
           });
-
           var file = imageChooser.files[0];
           if (file) {
             reader.readAsDataURL(file);
           };
-
         }, false);
-
         function add_image_node() {
           if (editable) {
             var selected_node = _jm.get_selected_node(); // as parent of new node
@@ -758,12 +742,10 @@
               prompt_info('please select a node first.');
               return;
             }
-
             imageChooser.focus();
             imageChooser.click();
           }
         }
-
         /**function toggle_editable(btn){
             var editable = _jm.get_editable();
             if(editable){
@@ -779,7 +761,6 @@
             window.open(string);
           }
         }
-
         function get_selected_nodeid() {
           var selected_node = _jm.get_selected_node();
           if (!!selected_node) {
@@ -788,19 +769,15 @@
             return null;
           }
         }
-
         function comment() {
           //alert(id);
           window.location.href = "comment.html" + "?uid=" + uid + "&" + "true" + "&" + "title=" + title;
           //alert(id);
         }
-
         open_empty();
-
         function add_detail() {
           window.location.href = "details.html?uid=" + uid + "&title=" + title + "&id=" + get_selected_nodeid();
         }
-
         /*function set_timeline(){
             window.location.href="timeline1.0.html?uid="+uid+"&title="+title;
         }*/
