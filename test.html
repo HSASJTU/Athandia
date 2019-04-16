@@ -152,7 +152,11 @@
     </div>
   </div>
 
-  <div id="jsmind_container"></div>
+  <div id="jsmind_container">
+    <div id="project_info">
+
+    </div>
+  </div>
   <div style="display:none">
     <input class="file" type="file" id="image-chooser" accept="image/*" />
   </div>
@@ -237,7 +241,7 @@
     }
 
     function EditExample() {
-      var identification = prompt("Please enter your authority code:");
+      var identification = alert("Please enter your authority code:");
       var ExampleEditable = false;
       var path = wilddog.sync().ref('advisors');
       path.on('child_added', function(snapshot) {
@@ -823,6 +827,7 @@
 
     function open_fromwilddog() {
       //var ref = wilddog.sync().ref(uid);
+      console.log("jsmind: " + ref.child("jsmind"));
       ref.child("jsmind").child(title).on("value", function(snapshot) {
         //console.log(typeof(snapshot.value()));
         //console.log(typeof(snapshot.val()));
@@ -842,11 +847,11 @@
             if (!!mind) {
               _jm.show(mind);
             } else {
-              prompt_info('can not open this file as mindmap');
+              alert('can not open this file as mindmap');
             }
           });
         } else {
-          prompt_info('please choose a file first')
+          alert('please choose a file first')
         }
       }
     }
@@ -855,7 +860,7 @@
       if (editable) {
         var selected_node = _jm.get_selected_node(); // as parent of new node
         if (!selected_node) {
-          prompt_info('please select a node first.');
+          alert('please select a node first.');
           return;
         }
 
@@ -892,16 +897,18 @@
     }
 
     function loadproject_mouseover(month) {
-      ref.child("manage project").child(title).child('Timeline').child(month).on("value", function(snapshot) {
+      ref.child("manage project").child(title).child('Timeline').child(month).once("value").then(function(snapshot) {
         //console.log(snapshot.val())
 
         var timeline = snapshot.val();
         var str = 'M' + month.substring(2);
         //console.log(str);
-        document.getElementById(str).firstChild.innerHTML = timeline.content;
-        document.getElementById('task').value = timeline.content;
-        document.getElementById('day').value = timeline.day;
-      })
+        if (timeline) {
+          document.getElementById(str).firstChild.innerHTML = timeline.content;
+          document.getElementById('task').value = timeline.content;
+          document.getElementById('day').value = timeline.day;
+        }
+      });
     }
 
     var imageChooser = document.getElementById('image-chooser');
@@ -934,7 +941,7 @@
       if (editable) {
         var selected_node = _jm.get_selected_node(); // as parent of new node
         if (!selected_node) {
-          prompt_info('please select a node first.');
+          alert('please select a node first.');
           return;
         }
 
