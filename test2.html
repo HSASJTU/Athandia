@@ -32,7 +32,7 @@
       -webkit-transition-duration: 0.2s;
       /*Safari*/
       width: 150px;
-      height: 21px;
+      height: 25px;
     }
 
     button:hover {
@@ -115,10 +115,10 @@
           <button onclick="toggle_editable(this);">disable editable</button>
         </li>
         <li>
-          <button onclick="add_detail()">detail</button>
+          <button onclick="add_detail()" style="background-color: gray">detail</button>
         </li>
         <li>
-          <button onclick="set_timeline()">set timeline</button>
+          <button onclick="set_timeline()" style="background-color: gray">set timeline</button>
         </li>
         <li>
           <button onclick="saveimage();">save your image</button>
@@ -134,10 +134,10 @@
           <button class="sub" onclick="show_data();">show data</button>
         </li>
         <li>
-          <button class="sub" onclick="save_towilddog();">save as your project</button>
+          <button class="sub" onclick="save_towilddog();" style="background-color: gray">save as your project</button>
         </li>
         <li>
-          <button class="sub" onclick="open_fromwilddog();">load from his/her project</button>
+          <button class="sub" onclick="open_fromwilddog();" style="height:40px">load from his/her project</button>
         </li>
         <li>
           <input id="file_input" class="file_input" type="file" />
@@ -212,7 +212,7 @@
       }*/
 
     function StringMatch(str, attr) {
-      var regstr = new RegExp("(?:" + attr + "=)-?\\w*?(?=&|$)");
+      var regstr = new RegExp("(?:" + attr + "=)-?[\\w%20]*?(?=&|$)");
       //Apr16 YC Qiu :
       //I don't know why the content in (?:……) is matched by the function. Maybe it's the difference between python Reg and JS Reg ???
       var result = new String(str.match(regstr));
@@ -580,14 +580,21 @@
       }*/
 
       function open_fromwilddog() {
-        console.log("title: " + wilddog.sync().ref('comments').child("jsmind").child(title));
-        wilddog.sync().ref('comments').child("jsmind").child(title).once("value").then(function(snapshot) {
+
+        console.info("When opening the wilddog, title = " + title + " , new title is " + solve_spaces(title));
+        var new_title = solve_spaces(title);
+        console.log("title: " + wilddog.sync().ref('comments').child("jsmind").child(new_title));
+        wilddog.sync().ref('comments').child("jsmind").child(new_title).once("value").then(function(snapshot) {
           //console.log(typeof(snapshot.value()));
           //console.log(typeof(snapshot.val()));
           var mind = snapshot.val();
           console.info("mind: " + mind);
           _jm.show(mind);
         });
+      }
+
+      function solve_spaces(str) {
+        return str.replace(/%20/g, " ");
       }
 
       function open_file() {
@@ -702,9 +709,9 @@
         window.location.href = "details.html?uid=" + uid + "&title=" + title + "&id=" + get_selected_nodeid();
       }
 
-      /*function set_timeline(){
-          window.location.href="timeline1.0.html?uid="+uid+"&title="+title;
-      }*/
+      function set_timeline() {
+        //window.location.href="timeline1.0.html?uid="+uid+"&title="+title;
+      }
     </script>
 </body>
 
