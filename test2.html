@@ -2,200 +2,205 @@
 <html lang="zh-CN">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script type="text/javascript" src="./js/jsmind.js"></script>
-    <script type="text/javascript" src="./js/jsmind.draggable.js"></script>
-    <script type="text/javascript" src="./js/jsmind.screenshot.js"></script>
-    <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
-    <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
-    <script src="https://cdn.wilddog.com/sdk/js/2.5.17/wilddog.js"></script>
-    <link type="text/css" rel="stylesheet" href="./style/jsmind.css" />
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/jquery.jqtimeline.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script type="text/javascript" src="./js/jsmind.js"></script>
+  <script type="text/javascript" src="./js/jsmind.draggable.js"></script>
+  <script type="text/javascript" src="./js/jsmind.screenshot.js"></script>
+  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
+  <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
+  <script src="https://cdn.wilddog.com/sdk/js/2.5.17/wilddog.js"></script>
+  <link type="text/css" rel="stylesheet" href="./style/jsmind.css" />
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/jquery.jqtimeline.css">
 
-    <style type="text/css">
-        li {
-            margin-top: 2px;
-            margin-bottom: 2px;
-        }
+  <style type="text/css">
+    li {
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
 
-        button {
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            margin: 2px;
-            /*background-color: #f1c40f;*/
-            background-color: #f39c12;
-            display: inline-block;
-            cursor: pointer;
-            transition-duration: 0.2s;
-            -webkit-transition-duration: 0.2s;
-            /*Safari*/
-            width: 150px;
-            height: 21px;
-        }
+    button {
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      margin: 2px;
+      /*background-color: #f1c40f;*/
+      background-color: #f39c12;
+      display: inline-block;
+      cursor: pointer;
+      transition-duration: 0.2s;
+      -webkit-transition-duration: 0.2s;
+      /*Safari*/
+      width: 150px;
+      height: 21px;
+    }
 
-        button:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-            /*background-color: #f39c12;*/
-        }
+    button:hover {
+      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      /*background-color: #f39c12;*/
+    }
 
-        .file_input {
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            margin: 2px;
-            background-color: #f39c12;
-            display: inline-block;
-            cursor: pointer;
-            transition-duration: 0.2s;
-            -webkit-transition-duration: 0.2s;
-            /*Safari*/
-            width: 150px;
-            height: 21px;
-        }
+    .file_input {
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      margin: 2px;
+      background-color: #f39c12;
+      display: inline-block;
+      cursor: pointer;
+      transition-duration: 0.2s;
+      -webkit-transition-duration: 0.2s;
+      /*Safari*/
+      width: 150px;
+      height: 21px;
+    }
 
-        .file_input:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
+    .file_input:hover {
+      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
 
-        /*select {
+    /*select {
       width: 150px;
     }*/
 
-        #layout {
-            width: 1110px;
-        }
+    #layout {
+      width: 1110px;
+    }
 
-        /*原 1230px*/
+    /*原 1230px*/
 
-        #layout2 {
-            float: right;
-            margin-right: 100px;
-            margin-top: 25px;
-        }
+    #layout2 {
+      float: right;
+      margin-right: 100px;
+      margin-top: 25px;
+    }
 
-        #jsmind_nav {
-            width: 220px;
-            height: 600px;
-            border: solid 1px #ccc;
-            overflow: auto;
-            float: left;
-        }
+    #jsmind_nav {
+      width: 220px;
+      height: 600px;
+      border: solid 1px #ccc;
+      overflow: auto;
+      float: left;
+    }
 
-        /*.file_input {
+    /*.file_input {
       width: 100px;
     }*/
 
-        #jsmind_container {
-            position: absolute;
-            left: 210px;
-            width: 900px;
-            height: 600px;
-            border: solid 1px #ccc;
-            background: #f4f4f4;
-        }
-    </style>
+    #jsmind_container {
+      position: absolute;
+      left: 210px;
+      width: 900px;
+      height: 600px;
+      border: solid 1px #ccc;
+      background: #f4f4f4;
+    }
+  </style>
 </head>
 
 <body onload="open_comment()">
-    <div id="layout">
-        <div id="jsmind_nav">
-            <!--左侧导航栏-->
-            <div style="margin-left:10px;margin-top:6px">1. Open</div>
-            <ol type='A'>
-                <li>
-                    <button onclick="screen_shot();">screenshot</button>
-                </li>
-            </ol>
+  <div id="layout">
+    <div id="jsmind_nav">
+      <!--左侧导航栏-->
+      <div style="margin-left:10px;margin-top:6px">1. Open</div>
+      <ol type='A'>
+        <li>
+          <button onclick="screen_shot();">screenshot</button>
+        </li>
+      </ol>
 
-            <div style="margin-left:10px">2. Edit</div>
-            <ol type='A'>
-                <li>
-                    <button onclick="toggle_editable(this);">disable editable</button>
-                </li>
-                <li>
-                    <button onclick="add_detail()">detail</button>
-                </li>
-                <li>
-                    <button onclick="set_timeline()">set timeline</button>
-                </li>
-                <li>
-                    <button onclick="saveimage();">save your image</button>
-                </li>
-                <li>
-                    <button onclick="get_selected_nodeid();">get the selected id</button>
-                </li>
-            </ol>
+      <div style="margin-left:10px">2. Edit</div>
+      <ol type='A'>
+        <li>
+          <button onclick="toggle_editable(this);">disable editable</button>
+        </li>
+        <li>
+          <button onclick="add_detail()">detail</button>
+        </li>
+        <li>
+          <button onclick="set_timeline()">set timeline</button>
+        </li>
+        <li>
+          <button onclick="saveimage();">save your image</button>
+        </li>
+        <li>
+          <button onclick="get_selected_nodeid();">get the selected id</button>
+        </li>
+      </ol>
 
-            <div style="margin-left:10px">3. Save</div>
-            <ol type='A'>
-                <li>
-                    <button class="sub" onclick="show_data();">show data</button>
-                </li>
-                <li>
-                    <button class="sub" onclick="save_towilddog();">save as your project</button>
-                </li>
-                <li>
-                    <button class="sub" onclick="open_fromwilddog();">load from your project</button>
-                </li>
-                <li>
-                    <input id="file_input" class="file_input" type="file" />
-                </li>
-                <li>
-                    <button class="sub" onclick="save_file();">save to the local</button>
-                </li>
-                <li>
-                    <button class="sub" onclick="open_file();">open from the local</button>
-                </li>
-            </ol>
-        </div>
+      <div style="margin-left:10px">3. Save</div>
+      <ol type='A'>
+        <li>
+          <button class="sub" onclick="show_data();">show data</button>
+        </li>
+        <li>
+          <button class="sub" onclick="save_towilddog();">save as your project</button>
+        </li>
+        <li>
+          <button class="sub" onclick="open_fromwilddog();">load from his/her project</button>
+        </li>
+        <li>
+          <input id="file_input" class="file_input" type="file" />
+        </li>
+        <li>
+          <button class="sub" onclick="save_file();">save to the local</button>
+        </li>
+        <li>
+          <button class="sub" onclick="open_file();">open from the local</button>
+        </li>
+      </ol>
     </div>
+  </div>
 
-    <div id="jsmind_container"></div>
-    <div style="display:none">
-        <input class="file" type="file" id="image-chooser" accept="image/*" />
-    </div>
+  <div id="jsmind_container"></div>
+  <div style="display:none">
+    <input class="file" type="file" id="image-chooser" accept="image/*" />
+  </div>
 
-    <div id="layout2">
-        <!--评论-->
-        <div id="comment_content">
-            <textarea id="txt" placeholder="state your idea freely:)"></textarea>
-            <br/>
-            <input type="button" value="submit" id="submit" onclick="save_comment()" />
-        </div>
+  <div id="layout2">
+    <!--评论-->
+    <div id="comment_content">
+      <textarea id="txt" placeholder="state your idea freely:)"></textarea>
+      <br />
+      <input type="button" value="submit" id="submit" onclick="save_comment()" />
     </div>
-    <script type="text/javascript">
-            var name;
-            var pname;         
-            var url = location.search;            
-            var uid = url.slice(5, 33);            
-            var puid = url.slice(39, 67);            
-            var title = url.slice(74).replace("%20", " ");            
-            var auth = false;
-            console.log(url);
-            console.log(uid);
-            console.log(puid);
-            console.log(title);
-            console.log(auth);
-            wilddog.initializeApp(config);
-        var config = {
-            syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
-        };
-        wilddog.initializeApp(config);
-        var refp;
-        var refc;
-        refc = wilddog.sync().ref('comments');
-        refp = wilddog.sync().ref(uid);
-        refp.child('accountsetting').on('value', function (snapshot) {
-            name = snapshot.val().name;
-        })
-        
-        wilddog.sync().ref(puid).child('accountsetting').on('value', function (snapshot) {
-                pname = snapshot.val().name;
-            })
-        //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
-        /*function submit(){
+  </div>
+  <script type="text/javascript">
+    var name;
+    var pname;
+    var url = location.search;
+    var uid = StringMatch(url, "key");
+    var puid = url.slice(38, 67);
+    var title = StringMatch(url, "title");
+
+    var auth = false;
+    console.log("url: " + url);
+    console.log("uid: " + uid);
+    console.log("puid: " + puid);
+    console.log("匹配结果： " + title);
+    console.log(auth);
+    wilddog.initializeApp(config);
+    var config = {
+      syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+    };
+    wilddog.initializeApp(config);
+    var refp;
+    var refc;
+    var stroage = window.localStorage;
+    var Quest_uid = stroage['user'];
+
+    refc = wilddog.sync().ref('comments');
+    refp = wilddog.sync().ref(Quest_uid);
+    refp.child('accountsetting').once('value').then(function(snapshot) {
+      name = snapshot.val().name;
+    })
+
+    /* pname for what???
+    wilddog.sync().ref(puid).child('accountsetting').on('value', function(snapshot) {
+      pname = snapshot.val().name;
+    })*/
+    //var ref = new Wilddog('https://athandiajsmind.wilddogio.com').sync().ref('/jsmind');
+    /*function submit(){
           var comment=document.getElementById('txt').value;
         var parent = document.getElementById('comment_content');
         var div = document.createElement("div");
@@ -206,491 +211,501 @@
         save();
       }*/
 
-        function open_comment() {
-                refc = wilddog.sync().ref('comments');
-            var comNode = refc.child(puid).child(title);
-            comNode.on("child_added", function (snapshot) {
-                var parent = document.getElementById('comment_content');
-                var div2 = document.createElement("div");
-                var commentText = document.createTextNode(snapshot.val());
-                parent.appendChild(div2);
-                div2.appendChild(commentText);
+    function StringMatch(str, attr) {
+      var regstr = new RegExp("(?:" + attr + "=)-?\\w*?(?=&|$)");
+      //Apr16 YC Qiu :
+      //I don't know why the content in (?:……) is matched by the function. Maybe it's the difference between python Reg and JS Reg ???
+      var result = new String(str.match(regstr));
+      result = result.substr(attr.length + 1);
+      //console.log("result = " + result);
+      return result.toString();
+    }
 
-            });
-        }
+    function open_comment() {
+      refc = wilddog.sync().ref('comments');
+      console.log("When opening comment, puid = " + puid + " ,title = " + title);
+      var comNode = refc.child(puid).child(title);
+      comNode.on("child_added", function(snapshot) {
+        var parent = document.getElementById('comment_content');
+        var div2 = document.createElement("div");
+        var commentText = document.createTextNode(snapshot.val());
+        parent.appendChild(div2);
+        div2.appendChild(commentText);
 
-        function save_comment() {
-            var comment = document.getElementById('txt').value;
-            //var com = {"id:":comment};
-            //Data = JSON.stringify(com);
-            //此处id设为当前登陆用户id
-            refc = wilddog.sync().ref('comments');
-            refc.child(puid).child(title).push(name + " : " + comment); 
-        }
-    </script>
+      });
+    }
 
-    <div class="longDemo demo">
-        <!--时间轴-->
-        <!--<h2 style="font: 24px Microsoft Yahei;text-align:center;">Schedule</h2>-->
-        <div id="longTimeLine" style="margin-top:680px;"></div>
-        <div class="gt-timeline" style="width:633px">
-            <div class="main_line" style="width:603px"></div>
-            <div class="horizontal-line leftend" style="left:14px">
-                <div class="year">2018</div>
-                <div class="month">
-                    <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='1';loadproject_mouseover('20181')"
-                        id="Jan1" onmouseover="document.getElementById('M181').style.display='block';loadproject_mouseover('20181');"
-                        onmouseout="document.getElementById('M181').style.display='none';">Jan</a>
-                    <div id="alert" class="Mon">
-                        <form>
-                            I would complete my task before
-                            <span id="year1"></span> .
-                            <span id="month"></span> .
-                            <input type="text" id="day" size="3">&nbsp;&nbsp;!
-                            </br>
-                            <ul>
-                                <li>
-                                    <span style="left:40%">my task</span>
-                                    </br>
-                                    <textarea style="height:150px;width:200px" rows="2" id="task"></textarea>
-                                </li>
-                            </ul>
-                            </br>
-                            <input type="button" class="save" value="save" onclick="save()">
-                            <input type="button" class="close" value="close" onclick="document.getElementById('alert').style.display='none';document.getElementById('fade').style.display='none';cleanAlert()">
-                        </form>
-                        <div id="fade" class="hide">
-                        </div>
-                    </div>
+    function save_comment() {
+      var comment = document.getElementById('txt').value;
+      //var com = {"id:":comment};
+      //Data = JSON.stringify(com);
+      //此处id设为当前登陆用户id
+      refc = wilddog.sync().ref('comments');
+      refc.child(puid).child(title).push(name + " : " + comment);
+    }
+  </script>
 
-                    <div class="horizontal-line month-line odd-month" style="left:37px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='2';loadproject_mouseover('20182')"
-                            onmouseover="document.getElementById('M182').style.display='block';loadproject_mouseover('20182');"
-                            onmouseout="document.getElementById('M182').style.display='none';">I</a>
-                    </div>
+  <div class="longDemo demo">
+    <!--时间轴-->
+    <!--<h2 style="font: 24px Microsoft Yahei;text-align:center;">Schedule</h2>-->
+    <div id="longTimeLine" style="margin-top:680px;"></div>
+    <!--<div class="gt-timeline" style="width:633px">
+      <div class="main_line" style="width:603px"></div>
+      <div class="horizontal-line leftend" style="left:14px">
+        <div class="year">2018</div>
+        <div class="month">
+          <a href="javascript:void(0)"
+            onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='1';loadproject_mouseover('20181')"
+            id="Jan1" onmouseover="document.getElementById('M181').style.display='block';loadproject_mouseover('20181');" onmouseout="document.getElementById('M181').style.display='none';">Jan</a>
+          <div id="alert" class="Mon">
+            <form>
+              I would complete my task before
+              <span id="year1"></span> .
+              <span id="month"></span> .
+              <input type="text" id="day" size="3">&nbsp;&nbsp;!
+              </br>
+              <ul>
+                <li>
+                  <span style="left:40%">my task</span>
+                  </br>
+                  <textarea style="height:150px;width:200px" rows="2" id="task"></textarea>
+                </li>
+              </ul>
+              </br>
+              <input type="button" class="save" value="save" onclick="save()">
+              <input type="button" class="close" value="close" onclick="document.getElementById('alert').style.display='none';document.getElementById('fade').style.display='none';cleanAlert()">
+            </form>
+            <div id="fade" class="hide">
+            </div>
+          </div>
 
-                    <div class="horizontal-line month-line even-month" style="left:64px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='3';loadproject_mouseover('20183')"
-                                onmouseover="document.getElementById('M183').style.display='block';loadproject_mouseover('20183');"
-                                onmouseout="document.getElementById('M183').style.display='none';">March</a>
-                        </div>
-                    </div>
+          <div class="horizontal-line month-line odd-month" style="left:37px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='2';loadproject_mouseover('20182')"
+              onmouseover="document.getElementById('M182').style.display='block';loadproject_mouseover('20182');" onmouseout="document.getElementById('M182').style.display='none';">I</a>
+          </div>
 
-                    <div class="horizontal-line month-line odd-month" style="left:89px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='4';loadproject_mouseover('20184')"
-                            onmouseover="document.getElementById('M184').style.display='block';loadproject_mouseover('20184');"
-                            onmouseout="document.getElementById('M184').style.display='none';">I</a>
-                    </div>
+          <div class="horizontal-line month-line even-month" style="left:64px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='3';loadproject_mouseover('20183')"
+                onmouseover="document.getElementById('M183').style.display='block';loadproject_mouseover('20183');" onmouseout="document.getElementById('M183').style.display='none';">March</a>
+            </div>
+          </div>
 
-                    <div class="horizontal-line month-line even-month" style="left:114px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='5';loadproject_mouseover('20185')"
-                                onmouseover="document.getElementById('M185').style.display='block';loadproject_mouseover('20185');"
-                                onmouseout="document.getElementById('M185').style.display='none';">May</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:139px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='6';loadproject_mouseover('20186')"
-                            onmouseover="document.getElementById('M186').style.display='block';loadproject_mouseover('20186');"
-                            onmouseout="document.getElementById('M186').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:164px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='7';loadproject_mouseover('20187')"
-                                onmouseover="document.getElementById('M187').style.display='block';loadproject_mouseover('20187');"
-                                onmouseout="document.getElementById('M187').style.display='none';">July</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:189px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='8';loadproject_mouseover('20188')"
-                            onmouseover="document.getElementById('M188').style.display='block';loadproject_mouseover('20188');"
-                            onmouseout="document.getElementById('M188').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:214px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='9';loadproject_mouseover('20189')"
-                                onmouseover="document.getElementById('M189').style.display='block';loadproject_mouseover('20189');"
-                                onmouseout="document.getElementById('M189').style.display='none';">Sept.</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:239px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='10';loadproject_mouseover('201810')"
-                            onmouseover="document.getElementById('M1810').style.display='block';loadproject_mouseover('201810');"
-                            onmouseout="document.getElementById('M1810').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:264px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='11';loadproject_mouseover('201811')"
-                                onmouseover="document.getElementById('M1811').style.display='block';loadproject_mouseover('201811');"
-                                onmouseout="document.getElementById('M1811').style.display='none';">Nov.</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:289px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='12';loadproject_mouseover('201812')"
-                            onmouseover="document.getElementById('M1812').style.display='block';loadproject_mouseover('201812');"
-                            onmouseout="document.getElementById('M1812').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line leftend" style="left:314px">
-                        <div class="year">2019</div>
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20191')"
-                                onmouseover="document.getElementById('M191').style.display='block';loadproject_mouseover('20191');"
-                                onmouseout="document.getElementById('M191').style.display='none';">Jan</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:339px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='2';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20192')"
-                            onmouseover="document.getElementById('M192').style.display='block';loadproject_mouseover('20192');"
-                            onmouseout="document.getElementById('M192').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:364px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='3';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20193')"
-                                onmouseover="document.getElementById('M193').style.display='block';loadproject_mouseover('20193');"
-                                onmouseout="document.getElementById('M193').style.display='none';">March</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:389px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='4';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20194')"
-                            onmouseover="document.getElementById('M194').style.display='block';loadproject_mouseover('20194');"
-                            onmouseout="document.getElementById('M194').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:414px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='5';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20195')"
-                                onmouseover="document.getElementById('M195').style.display='block';loadproject_mouseover('20195');"
-                                onmouseout="document.getElementById('M195').style.display='none';">May</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:439px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='6';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20196')"
-                            onmouseover="document.getElementById('M196').style.display='block';loadproject_mouseover('20196');"
-                            onmouseout="document.getElementById('M196').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:464px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='7';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20197')"
-                                onmouseover="document.getElementById('M197').style.display='block';loadproject_mouseover('20197');"
-                                onmouseout="document.getElementById('M197').style.display='none';">July</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:489px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='8';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20198')"
-                            onmouseover="document.getElementById('M198').style.display='block';loadproject_mouseover('20198');"
-                            onmouseout="document.getElementById('M198').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:514px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='9';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20199')"
-                                onmouseover="document.getElementById('M199').style.display='block';loadproject_mouseover('20199');"
-                                onmouseout="document.getElementById('M199').style.display='none';">Sept.</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:539px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='10';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201910')"
-                            onmouseover="document.getElementById('M1910').style.display='block';loadproject_mouseover('201910');"
-                            onmouseout="document.getElementById('M1910').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line month-line even-month" style="left:564px">
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='11';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201911')"
-                                onmouseover="document.getElementById('M1911').style.display='block';loadproject_mouseover('201911');"
-                                onmouseout="document.getElementById('M1911').style.display='none';">Nov.</a>
-                        </div>
-                    </div>
-                    <div class="horizontal-line month-line odd-month" style="left:589px">
-                        <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='12';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201912')"
-                            onmouseover="document.getElementById('M1912').style.display='block';loadproject_mouseover('201912');"
-                            onmouseout="document.getElementById('M1912').style.display='none';">I</a>
-                    </div>
-                    <div class="horizontal-line leftend" style="left:614px">
-                        <div class="year">2020</div>
-                        <div class="month">
-                            <a href="javascript:void(0)" onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2020';loadproject_mouseover('20201')"
-                                onmouseover="document.getElementById('M201').style.display='block';loadproject_mouseover('20201');"
-                                onmouseout="document.getElementById('M201').style.display='none';">Jan</a>
-                        </div>
+          <div class="horizontal-line month-line odd-month" style="left:89px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='4';loadproject_mouseover('20184')"
+              onmouseover="document.getElementById('M184').style.display='block';loadproject_mouseover('20184');" onmouseout="document.getElementById('M184').style.display='none';">I</a>
+          </div>
 
-                    </div>
-                </div>
-                <div id="M181" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M182" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M183" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M184" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M185" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M186" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M187" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M188" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M189" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M1810" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M1811" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M1812" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M191" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M192" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M193" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M194" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M195" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M196" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M197" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M198" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M199" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M1910" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M1911" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M1912" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
-                <div id="M201" class="preview">
-                    <span type="text" value="" style=""></span>
-                </div>
+          <div class="horizontal-line month-line even-month" style="left:114px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='5';loadproject_mouseover('20185')"
+                onmouseover="document.getElementById('M185').style.display='block';loadproject_mouseover('20185');" onmouseout="document.getElementById('M185').style.display='none';">May</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:139px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='6';loadproject_mouseover('20186')"
+              onmouseover="document.getElementById('M186').style.display='block';loadproject_mouseover('20186');" onmouseout="document.getElementById('M186').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:164px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='7';loadproject_mouseover('20187')"
+                onmouseover="document.getElementById('M187').style.display='block';loadproject_mouseover('20187');" onmouseout="document.getElementById('M187').style.display='none';">July</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:189px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='8';loadproject_mouseover('20188')"
+              onmouseover="document.getElementById('M188').style.display='block';loadproject_mouseover('20188');" onmouseout="document.getElementById('M188').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:214px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='9';loadproject_mouseover('20189')"
+                onmouseover="document.getElementById('M189').style.display='block';loadproject_mouseover('20189');" onmouseout="document.getElementById('M189').style.display='none';">Sept.</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:239px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='10';loadproject_mouseover('201810')"
+              onmouseover="document.getElementById('M1810').style.display='block';loadproject_mouseover('201810');" onmouseout="document.getElementById('M1810').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:264px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='11';loadproject_mouseover('201811')"
+                onmouseover="document.getElementById('M1811').style.display='block';loadproject_mouseover('201811');" onmouseout="document.getElementById('M1811').style.display='none';">Nov.</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:289px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('year1').innerHTML='2018';document.getElementById('month').innerHTML='12';loadproject_mouseover('201812')"
+              onmouseover="document.getElementById('M1812').style.display='block';loadproject_mouseover('201812');" onmouseout="document.getElementById('M1812').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line leftend" style="left:314px">
+            <div class="year">2019</div>
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20191')"
+                onmouseover="document.getElementById('M191').style.display='block';loadproject_mouseover('20191');" onmouseout="document.getElementById('M191').style.display='none';">Jan</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:339px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='2';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20192')"
+              onmouseover="document.getElementById('M192').style.display='block';loadproject_mouseover('20192');" onmouseout="document.getElementById('M192').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:364px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='3';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20193')"
+                onmouseover="document.getElementById('M193').style.display='block';loadproject_mouseover('20193');" onmouseout="document.getElementById('M193').style.display='none';">March</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:389px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='4';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20194')"
+              onmouseover="document.getElementById('M194').style.display='block';loadproject_mouseover('20194');" onmouseout="document.getElementById('M194').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:414px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='5';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20195')"
+                onmouseover="document.getElementById('M195').style.display='block';loadproject_mouseover('20195');" onmouseout="document.getElementById('M195').style.display='none';">May</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:439px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='6';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20196')"
+              onmouseover="document.getElementById('M196').style.display='block';loadproject_mouseover('20196');" onmouseout="document.getElementById('M196').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:464px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='7';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20197')"
+                onmouseover="document.getElementById('M197').style.display='block';loadproject_mouseover('20197');" onmouseout="document.getElementById('M197').style.display='none';">July</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:489px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='8';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20198')"
+              onmouseover="document.getElementById('M198').style.display='block';loadproject_mouseover('20198');" onmouseout="document.getElementById('M198').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:514px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='9';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('20199')"
+                onmouseover="document.getElementById('M199').style.display='block';loadproject_mouseover('20199');" onmouseout="document.getElementById('M199').style.display='none';">Sept.</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:539px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='10';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201910')"
+              onmouseover="document.getElementById('M1910').style.display='block';loadproject_mouseover('201910');" onmouseout="document.getElementById('M1910').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line month-line even-month" style="left:564px">
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='11';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201911')"
+                onmouseover="document.getElementById('M1911').style.display='block';loadproject_mouseover('201911');" onmouseout="document.getElementById('M1911').style.display='none';">Nov.</a>
+            </div>
+          </div>
+          <div class="horizontal-line month-line odd-month" style="left:589px">
+            <a href="javascript:void(0)"
+              onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='12';document.getElementById('year1').innerHTML='2019';loadproject_mouseover('201912')"
+              onmouseover="document.getElementById('M1912').style.display='block';loadproject_mouseover('201912');" onmouseout="document.getElementById('M1912').style.display='none';">I</a>
+          </div>
+          <div class="horizontal-line leftend" style="left:614px">
+            <div class="year">2020</div>
+            <div class="month">
+              <a href="javascript:void(0)"
+                onclick="document.getElementById('alert').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('month').innerHTML='1';document.getElementById('year1').innerHTML='2020';loadproject_mouseover('20201')"
+                onmouseover="document.getElementById('M201').style.display='block';loadproject_mouseover('20201');" onmouseout="document.getElementById('M201').style.display='none';">Jan</a>
             </div>
 
-            <div style="text-align:center;margin:50px; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+          </div>
+        </div>
+        <div id="M181" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M182" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M183" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M184" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M185" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M186" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M187" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M188" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M189" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M1810" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M1811" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M1812" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M191" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M192" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M193" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M194" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M195" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M196" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M197" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M198" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M199" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M1910" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M1911" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M1912" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+        <div id="M201" class="preview">
+          <span type="text" value="" style=""></span>
+        </div>
+      </div> -->
 
-            <script type="text/javascript">
-                var url = location.search;
-                var uid = url.slice(5, 33);
-                var puid = url.slice(39, 67);
-                var title = url.slice(74).replace("%20", " ");
-                var auth = false;
-                var config = {
-                    syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
-                };
-                wilddog.initializeApp(config);
-                var list = wilddog.sync().ref('allpro');
-                var _jm = null;
+    <div style="text-align:center;margin:50px; font:normal 14px/24px 'MicroSoft YaHei';"></div>
 
-                function open_empty() {
-                    var options = {
-                        container: 'jsmind_container',
-                        theme: 'orange',
-                        editable: true
-                    }
-                    _jm = jsMind.show(options);
-                    // _jm = jsMind.show(options,mind);
-                }
+    <script type="text/javascript">
+      var url = location.search;
+      var puid = url.slice(38, 67);
+      var auth = false;
+      var config = {
+        syncURL: "https://athandiajsmind.wilddogio.com" //输入节点 URL
+      };
+      wilddog.initializeApp(config);
+      var list = wilddog.sync().ref('allpro');
+      var _jm = null;
+      var editable = true;
 
-                function screen_shot() {
-                    if (editable) {
-                        _jm.screenshot.shootDownload();
-                    };
-                }
+      function open_empty() {
+        var options = {
+          container: 'jsmind_container',
+          theme: 'orange',
+          editable: true
+        }
+        _jm = jsMind.show(options);
+        // _jm = jsMind.show(options,mind);
+      }
 
-                function save_file() {
-                    if (editable) {
-                        var mind_data = _jm.get_data();
-                        var mind_name = mind_data.meta.name;
-                        var mind_str = jsMind.util.json.json2string(mind_data);
-                        jsMind.util.file.save(mind_str, 'text/jsmind', mind_name + '.jm');
-                    }
-                }
+      function screen_shot() {
+        if (editable) {
+          _jm.screenshot.shootDownload();
+        };
+      }
 
-                function save_towilddog() {
-                    if (editable) {
-                        //保存到自己的project
-                        var mind_data = _jm.get_data();
-                        //var Data = jsMind.util.json.json2string(mind_data);
-                        refp.child("jsmind").child(title).set(mind_data, function (error) {
-                            if (error == null) {
-                                console.info("Saved to Wilddog");
-                                console.log(mind_data);;
-                            } else {
-                                alert(error);
-                            }
-                        });
+      function save_file() {
+        if (editable) {
+          var mind_data = _jm.get_data();
+          var mind_name = mind_data.meta.name;
+          var mind_str = jsMind.util.json.json2string(mind_data);
+          jsMind.util.file.save(mind_str, 'text/jsmind', mind_name + '.jm');
+        }
+      }
 
-                        //保存到所有project
-                        var keytitle = title;
-                        //alert(key);
-                        list.on("child_added", function (snapshot) {
-                            //找到指定project
-                            snapshot.forEach(function (data) {
-                                if (data.val() == keytitle) {
-                                    console.log(snapshot.key());
-                                    //将指定project返回
-                                    list.child(snapshot.key()).child(keytitle).set(mind_data, function (error) { });
+      /*function save_towilddog() {
+        if (editable) {
+          //保存到自己的project
+          var mind_data = _jm.get_data();
+          //var Data = jsMind.util.json.json2string(mind_data);
+          refp.child("jsmind").child(title).set(mind_data, function(error) {
+            if (error == null) {
+              console.info("Saved to Wilddog");
+              console.log(mind_data);;
+            } else {
+              alert(error);
+            }
+          });
 
-                                }
-                            })
-                        });
+          //保存到所有project
+          var keytitle = title;
+          //alert(key);
+          list.on("child_added", function(snapshot) {
+            //找到指定project
+            snapshot.forEach(function(data) {
+              if (data.val() == keytitle) {
+                console.log(snapshot.key());
+                //将指定project返回
+                list.child(snapshot.key()).child(keytitle).set(mind_data, function(error) {});
 
-                    }
+              }
+            })
+          });
 
-                }
+        }
 
-                function open_fromwilddog() {
-                    refp.child("jsmind").child(title).on("value", function (snapshot) {
-                        //console.log(typeof(snapshot.value()));
-                        //console.log(typeof(snapshot.val()));
-                        var mind = snapshot.val();
-                        console.info(mind);
-                        _jm.show(mind);
-                    });
-                }
+      }*/
 
-                function open_file() {
-                    if (editable) {
-                        var file_input = document.getElementById('file_input');
-                        var files = file_input.files;
-                        if (files.length > 0) {
-                            var file_data = files[0];
-                            jsMind.util.file.read(file_data, function (jsmind_data, jsmind_name) {
-                                var mind = jsMind.util.json.string2json(jsmind_data);
-                                if (!!mind) {
-                                    _jm.show(mind);
-                                } else {
-                                    prompt_info('can not open this file as mindmap');
-                                }
-                            });
-                        } else {
-                            prompt_info('please choose a file first')
-                        }
-                    }
-                }
+      function open_fromwilddog() {
+        console.log("title: " + wilddog.sync().ref('comments').child("jsmind").child(title));
+        wilddog.sync().ref('comments').child("jsmind").child(title).once("value").then(function(snapshot) {
+          //console.log(typeof(snapshot.value()));
+          //console.log(typeof(snapshot.val()));
+          var mind = snapshot.val();
+          console.info("mind: " + mind);
+          _jm.show(mind);
+        });
+      }
 
-                
-                function cleanAlert() {
-                    document.getElementById('task').value = '';
-                    document.getElementById('day').value = '';
-                }
+      function open_file() {
+        if (editable) {
+          var file_input = document.getElementById('file_input');
+          var files = file_input.files;
+          if (files.length > 0) {
+            var file_data = files[0];
+            jsMind.util.file.read(file_data, function(jsmind_data, jsmind_name) {
+              var mind = jsMind.util.json.string2json(jsmind_data);
+              if (!!mind) {
+                _jm.show(mind);
+              } else {
+                prompt_info('can not open this file as mindmap');
+              }
+            });
+          } else {
+            prompt_info('please choose a file first')
+          }
+        }
+      }
 
-                function save() {
-                    var year1 = document.getElementById('year1').innerHTML;
-                    var month = document.getElementById('month').innerHTML;
-                    var day = document.getElementById('day').value;
-                    var task = document.getElementById('task').value;
-                    //	var timechosen = document.getElementById(id).value;
-                    var schedule = {
-                        "day": day,
-                        "content": task
-                    }
-                    //console.log(typeof(schedule));}
-                    var yearandmonth = year1 + month;
-                    refp.child('manage project').child(title).child('Timeline').child(yearandmonth).set(schedule);
-                }
 
-                function loadproject_mouseover(month) {
-                    refp.child("manage project").child(title).child('Timeline').child(month).on("value", function (snapshot) {
-                        //console.log(snapshot.val())
+      function cleanAlert() {
+        document.getElementById('task').value = '';
+        document.getElementById('day').value = '';
+      }
 
-                        var timeline = snapshot.val();
-                        var str = 'M' + month.substring(2);
-                        //console.log(str);
-                        document.getElementById(str).firstChild.innerHTML = timeline.content;
-                        document.getElementById('task').value = timeline.content;
-                        document.getElementById('day').value = timeline.day;
-                    })
-                }
+      function save() {
+        var year1 = document.getElementById('year1').innerHTML;
+        var month = document.getElementById('month').innerHTML;
+        var day = document.getElementById('day').value;
+        var task = document.getElementById('task').value;
+        //	var timechosen = document.getElementById(id).value;
+        var schedule = {
+          "day": day,
+          "content": task
+        }
+        //console.log(typeof(schedule));}
+        var yearandmonth = year1 + month;
+        refp.child('manage project').child(title).child('Timeline').child(yearandmonth).set(schedule);
+      }
 
-                var imageChooser = document.getElementById('image-chooser');
+      function loadproject_mouseover(month) {
+        refp.child("manage project").child(title).child('Timeline').child(month).on("value", function(snapshot) {
+          //console.log(snapshot.val())
 
-                imageChooser.addEventListener('change', function (event) {
-                    // Read file here.
-                    var reader = new FileReader();
-                    reader.onloadend = (function () {
-                        var selected_node = _jm.get_selected_node();
-                        var nodeid = jsMind.util.uuid.newid();
-                        var topic = undefined;
-                        var data = {
-                            "background-image": reader.result,
-                            "width": "100",
-                            "height": "100"
-                        };
-                        var node = _jm.add_node(selected_node, nodeid, topic, data);
-                        //var node = _jm.add_image_node(selected_node, nodeid, reader.result, 100, 100);
-                        //add_image_node:function(parent_node, nodeid, image, width, height, data, idx, direction, expanded){
-                    });
+          var timeline = snapshot.val();
+          var str = 'M' + month.substring(2);
+          //console.log(str);
+          document.getElementById(str).firstChild.innerHTML = timeline.content;
+          document.getElementById('task').value = timeline.content;
+          document.getElementById('day').value = timeline.day;
+        })
+      }
 
-                    var file = imageChooser.files[0];
-                    if (file) {
-                        reader.readAsDataURL(file);
-                    };
+      var imageChooser = document.getElementById('image-chooser');
 
-                }, false);
+      imageChooser.addEventListener('change', function(event) {
+        // Read file here.
+        var reader = new FileReader();
+        reader.onloadend = (function() {
+          var selected_node = _jm.get_selected_node();
+          var nodeid = jsMind.util.uuid.newid();
+          var topic = undefined;
+          var data = {
+            "background-image": reader.result,
+            "width": "100",
+            "height": "100"
+          };
+          var node = _jm.add_node(selected_node, nodeid, topic, data);
+          //var node = _jm.add_image_node(selected_node, nodeid, reader.result, 100, 100);
+          //add_image_node:function(parent_node, nodeid, image, width, height, data, idx, direction, expanded){
+        });
 
-                
-                /**function toggle_editable(btn){
-                    var editable = _jm.get_editable();
-                    if(editable){
-                        _jm.disable_edit();
-                        btn.innerHTML = 'enable editable';
-                    }else{
-                        _jm.enable_edit();
-                        btn.innerHTML = 'disable editable';
-                    }
-                }**/
-                function opennew(string) {
-                    if (editable) {
-                        window.open(string);
-                    }
-                }
+        var file = imageChooser.files[0];
+        if (file) {
+          reader.readAsDataURL(file);
+        };
 
-                function get_selected_nodeid() {
-                    var selected_node = _jm.get_selected_node();
-                    if (!!selected_node) {
-                        return selected_node.id;
-                    } else {
-                        return null;
-                    }
-                }
+      }, false);
 
-                open_empty();
 
-                function add_detail() {
-                    window.location.href = "details.html?uid=" + uid + "&title=" + title + "&id=" + get_selected_nodeid();
-                }
+      /**function toggle_editable(btn){
+          var editable = _jm.get_editable();
+          if(editable){
+              _jm.disable_edit();
+              btn.innerHTML = 'enable editable';
+          }else{
+              _jm.enable_edit();
+              btn.innerHTML = 'disable editable';
+          }
+      }**/
+      function opennew(string) {
+        if (editable) {
+          window.open(string);
+        }
+      }
 
-          /*function set_timeline(){
-              window.location.href="timeline1.0.html?uid="+uid+"&title="+title;
-          }*/
+      function get_selected_nodeid() {
+        var selected_node = _jm.get_selected_node();
+        if (!!selected_node) {
+          return selected_node.id;
+        } else {
+          return null;
+        }
+      }
 
-            </script>
+      open_empty();
+
+      function add_detail() {
+        window.location.href = "details.html?uid=" + uid + "&title=" + title + "&id=" + get_selected_nodeid();
+      }
+
+      /*function set_timeline(){
+          window.location.href="timeline1.0.html?uid="+uid+"&title="+title;
+      }*/
+    </script>
 </body>
 
 </html>
