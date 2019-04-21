@@ -9,6 +9,7 @@
   <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
   <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog.js"></script>
   <script src="https://cdn.wilddog.com/sdk/js/2.5.17/wilddog.js"></script>
+  <script src="<%=path%>/static/test/js/jquery-3.2.1.min.js"></script>
   <link type="text/css" rel="stylesheet" href="./style/jsmind.css" />
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/jquery.jqtimeline.css">
@@ -139,7 +140,9 @@
     <div id="comment_content">
       <textarea id="txt" placeholder="state your idea freely:)"></textarea>
       <br/>
+      <div id="Date"> </div>
       <input type="button" value="submit" id="submit" onclick="save_comment()" />
+
       <div id="alert" class="Mon">
         <form>
           I would complete my task before <span id="year1"></span> .
@@ -203,14 +206,43 @@
     }
 
     function save_comment() {
+      //日期
+      window.onload = function() {
+        setInterval(function() {
+          var sign = "/";
+          var date = new Date();
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          var day = date.getDate();
+          var hour = date.getHours();
+          var minutes = date.getMinutes();
+          // 给一位数据前面加“0”
+          if (month >= 1 && month <= 9) {
+            month = "0" + month;
+          }
+          if (day >= 0 && day <= 9) {
+            day = "0" + day;
+          }
+          if (hour >= 0 && hour <= 9) {
+            hour = "0" + hour;
+          }
+          if (minutes >= 0 && minutes <= 9) {
+            minutes = "0" + minutes;
+          }
+          var showDate = document.getElementById('Date');
+          showDate = year + sign + month + sign + day + sign + hour + ":" + minutes;
+        }
+      }
 
+      //评论
       var comment = document.getElementById('txt').value;
       //var com = {"id:":comment};
       //Data = JSON.stringify(com);
       //此处id设为当前登陆用户id
       ref = wilddog.sync().ref('comments');
-      ref.child(uid).child(name).child(title).child("comment").child(name).push(name + " : " + comment);
+      ref.child(uid).child(name).child(title).child("comment").child(name).push(showDate+" "+name + " : " + comment);
     }
+
   </script>
 
   <div class="longDemo demo">
